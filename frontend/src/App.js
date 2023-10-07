@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { Header } from './components/Header'
+import { DisplayBoard } from './components/DisplayBoard'
+import { getAllItems } from './services/ItemService'
+import { Items } from './components/Items'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+
+  state = {
+    //user: {},
+    items: [],
+    numberOfItems: 0
+  }
+
+  getAllItems = () => {
+    console.log(" -- LD get all start --")
+    getAllItems()
+      .then(items => {
+        console.log(items)
+        this.setState({items: items, numberOfItems: items.length})
+      });
+  }
+
+  render() {
+    
+    return (
+      <div className="App">
+        <Header></Header>
+        <div className="container mrgnbtm">
+          <div className="row">
+            <div className="col-md-4">
+                <DisplayBoard
+                  numberOfItems={this.state.numberOfItems}
+                  getAllItems={this.getAllItems}
+                >
+                </DisplayBoard>
+            </div>
+          </div>
+        </div>
+        <div className="row mrgnbtm">
+          <Items items={this.state.items}></Items>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
