@@ -1,50 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
-import { Header } from './components/Header'
-import { DisplayBoard } from './components/DisplayBoard'
-import { getAllItems } from './services/ItemService'
-import { Items } from './components/Items'
+import React from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom'; //LD page routing - https://www.w3schools.com/react/react_router.asp
 
+import Users from './user/pages/Users';
 
-class App extends Component {
-
-  state = {
-    //user: {},
-    items: [],
-    numberOfItems: 0
-  }
-
-  getAllItems = () => {
-    console.log(" -- LD get all start --")
-    getAllItems()
-      .then(items => {
-        console.log(items)
-        this.setState({items: items, numberOfItems: items.length})
-      });
-  }
-
-  render() {
-    
-    return (
-      <div className="App">
-        <Header></Header>
-        <div className="container mrgnbtm">
-          <div className="row">
-            <div className="col-md-4">
-                <DisplayBoard
-                  numberOfItems={this.state.numberOfItems}
-                  getAllItems={this.getAllItems}
-                >
-                </DisplayBoard>
-            </div>
-          </div>
-        </div>
-        <div className="row mrgnbtm">
-          <Items items={this.state.items}></Items>
-        </div>
-      </div>
-    );
-  }
+function App() {
+  return <Router>
+              <Route path="/"> 
+                <Users />
+              </Route>
+        </Router>
 }
 
 export default App;
