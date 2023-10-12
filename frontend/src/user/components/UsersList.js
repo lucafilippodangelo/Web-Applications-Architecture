@@ -15,7 +15,7 @@ const UserList = props => {
             // <div className="center">
 			//     <h2>here I should display a list of surfer</h2>
 		    // </div>
-            <ul>
+            <ul className="users-list">
                 {props.items.map(user => (
                     <UserItem
                     key={user.id}

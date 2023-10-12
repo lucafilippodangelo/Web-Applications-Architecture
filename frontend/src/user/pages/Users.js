@@ -12,22 +12,29 @@ const Users = () => {
         id: 'u1',
         name: 'Luca',
         image:
-          'this should be a link to a repo with an image. Will be probbaly saved in DB in a second time. Not sure at the moment',
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
         places: 3 //number of visited places for this specific surfer
       },
       {
         id: 'u2',
         name: 'Dylan',
         image:
-          'an image',
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
         places: 33 
       },
       {
         id: 'u3',
         name: 'Diana',
         image:
-          'an image',
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
         places: 1 
+      },
+      {
+        id: 'u4',
+        name: 'a surfer',
+        image:
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
+        places: 4
       }
     ];
 
