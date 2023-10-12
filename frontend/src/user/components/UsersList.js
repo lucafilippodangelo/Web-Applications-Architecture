@@ -1,13 +1,19 @@
 import React from 'react';
+
 import './UsersList.css';
 import UserItem from './UserItem';
+
+import UserBox from '../../shared/components/UI/UserBox';
 
 const UserList = props => {
     if (props.items.lenght === 0)
     { //LD need to understand when to fill props 
 		return ( 
             <div className="center">
-                <h2>No Records Found</h2>
+                <UserBox>
+                    <h2>No Records Found</h2>
+                </UserBox>
+                
             </div>
         );
     };
