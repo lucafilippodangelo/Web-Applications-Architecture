@@ -35,6 +35,27 @@ const Users = () => {
         image:
           'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
         places: 4
+      },
+      {
+        id: 'u5',
+        name: 'a surfer 2',
+        image:
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
+        places: 4
+      },
+      {
+        id: 'u6',
+        name: 'a surfer 3',
+        image:
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
+        places: 4
+      },
+      {
+        id: 'u7',
+        name: 'a surfer 4',
+        image:
+          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
+        places: 4
       }
     ];
 
