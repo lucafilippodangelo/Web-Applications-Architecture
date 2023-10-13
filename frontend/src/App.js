@@ -4,11 +4,14 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'; 
 
 import Users from './user/pages/Users';
+import Authenticate from './user/pages/Authenticate';
 import NewSurfPlace from './surfPlaces/pages/NewSurfPlace';
 import Navigation from './shared/components/navigation/Navigation';
 
+
 //LD hoisting https://dev.to/ugglr/react-functional-components-const-vs-function-2kj9
 const App = () => {
+  console.log(Authenticate);
   return( 
             <Router>
                 <Navigation />
@@ -19,6 +22,9 @@ const App = () => {
                             </Route>
                             <Route path="/surfplaces/new" exact={true}> 
                                 <NewSurfPlace /> 
+                            </Route>
+                            <Route path="/auth" exact>
+                                <Authenticate />
                             </Route>
                             <Redirect to="/"/> {/*If path is anything else then redirect. Source https://v5.reactrouter.com/web/api/Redirect*/}
                     </Switch>  
