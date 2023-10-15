@@ -49,9 +49,11 @@ const Navigation = props => {
             <span />
             <span />
             </button>
+            {/* LD below just the top left title defaulting to "Surf PLaces" */}
             <h1 className="navigation__title">
-            <Link to="/">Surf Places</Link>
+            <Link to="/">Your Surf Places</Link>
             </h1>
+            {/* LD below the menu */}
             <nav className="navigation__header-nav">
                 <NavLinks />
             </nav>

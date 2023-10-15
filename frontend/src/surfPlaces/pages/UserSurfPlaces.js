@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import PlaceList from '../components/PlaceList';
+import SurfPlaceList from '../components/SurfPlaceList';//../components/SurfPlaceList
 
 const DUMMY_PLACES = [
   {
@@ -35,7 +35,7 @@ const UserSurfPlaces = () => {
   const userId = useParams().userId;
   //LD filter from the input list by ID
   const loadedPlaces= DUMMY_PLACES.filter(place => place.creator === userId);
-  return <PlaceList items={loadedPlaces} />;
+  return <SurfPlaceList items={loadedPlaces} />;
 };
 
 export default UserSurfPlaces;

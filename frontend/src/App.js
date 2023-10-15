@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 import Users from './user/pages/Users';
 import Authenticate from './user/pages/Authenticate';
 import NewSurfPlace from './surfPlaces/pages/NewSurfPlace';
+import UserSurfPlaces from './surfPlaces/pages/UserSurfPlaces';
 import Navigation from './shared/components/navigation/Navigation';
 
 
@@ -22,6 +23,9 @@ const App = () => {
                             </Route>
                             <Route path="/surfplaces/new" exact={true}> 
                                 <NewSurfPlace /> 
+                            </Route>
+                            <Route path="/:userId/surfplaces"> {/* //LD this is dynamic inmut of the "id" */}
+                                <UserSurfPlaces /> 
                             </Route>
                             <Route path="/auth" exact>
                                 <Authenticate />
