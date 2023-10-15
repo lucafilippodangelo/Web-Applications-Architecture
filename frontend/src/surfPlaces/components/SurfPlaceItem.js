@@ -25,7 +25,7 @@ const SurfPlaceItem = props => {
 
         {/*BELOW CONTENT WILL BE RENDERED IN children of "Modal.js"->nested component */}
         <div className="map-container">
-          <h2>here the map</h2>
+          <h2>map content will be implemented after crud</h2>
         </div>
 
         </ Modal>

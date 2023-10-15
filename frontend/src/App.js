@@ -27,7 +27,7 @@ const App = () => {
                             <Route path="/:userId/surfplacesx"> {/* //LD this is dynamic inmut of the "id" */}
                             <Usersurfplaces /> 
                             </Route>
-                            <Route path="/auth" exact>
+                            <Route path="/authenticate" exact>
                                 <Authenticate />
                             </Route>
                             <Redirect to="/"/> {/*If path is anything else then redirect. Source https://v5.reactrouter.com/web/api/Redirect*/}

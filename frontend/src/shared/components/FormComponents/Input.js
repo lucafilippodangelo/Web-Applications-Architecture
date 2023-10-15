@@ -1,17 +1,19 @@
-import React, { useReducer } from 'react';//import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 import {validate} from '../../useful/validators';
 import './Input.css';
 
-//LD the "inputReducer" function gets in input "state and action". This function have always to return a state depending on action type
+//LD the "inputReducer" function gets in input "state and action" and returns a state depending on action type.
 const inputReducer = (state, action) => {
+  console.log("LD 001 OLD state.value-> "+ state.value);
   switch (action.type) {
     case 'TOUCH':
       return {
-        ...state, //copy all the content of the input state in a variable created on the fly
+        ...state,
         isTouched: true //this is a new field I need to add to the "Input" initial state
       };
       case 'CHANGE':
+        console.log("LD 002 action.val -> "+ action.val);
       return {
         ...state, //copy all the content of the input state in a variable created on the fly
         value: action.val, //then override keys, in this case the value validation logic. "action.validators" come from "changeHandler"
@@ -22,12 +24,10 @@ const inputReducer = (state, action) => {
   }
 };
 
-//LD "useReducer" hook is useful when having interconnected states
-//NOTE: it gets a default initial state as input -> " { value: '',isTouched: false, isValid: false }"
-// "useReducer" returns an array with two elements stored in constants: the "current state", in this case "inputState"
-// and a "dispatch" function that can be called.
-// That's how actions are dispatched to the "inputReducer" function that will then run its logic, then update
-// in return "inputState".
+// LD "useReducer" hook is useful when having interconnected states
+// "useReducer" hook works getting the "current state"("inputState" in this case) and a "dispatch" function that gets called("inputReducer" in this case). 
+// "inputReducer" function run its logic, then update in return "inputState"(an array with two elements stored in constants).
+// NOTE: it gets a default initial "inputState" -> " { value: '', isTouched: false, isValid: false }".
 const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: '',
@@ -36,15 +36,27 @@ const Input = props => {
   });
 
 
-  //LD -> useEffect(() => {}, [dependencies]);
- 
+  // OBJECT DESTRUCTURING
+  // from "props" I want to extrapolate "id" and "onInput" 
+  const {id, onInput} = props; //so then I can call the function below like "onInput(id"  etc..
+  const {value, isValid} = inputState; //LD this is updated by USE REDUCER
+
+  useEffect(() => {
+    console.log("LD 003 USE EFFECT INVOKED");
+    console.log("LD 003a passing back to caller ID -> " + id);
+    console.log("LD 003b passing back to caller VALUE -> " + value);
+    console.log("LD 003c passing back to caller IS VALID -> " + isValid);
+
+    onInput(id, value, isValid) //LD trigging "onInput" and passing back to "NewSurfPlace.js"
+  }, [id, value, isValid, onInput]); //LD this function is triggered any time some of the dependencies changes
 
 
-  //LD this function will be triggered for every keystroke
+  // LD this function will be triggered for every keystroke
   const changeHandler = event => {
     //LD i want to call "dispatch" passing an "action" object ("type" and "val") 
     // "event.target.value" -> we get "event" for free, "target" is the component 
     // where the event got triggered, "value" is the component current value.
+    // additionally including "validators" passed from "NewSurfPlace.js" to the action. 
     dispatch({ type: 'CHANGE', val: event.target.value, validators: props.validators });
   };
 
@@ -59,9 +71,9 @@ const Input = props => {
         type={props.type}
         placeholder={props.placeholder}
         onChange={changeHandler}
-        onBlur={touchHandler} // "onBlur" triggered when the user looses focus from the element, so I know the user has
+        onBlur={touchHandler} // LD "onBlur" triggered when the user looses focus from the element, so I know the user has
         //at least cliccked in the textbox. This approach avid to throw error at the user by default
-        value={inputState.value} //LD need to have this always binded
+        value={inputState.value} //LD need to have current always binded
       />
     ) : (
       <textarea
@@ -75,8 +87,7 @@ const Input = props => {
 
   return (
     <div
-      className={`form-control ${!inputState.isValid && inputState.isTouched &&
-        'form-control--invalid'}`}
+      className={`form-control ${!inputState.isValid && inputState.isTouched && 'form-control--invalid'}`}
     >
       <label htmlFor={props.id}>{props.label}</label>
       {/*//LD I want to be flexible and decide from outside the elements to render in the form*/}
