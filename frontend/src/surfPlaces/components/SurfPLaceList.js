@@ -2,9 +2,9 @@ import React from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
 import SurfPlaceItem from './SurfPlaceItem';
-import './SurfPlaceList.css';
+import './Surfplacelist.css';
 
-const SurfPlaceList = props => {
+const Surfplacelist = props => {
   if (props.items.length === 0) {
     return (
       <div className="place-list center">
@@ -34,4 +34,4 @@ const SurfPlaceList = props => {
   );
 };
 
-export default SurfPlaceList;
+export default Surfplacelist;

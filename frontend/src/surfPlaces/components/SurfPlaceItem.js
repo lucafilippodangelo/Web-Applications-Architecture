@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
-import Button from '../../shared/components/FormElements/Button';
-import Modal from '../../shared/components/UIElements/Modal';
+import Button from '../../shared/components/FormComponents/Button';
+import Modal from '../../shared/components/UI/Modal';
 
 import './SurfPlaceItem.css';
 

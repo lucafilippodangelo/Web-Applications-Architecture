@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import SurfPlaceList from '../components/SurfPlaceList';//../components/SurfPlaceList
+import Surfplacelist from '../components/Surfplacelist.js';
 
 const DUMMY_PLACES = [
   {
@@ -30,12 +30,12 @@ const DUMMY_PLACES = [
   }
 ];
 
-const UserSurfPlaces = () => {
+const Usersurfplaces = () => {
   //LD "useParams" gives access to dynamic URL content like IDs. Called "Dynamic Segments"
   const userId = useParams().userId;
   //LD filter from the input list by ID
   const loadedPlaces= DUMMY_PLACES.filter(place => place.creator === userId);
-  return <SurfPlaceList items={loadedPlaces} />;
+  return <Surfplacelist items={loadedPlaces} />;
 };
 
-export default UserSurfPlaces;
+export default Usersurfplaces;
