@@ -15,16 +15,15 @@ router.get("", validate(findAllPlacesSchema), (req, res, next) => {
     findAllPlaces(req.query)
         .then(places => {
 
-            const response: IFindAllPlacesResponse = {
-                places: places
-                    .map(p => {
-                        return {
-                            id: p.id,
-                            creatorId: p.creatorId,
-                            name: p.name
-                        }
-                    })
-            }
+            const response: IFindAllPlacesResponse[] = places
+                .map(p => {
+                    return {
+                        id: p.id,
+                        creatorId: p.creatorId,
+                        name: p.name
+                    }
+                })
+
 
             return res.json(response);
 
