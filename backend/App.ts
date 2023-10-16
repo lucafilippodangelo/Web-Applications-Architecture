@@ -1,0 +1,28 @@
+import express from "express";
+import {PlacesRouter} from "./modules/places/PlacesRouter";
+import {UsersRouter} from "./modules/users/UsersRouter";
+import bodyParser from "body-parser";
+import {config as configureDotenv} from "dotenv";
+import {connect} from "mongoose";
+import handleErrors from "./middleware/ErrorHandler";
+
+configureDotenv();
+
+const app = express();
+
+app.use(bodyParser.json())
+
+app.use("/api/users", UsersRouter);
+app.use("/api/places", PlacesRouter);
+
+app.use(handleErrors);
+
+app.listen(process.env.LISTEN_PORT, async () => {
+
+    console.log(`Listening on port: ${process.env.LISTEN_PORT}`);
+
+    await connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`);
+
+    console.log(`Connected to MongoDB: ${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`);
+
+});
