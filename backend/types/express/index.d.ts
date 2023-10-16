@@ -1,8 +1,6 @@
-export {}
+import {IUser} from "../../core/IUser";
 
-export interface IUser {
-    id: string
-}
+export {}
 
 declare global {
     namespace Express {
