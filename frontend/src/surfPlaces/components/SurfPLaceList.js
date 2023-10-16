@@ -2,6 +2,7 @@ import React from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
 import SurfPlaceItem from './SurfPlaceItem';
+import Button from '../../shared/components/FormComponents/Button';
 import './Surfplacelist.css';
 
 const Surfplacelist = props => {
@@ -10,7 +11,7 @@ const Surfplacelist = props => {
       <div className="place-list center">
         <UserBox>
           <h2>nothing ffs</h2>
-          <button>Share Surf Place</button>
+          <Button to="/places/new">Share Surf Place</Button>
         </UserBox>
       </div>
     );

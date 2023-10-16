@@ -9,7 +9,7 @@ import './SurfPlaceItem.css';
 const SurfPlaceItem = props => {
 
     const [showMap, setShowMap] = useState(false);
-    const openMapHandler = () => setShowMap(true);
+    // const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
 
   return (
@@ -40,7 +40,7 @@ const SurfPlaceItem = props => {
               <p>{props.description}</p>
             </div>
             <div className="place-item__actions">
-              <Button inverse onClick = {openMapHandler} >VIEW ON MAP</Button>
+              {/* <Button inverse onClick = {openMapHandler} >VIEW ON MAP</Button> */}
               <Button to={`/surfplaces/${props.id}`} >EDIT</Button>
               <Button danger>DELETE</Button>
             </div>

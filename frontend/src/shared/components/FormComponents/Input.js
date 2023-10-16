@@ -30,9 +30,9 @@ const inputReducer = (state, action) => {
 // NOTE: it gets a default initial "inputState" -> " { value: '', isTouched: false, isValid: false }".
 const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: '',
+    value: props.initialValue || '', //LD trying to get default value from props
     isTouched: false,
-    isValid: false
+    isValid: props.initialValid || false //LD trying to get default value from props
   });
 
 
@@ -41,6 +41,10 @@ const Input = props => {
   const {id, onInput} = props; //so then I can call the function below like "onInput(id"  etc..
   const {value, isValid} = inputState; //LD this is updated by USE REDUCER
 
+  //LD 
+  // By default useEffect will trigger anytime an update happens to the React component. 
+  // This means if the component receives new props from its parent component or even 
+  //when you change the state locally, the effect will run again.
   useEffect(() => {
     console.log("LD 003 USE EFFECT INVOKED");
     console.log("LD 003a passing back to caller ID -> " + id);

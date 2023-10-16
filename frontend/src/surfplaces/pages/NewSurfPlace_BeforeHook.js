@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useReducer } from 'react';
 
 import Input from '../../shared/components/FormComponents/Input';
 import Button from '../../shared/components/FormComponents/Button';
@@ -6,35 +6,62 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
 } from '../../shared/useful/validators';
-import { useForm } from '../../shared/hooks/form-hook';
 import './NewSurfPlace.css';
+
+const formReducer = (state, action) => {
+    switch (action.type) {
+      case 'INPUT_CHANGE':
+        let formIsValid = true;
+        //go through all the inputs to verify if they are valid. first time it gets executed this for loops the default state
+        for (const inputId in state.inputs) {
+          if (inputId === action.inputId) {
+            formIsValid = formIsValid && action.isValid;
+          } else {
+            formIsValid = formIsValid && state.inputs[inputId].isValid;
+          }
+        }
+        return {
+          ...state,
+          inputs: {
+            ...state.inputs,
+            //below I'm updating the specific object with "value" and "isValid" current content
+            [action.inputId]: { value: action.value, isValid: action.isValid }
+          },
+          isValid: formIsValid
+        };
+      default:
+        return state;
+    }
+  };
   
   const NewSurfPlace = () => {
   
   
-  //using array destructuring, "useForm" returns an array with two objects
-
-  // NOTE -> following "LD (STEP THREE)" in "form-hook.js" I can now call 
-  //the hook "useForm" passing initial validities for inputs and form
-  // NOTE -> following "LD (STEP FIVE)" in "form-hook.js" I can now call 
-  //"inputHandler" than will then trigger "useForm".
-  const [formState, InputHandler] = useForm( 
-    {
-      title: {
-        value: '',
-        isValid: false //LD initial input validity
+    const [formState, dispatch] = useReducer(formReducer, { //DEFINING INITIAL STATE
+      inputs: { //store validity of the individual inputs
+        title: { //using the ID field 
+            value: '',
+            isValid: false
+        },
+        description: {
+          value: '',
+          isValid: false
+        },
+        address: {
+          value: '',
+          isValid: false
+        }
       },
-      description: {
-        value: '',
-        isValid: false
-      },
-      address: {
-        value: '',
-        isValid: false
-      }
-    },
-    false //LD initial form validity is false
-  );
+    isValid: false//store validity of the overall form
+  });
+  
+  
+    //INPUT HANDLERS are useful to manage OVERALL FORM VALIDITY
+    //LD "useCallback" will avoid to call in infinite loop "useEffect" in child component
+    const InputHandler = useCallback((id, value, isValid) =>{
+      dispatch({type: 'INPUT_CHANGE', value: value, isValid: isValid, inputId:id}); //need to pass in all the "action" attributes
+    }, []); 
+  
   
     const placeSubmitHandler = event => {
       event.preventDefault(); //avoid the browser to submit request and causing page reload
@@ -67,6 +94,7 @@ import './NewSurfPlace.css';
           onInput={InputHandler}  //LD see above
           /> 
   
+  
           <Input 
             id= "address"
             element="input" 
@@ -77,8 +105,9 @@ import './NewSurfPlace.css';
             onInput={InputHandler} //LD see above
           /> 
   
+  
         <Button type="submit" disabled={!formState.isValid}>
-          ADD SURF PLACE
+          ADD PLACE
         </Button>
   
       </form>
