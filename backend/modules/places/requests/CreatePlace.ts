@@ -1,4 +1,4 @@
-import {checkSchema, query} from "express-validator";
+import {checkSchema} from "express-validator";
 
 export interface ICreatePlaceRequest {
     name: string

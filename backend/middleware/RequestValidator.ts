@@ -1,5 +1,5 @@
 import {ValidationChain, validationResult} from "express-validator";
-import {Request, Response, NextFunction, RequestHandler} from "express";
+import {NextFunction, Request, RequestHandler, Response} from "express";
 import {StatusCodes} from "http-status-codes";
 
 export default function validate(validations: ValidationChain[]): RequestHandler {
@@ -9,7 +9,7 @@ export default function validate(validations: ValidationChain[]): RequestHandler
         for (let validation of validations) {
 
             const result = await validation.run(req);
-            if (result.context.errors.length){
+            if (result.context.errors.length) {
 
                 const errors = validationResult(req);
                 return res

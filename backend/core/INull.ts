@@ -1,1 +1,2 @@
-export interface INull {}
+export interface INull {
+}

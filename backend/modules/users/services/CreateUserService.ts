@@ -17,7 +17,7 @@ export interface ICreatedUser {
 export default async function createUser(command: ICreateUserCommand): Promise<ICreatedUser | string> {
 
     const existingUserCount = await UserModel.count({email: command.email});
-    if(existingUserCount > 0) return "User already exists with this email";
+    if (existingUserCount > 0) return "User already exists with this email";
 
     const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS!);
     const passwordHash = await hash(command.password, saltRounds);
@@ -25,7 +25,7 @@ export default async function createUser(command: ICreateUserCommand): Promise<I
         id: randomUUID(),
         name: command.name,
         email: command.email,
-        hash:passwordHash
+        hash: passwordHash
     });
     await user.save();
 

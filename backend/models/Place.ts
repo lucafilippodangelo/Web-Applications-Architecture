@@ -1,5 +1,4 @@
 import {model, Schema} from "mongoose";
-import {PointModel} from "./Point";
 
 export interface IPlace {
     id: string,

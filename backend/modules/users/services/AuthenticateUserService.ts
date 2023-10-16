@@ -16,10 +16,10 @@ export interface IAuthenticatedUser {
 export default async function authenticateUser(command: IAuthenticateUserCommand): Promise<IAuthenticatedUser | null> {
 
     const user = await UserModel.findOne({email: command.email});
-    if(!user) return null;
+    if (!user) return null;
 
     const verified = await compare(command.password, user.hash);
-    if(!verified) return null;
+    if (!verified) return null;
 
     const token = sign({
         id: user.id
