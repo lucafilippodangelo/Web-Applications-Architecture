@@ -1,5 +1,5 @@
-import {FindAllPlaces as FindAllPlacesQuery} from "../PlacesRepository";
 import {IPlace} from "../../../models/Place";
+import {PlacesRepository} from "../PlacesRepository";
 
 export interface IFindAllPlacesCommand {
     latitude?: number,
@@ -8,14 +8,12 @@ export interface IFindAllPlacesCommand {
 
 export default function FindAllPlaces(command: IFindAllPlacesCommand): Promise<IPlace[]> {
 
-    throw new Error("hi");
-
     const useLocationBias = Boolean((command.latitude) && (command.longitude));
 
     if (useLocationBias) {
 
     }
 
-    return FindAllPlacesQuery();
+    return PlacesRepository.findAllPlaces();
 
 }
