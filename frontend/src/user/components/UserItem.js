@@ -10,7 +10,7 @@ import UserBox from '../../shared/components/UI/UserBox';
 const UserItem = props => {
     return (
       <UserBox className="user-item__content">
-        <Link to={`/${props.id}/places`}>
+        <Link to={`/${props.id}/surfplacesx`}>
                     <div className="user-item__image">
                         <ImageBox image={props.image} alt={props.name} />
                     </div>

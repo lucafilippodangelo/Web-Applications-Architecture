@@ -6,7 +6,7 @@ import Modal from '../../shared/components/UI/Modal';
 
 import './SurfPlaceItem.css';
 
-const SurfPlaceItem = props => {
+const Surfplaceitem = props => {
 
     //const [showMap, setShowMap] = useState(false);
     //const openMapHandler = () => setShowMap(true);
@@ -76,16 +76,16 @@ const SurfPlaceItem = props => {
         <li className="place-item">
           <UserBox className="place-item__content">
           <div className="place-item__image">
-                  <img src={props.image} alt={props.title} />
+                  <img src={props.image} alt={props.name} />
                 </div>
                 <div className="place-item__info">
-                  <h2>{props.title}</h2>
+                  <h2>{props.name}</h2>
                   <h3>{props.address}</h3>
                   <p>{props.description}</p>
                 </div>
                 <div className="place-item__actions">
                   {/* <Button inverse onClick={openMapHandler}> VIEW ON MAP </Button> */}
-                  <Button to={`/places/${props.id}`}>EDIT</Button>
+                  <Button to={`/surfplaces/${props.id}`}>EDIT</Button>
                   <Button danger onClick={showDeleteWarningHandler}>
                     DELETE
                   </Button>
@@ -98,4 +98,4 @@ const SurfPlaceItem = props => {
   );
 };
 
-export default SurfPlaceItem;
+export default Surfplaceitem;

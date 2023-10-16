@@ -14,7 +14,7 @@ import './NewSurfPlace.css'; //LD reusing
 const DUMMY_PLACES = [
     {
         id: 'p1',
-        title: 'Roccalumera',
+        name: 'Roccalumera',
         description: 'Where we spend family summer',
         imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsPmRyqwpfiaLoAQUZQ64jXvATeFnAV8eh1Cqd1EmlU6ajX96IziP1ZBIe4DDmZyLASGw&usqp=CAU',
         address: '98027 Metropolitan City of Messina Italy',
@@ -26,7 +26,7 @@ const DUMMY_PLACES = [
       },
       {
         id: 'p3',
-        title: 'Roccalumera 3',
+        name: 'Roccalumera 3',
         description: 'Where we spend family summer 3',
         imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsPmRyqwpfiaLoAQUZQ64jXvATeFnAV8eh1Cqd1EmlU6ajX96IziP1ZBIe4DDmZyLASGw&usqp=CAU',
         address: '98027 Metropolitan City of Messina Italy 3',
@@ -38,7 +38,7 @@ const DUMMY_PLACES = [
       },
       {
         id: 'p2',
-        title: 'Galway',
+        name: 'Galway',
         description: 'Galway, a harbour city on Ireland’s west coast, sits where the River Corrib meets the Atlantic Ocean.',
         imageUrl: 'https://images.ireland.com/media/Images/galway-day-trips/b73254c641a44e77806a03b897f43cf2.jpg',
         address: 'Galway Gaillimh',
@@ -85,8 +85,8 @@ const UpdateSurfPlace = () => {
         //then set that data in the form by calling "setFormData" in the hook
         setFormData(
           {
-            title: {
-              value: identifiedPlace.title,
+            name: {
+              value: identifiedPlace.name,
               isValid: true
             },
             description: {
@@ -129,15 +129,15 @@ const UpdateSurfPlace = () => {
   return (
     <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
       <Input
-        id="title"
+        id="name"
         element="input"
         type="text"
-        label="Title"
+        label="name"
         validators={[VALIDATOR_REQUIRE()]} //LD executing this validator on this input
-        errorText="Please enter a valid title."
+        errorText="Please enter a valid name."
         onInput={inputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
+        initialValue={formState.inputs.name.value}
+        initialValid={formState.inputs.name.isValid}
       />
       <Input
         id="description"
@@ -150,7 +150,7 @@ const UpdateSurfPlace = () => {
         initialValid={formState.inputs.description.isValid}
       />
       <Button type="submit" disabled={!formState.isValid}>
-        UPDATE SURF PLACE
+        UPDATE SURF PLACE X
       </Button>
     </form>
   );

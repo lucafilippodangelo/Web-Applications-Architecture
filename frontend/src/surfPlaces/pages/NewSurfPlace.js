@@ -20,7 +20,7 @@ import './NewSurfPlace.css';
   //"inputHandler" than will then trigger "useForm".
   const [formState, InputHandler] = useForm( 
     {
-      title: {
+      name: {
         value: '',
         isValid: false //LD initial input validity
       },
@@ -48,12 +48,12 @@ import './NewSurfPlace.css';
         {/* //LD going to call personalised "Input.js" */}
         
         <Input 
-          id= "title"
+          id= "name"
           element="input" 
           type="text" 
-          label="Title" 
+          label="Name" 
           validators={[VALIDATOR_REQUIRE()]} //LD check input not empty
-          errorText="Please enter a valid title."
+          errorText="Please enter a valid name."
           onInput={InputHandler} //LD when nested "Input" triggers "onInput" pass back "id, value, isValid" that in this case will be passed as input to "InputHandler"
           /> 
   
