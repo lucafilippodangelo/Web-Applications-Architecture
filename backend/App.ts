@@ -23,7 +23,7 @@ app.listen(process.env.LISTEN_PORT, async () => {
 
     console.log(`Listening on port: ${process.env.LISTEN_PORT}`);
 
-    await connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`);
+    await connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DATABASE}`);
 
     console.log(`Connected to MongoDB: ${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`);
 
