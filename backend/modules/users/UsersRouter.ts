@@ -6,6 +6,7 @@ import {IAuthenticatedUserResponse} from "./responses/IAuthenticateUserResponse"
 import {createUserSchema} from "./requests/CreateUser";
 import createUser from "./services/CreateUserService";
 import {ICreatedUserResponse} from "./responses/ICreatedUserResponse";
+import StatusCodes from "http-status-codes";
 
 const router = Router()
 
@@ -18,7 +19,7 @@ router.post("/", validate(createUserSchema), (req, res, next) => {
     })
         .then(result => {
 
-            if (typeof result === "string") return res.status(400).json({
+            if (typeof result === "string") return res.status(StatusCodes.BAD_REQUEST).json({
                 message: result
             });
 
@@ -42,7 +43,7 @@ router.post("/authenticate", validate(authenticateUserSchema), (req, res, next) 
     })
         .then(user => {
 
-            if (!user) return res.status(401).json({
+            if (!user) return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: "Authentication failed with the provided credentials"
             });
 
