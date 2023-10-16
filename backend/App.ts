@@ -10,6 +10,8 @@ configureDotenv();
 
 const app = express();
 
+app.set("x-powered-by", false);
+
 app.use(bodyParser.json())
 
 app.use("/api/users", UsersRouter);
