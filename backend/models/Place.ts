@@ -1,10 +1,11 @@
 import {model, Schema} from "mongoose";
+import {PointModel} from "./Point";
 
 export interface IPlace {
     id: string,
+    creatorId: string,
     name: string,
-    latitude: number,
-    longitude: number,
+    coordinates: number[]
 }
 
 const placeSchema = new Schema<IPlace>({
@@ -12,16 +13,16 @@ const placeSchema = new Schema<IPlace>({
         type: String,
         required: true
     },
+    creatorId: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
     },
-    latitude: {
-        type: Number,
-        required: true
-    },
-    longitude: {
-        type: Number,
+    coordinates: {
+        type: [Number],
         required: true
     }
 });
