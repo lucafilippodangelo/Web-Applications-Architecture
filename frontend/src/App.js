@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 //LD page routing - https://www.w3schools.com/react/react_router.asp
 
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'; 
@@ -9,12 +9,31 @@ import NewSurfPlace from './surfplaces/pages/NewSurfPlace';
 import Usersurfplaces from './surfplaces/pages/Usersurfplaces';
 import UpdateSurfPlace from './surfplaces/pages/UpdateSurfPlace';
 import Navigation from './shared/components/navigation/Navigation';
-
+import {authenticationContext} from './shared/reactContext/authenticationContext';
 
 //LD hoisting https://dev.to/ugglr/react-functional-components-const-vs-function-2kj9
 const App = () => {
-  console.log(Authenticate);
+
+  console.log("LD doing authentication");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = useCallback(() => { 
+    setIsLoggedIn(true);
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
   return( 
+      // LD everything wrapped will use "AuthContext". Need to wrap the initial value of "authenticationContext.js"
+      // that value when changing will be passed down to all the wrapped components.
+      // in "value" property of "authenticationContext.Provider" div. To do that need I need "useState"
+      // isLoggedIn: isLoggedIn -> gets the value of status variable "isLoggedIn"
+      // login: login -> gets reference to the function
+      // logout: logout -> gets reference to the function
+   <authenticationContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+ >
             <Router>
                 <Navigation />
                 <main>
@@ -38,6 +57,7 @@ const App = () => {
                     </Switch>  
                 </main>           
             </Router>
+            </authenticationContext.Provider>
         );
 };
 
