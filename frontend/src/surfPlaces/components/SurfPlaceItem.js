@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
 import Button from '../../shared/components/FormComponents/Button';
 import Modal from '../../shared/components/UI/Modal';
+import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 
 import './SurfPlaceItem.css';
 
 const Surfplaceitem = props => {
 
-    //const [showMap, setShowMap] = useState(false);
-    //const openMapHandler = () => setShowMap(true);
-    //const closeMapHandler = () => setShowMap(false);
+    const auth = useContext(authenticationContext);
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -84,11 +83,10 @@ const Surfplaceitem = props => {
                   <p>{props.description}</p>
                 </div>
                 <div className="place-item__actions">
-                  {/* <Button inverse onClick={openMapHandler}> VIEW ON MAP </Button> */}
-                  <Button to={`/surfplaces/${props.id}`}>EDIT</Button>
-                  <Button danger onClick={showDeleteWarningHandler}>
-                    DELETE
-                  </Button>
+                  {/* //LD will need to add map later. that stuff needs refinement */}
+                  {auth.isLoggedIn && <Button to={`/surfplaces/${props.id}`}>EDIT</Button>}
+                  {auth.isLoggedIn && <Button danger onClick={showDeleteWarningHandler}> DELETE </Button>}
+
                 </div>
           </UserBox>
         </li>

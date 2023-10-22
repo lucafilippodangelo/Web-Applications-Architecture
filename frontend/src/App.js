@@ -25,6 +25,44 @@ const App = () => {
     setIsLoggedIn(false);
   }, []);
 
+  let routes; //LD https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/
+
+  if (isLoggedIn) {
+    routes = (
+        <Switch>{/*instructions evaluated in sequence, need to use "switch". https://www.freecodecamp.org/news/react-router-cheatsheet/ Inside this block if meet routing condition, will stop evaluating next step*/}
+                <Route path="/" exact> 
+                    <Users />
+                </Route>
+                <Route path="/surfplaces/new" exact> 
+                    <NewSurfPlace /> 
+                </Route>
+                <Route path="/:userId/surfplacesx" exact> {/* //LD this is dynamic inmut of the "id" */}
+                    <Usersurfplaces /> 
+                </Route>
+                <Route path="/surfplaces/:placeId" >
+                    <UpdateSurfPlace />
+                </Route>
+                <Redirect to="/"/> {/*If path is anything else then redirect. Source https://v5.reactrouter.com/web/api/Redirect*/}
+        </Switch>  
+    );
+  } else {
+    routes = (
+        <Switch>
+                <Route path="/" exact={true}> 
+                    <Users />
+                </Route>
+                <Route path="/:userId/surfplacesx">
+                    <Usersurfplaces /> 
+                </Route>
+                <Route path="/authenticate" exact>
+                    <Authenticate />
+                </Route>
+                <Redirect to="/authenticate"/> 
+        </Switch>  
+    );
+  }
+
+
   return( 
       // LD everything wrapped will use "AuthContext". Need to wrap the initial value of "authenticationContext.js"
       // that value when changing will be passed down to all the wrapped components.
@@ -32,32 +70,14 @@ const App = () => {
       // isLoggedIn: isLoggedIn -> gets the value of status variable "isLoggedIn"
       // login: login -> gets reference to the function
       // logout: logout -> gets reference to the function
-   <authenticationContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
- >
+       <authenticationContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }} >
             <Router>
                 <Navigation />
                 <main>
-                    <Switch>{/*instructions evaluated in sequence, need to use "switch". https://www.freecodecamp.org/news/react-router-cheatsheet/ Inside this block if meet routing condition, will stop evaluating next step*/}
-                            <Route path="/" exact={true}> {/* LD with "exact", if the path is exactly "http://localhost:3000/" it render the "User.js" page*/}
-                                <Users />
-                            </Route>
-                            <Route path="/surfplaces/new" exact={true}> 
-                                <NewSurfPlace /> 
-                            </Route>
-                            <Route path="/:userId/surfplacesx"> {/* //LD this is dynamic inmut of the "id" */}
-                                <Usersurfplaces /> 
-                            </Route>
-                            <Route path="/surfplaces/:placeId" >
-                                <UpdateSurfPlace />
-                            </Route>
-                            <Route path="/authenticate" exact>
-                                <Authenticate />
-                            </Route>
-                            <Redirect to="/"/> {/*If path is anything else then redirect. Source https://v5.reactrouter.com/web/api/Redirect*/}
-                    </Switch>  
+                    {routes} 
                 </main>           
             </Router>
-            </authenticationContext.Provider>
+        </authenticationContext.Provider>
         );
 };
 

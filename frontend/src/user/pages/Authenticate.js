@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
 import Input from '../../shared/components/FormComponents/Input';
@@ -10,13 +10,17 @@ import {
 
 } from '../../shared/useful/validators';
 import { useForm } from '../../shared/hooks/form-hook';
+import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 import './Authenticate.css';
 
 const Authenticate = () => {
 
-	//LD need a state because every time switch login<=>signup react has to refresh/reload the form
-  const [isLoginMode, setIsLoginMode] = useState(true);//LD initially we set we are in login mode
+	const auth = useContext(authenticationContext);  //LD listening to shared context
 
+	//LD need a state because every time switch login<=>signup react has to refresh/reload the form
+  const [isLoginMode, setIsLoginMode] = useState(true);//LD initially set in login mode
+  
+  //LD NOTE -> react execute code iteratively so this will be executed as second function. We will get populated the 3 returned variables.
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -33,15 +37,19 @@ const Authenticate = () => {
 
   //LD to switch form mode
   const switchModeHandler = () => {
+    	//LD I'm writing some logic around "setFormData" to manage correctly when switching between signin<=>signup
+	    //NOTE I did extract the constant "setFormData" from "useForm"
     if (!isLoginMode) {
       setFormData(
         {
-          ...formState.inputs,
+          ...formState.inputs, //LD need to copy all the fields and pass them back. Otherwise will get "undefined"
           name: undefined
         },
+        //LD passing validity condition. In this case in SIGNUUP and switching to LOGIN. The below has to be valid
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
+      //LD moving to signup mode
       setFormData(
         {
           ...formState.inputs,
@@ -61,6 +69,10 @@ const Authenticate = () => {
   const authSubmitHandler = event => {
     event.preventDefault();
     console.log(formState.inputs);
+
+    //LD this will call the login function that I have in "App.Js". The function
+    // will call update of a state that then will cause the re-rendering
+    auth.login(); 
   };
 
   return (
