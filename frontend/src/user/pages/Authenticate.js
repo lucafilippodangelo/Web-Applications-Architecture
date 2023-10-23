@@ -3,6 +3,8 @@ import React, { useState, useContext } from 'react';
 import UserBox from '../../shared/components/UI/UserBox';
 import Input from '../../shared/components/FormComponents/Input';
 import Button from '../../shared/components/FormComponents/Button';
+import ErrorModal from '../../shared/components/UI/ErrorM';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_EMAIL,
@@ -19,6 +21,8 @@ const Authenticate = () => {
 
 	//LD need a state because every time switch login<=>signup react has to refresh/reload the form
   const [isLoginMode, setIsLoginMode] = useState(true);//LD initially set in login mode
+  const [isLoading,setIsLoading] = useState(false);
+  const [error,setError] = useState();
   
   //LD NOTE -> react execute code iteratively so this will be executed as second function. We will get populated the 3 returned variables.
   const [formState, inputHandler, setFormData] = useForm(
@@ -66,13 +70,55 @@ const Authenticate = () => {
     setIsLoginMode(prevMode => !prevMode);
   };
 
-  const authSubmitHandler = event => {
+  const authSubmitHandler = async event => {
     event.preventDefault();
-    console.log(formState.inputs);
+    console.log('LD -> INIZIO 001');
+
+    if (isLoginMode) {
+    } 
+    else { //SIGNUP
+      try {
+        console.log('LD -> INIZIO');
+        setIsLoading(true); //REACT updates straight away with the spinner because 
+        //detect that the below actions are async and there will be some time gap, 
+        //so cannot group events and then update the page ones
+
+        const response = await fetch('http://localhost:3001/api/users', {
+          method: 'POST',
+          //specifying headers correctly kiks in back end -> 
+          //"app.js->app.use(bodyParser.json());"
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+          })
+        });
+
+        const responseData = await response.json();
+        console.log('LD -> ');
+        //LD claim success only ig getting a 200 
+        if (!response.ok){
+          //we have a 400 or 500
+          throw new Error(responseData.error);
+          //the CATCH block should be triggered
+        }
+
+        console.log(responseData);
+        setIsLoading(false);
+        auth.login(responseData.token);
+        console.log("saved token -> " + auth.token);
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
     //LD this will call the login function that I have in "App.Js". The function
     // will call update of a state that then will cause the re-rendering
     auth.login(); 
+
   };
 
   return (

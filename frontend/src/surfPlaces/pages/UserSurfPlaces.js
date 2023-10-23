@@ -55,7 +55,7 @@ const Usersurfplaces = () => {
       console.log("---> BRUTAL LOADING OF PLACES FROM DB x");   
           const fetchPlaces = async () => {
             try {
-              const xx = await fetch('http://localhost:3000/api/places', {
+              const xx = await fetch('http://localhost:3001/api/places', {
                 mode:'cors',
                 method: 'GET',
                 headers: {
