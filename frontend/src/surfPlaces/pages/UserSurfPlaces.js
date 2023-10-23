@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect}  from 'react';
 import { useParams } from 'react-router-dom';
 
 import Surfplacelist from '../components/Surfplacelist.js';
@@ -42,11 +42,45 @@ const DUMMY_PLACES = [
   }
 ];
 
+
+
 const Usersurfplaces = () => {
   //LD "useParams" gives access to dynamic URL content like IDs. Called "Dynamic Segments"
   const userId = useParams().userId;
+
+
+
+  useEffect(() => {
+  
+      console.log("---> BRUTAL LOADING OF PLACES FROM DB x");   
+          const fetchPlaces = async () => {
+            try {
+              const xx = await fetch('http://localhost:3000/api/places', {
+                mode:'cors',
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgwYTFlNTlmLTYwZGMtNGJmNS05MDA2LTUxOGFkOTFiY2U3ZSIsImlhdCI6MTY5NzU3MTE2NH0.FUS78Q0e_DMPAPsLUKWmNec0BNKYeJPwWhuc6snnxzs'
+                }
+              });
+              console.log("- LD 000-");
+              const responseData = await xx.json();
+              console.log("- LD 001 SUCCESS -");
+              console.log(responseData);
+              console.log("- LD 001 SUCCESS LOGGED-");
+            } 
+            catch (err) {
+              console.log("- LD 002 -");
+                  console.log(err);
+            }
+          };
+          fetchPlaces();
+        }, [userId]); //user has to be added because external dependency
+
+
   //LD filter from the input list by ID
   const loadedPlaces= DUMMY_PLACES.filter(place => place.creator === userId);
+
   return <Surfplacelist items={loadedPlaces} />;
 };
 
