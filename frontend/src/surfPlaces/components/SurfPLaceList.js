@@ -23,12 +23,12 @@ const Surfplacelist = props => {
         <Surfplaceitem
           key={place.id}
           id={place.id}
-          image={place.imageUrl}
+          //image={place.imageUrl}
           name={place.name}
-          description={place.description}
-          address={place.address}
-          creatorId={place.creator}
-          coordinates={place.location}
+          //description={place.description}
+          //address={place.address}
+          //creatorId={place.creator}
+          //coordinates={place.location}
         />
       ))}
     </ul>
