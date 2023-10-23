@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import {config as configureDotenv} from "dotenv";
 import {connect} from "mongoose";
 import handleErrors from "./middleware/ErrorHandler";
+import cors from "cors";
 
 configureDotenv();
 
@@ -13,6 +14,7 @@ const app = express();
 app.set("x-powered-by", false);
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use("/api/users", UsersRouter);
 app.use("/api/places", PlacesRouter);
