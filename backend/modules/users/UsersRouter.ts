@@ -32,6 +32,7 @@ router.post("/", validate(createUserSchema), (req, res, next) => {
                     id: user.id,
                     name: user.name,
                     email: user.email,
+                    token: user.token
                 }
                 return res.json(response);
 

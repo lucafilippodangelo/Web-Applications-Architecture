@@ -3,6 +3,7 @@ import {sign} from "jsonwebtoken";
 import {UsersRepository} from "../UsersRepository";
 import Result from "../../../core/Result";
 import StatusCodes from "http-status-codes";
+import generateToken from "./GenerateTokenService";
 
 export interface IAuthenticateUserCommand {
     email: string,
@@ -25,10 +26,8 @@ export default async function authenticateUser(command: IAuthenticateUserCommand
     const verified = await compare(command.password, user.hash);
     if (!verified) return Result.error(authFailed, StatusCodes.UNAUTHORIZED);
 
-    const token = sign({
-        id: user.id
-    }, process.env.JWT_SECRET!, {
-        algorithm: "HS256"
+    const token = generateToken({
+        userId: user.id
     });
 
     return Result.result({
