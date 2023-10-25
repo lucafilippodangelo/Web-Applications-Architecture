@@ -6,7 +6,7 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 import Users from './user/pages/Users';
 import Authenticate from './user/pages/Authenticate';
 import NewSurfPlace from './surfplaces/pages/NewSurfPlace';
-import Usersurfplaces from './surfplaces/pages/Usersurfplaces';
+import Usersurfplaces from './surfplaces/pages/UserSurfPlaces';
 import UpdateSurfPlace from './surfplaces/pages/UpdateSurfPlace';
 import Navigation from './shared/components/navigation/Navigation';
 import {authenticationContext} from './shared/reactContext/authenticationContext';
@@ -14,7 +14,6 @@ import {authenticationContext} from './shared/reactContext/authenticationContext
 //LD hoisting https://dev.to/ugglr/react-functional-components-const-vs-function-2kj9
 const App = () => {
 
-  console.log("LD doing authentication");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = useCallback(() => { 

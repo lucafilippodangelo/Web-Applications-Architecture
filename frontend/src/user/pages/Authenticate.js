@@ -74,7 +74,44 @@ const Authenticate = () => {
     event.preventDefault();
     console.log('LD -> INIZIO 001');
 
-    if (isLoginMode) {
+    setIsLoading(true); //REACT updates straight away with the spinner because 
+    //detect that the below actions are async and there will be some time gap, 
+    //so cannot group events and then update the page ones
+
+    if (isLoginMode) { //LOGIN
+      try {
+        console.log('LD -> LOGIN MODE 001');
+        const response = await fetch('http://localhost:3001/api/users/authenticate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+          })
+        });
+        const responseData = await response.json();
+
+        //LD claim success only ig getting a 200 
+        if (!response.ok){
+          //we have a 400 or 500
+          throw new Error(responseData.error);
+          //the CATCH block should be triggered
+        }
+
+        setIsLoading(false);
+        console.log("--> LD returned AUTHENTICATION TOKEN" + responseData.token);
+
+        auth.token = responseData.token;
+        console.log("--> LD CONTEXT TOKEN" + auth.token);
+
+        auth.login();
+      } catch (err) {
+        console.log(err);
+        setIsLoading(false);
+        setError(err.message || 'Something went wrong with LOGIN, PLease try again');
+      }
     } 
     else { //SIGNUP
       try {
@@ -85,8 +122,6 @@ const Authenticate = () => {
 
         const response = await fetch('http://localhost:3001/api/users', {
           method: 'POST',
-          //specifying headers correctly kiks in back end -> 
-          //"app.js->app.use(bodyParser.json());"
           headers: {
             'Content-Type': 'application/json'
           },
@@ -109,24 +144,33 @@ const Authenticate = () => {
         console.log(responseData);
         setIsLoading(false);
         auth.login(responseData.token);
+        auth.setTokenP(responseData.token);
+
         console.log("saved token -> " + auth.token);
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
+        setError(err.message || 'Something went wrong, PLease try again');
+    
       }
     }
 
-    //LD this will call the login function that I have in "App.Js". The function
-    // will call update of a state that then will cause the re-rendering
-    auth.login(); 
-
   };
 
+
+  const errorHandler = () => {
+    setError(null);
+  };
+
+
   return (
+    <React.Fragment>
+    <ErrorModal error={error} onClear={errorHandler} />
     <UserBox className="auth">
+      {isLoading && <LoadingSpinner asOverlay />}
       <h2>Login Required</h2>
       <hr />
       <form onSubmit={authSubmitHandler}>
-		{/* //LD conditional */}
         {!isLoginMode && (
           <Input
             element="input"
@@ -164,6 +208,7 @@ const Authenticate = () => {
         SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
       </Button>
     </UserBox>
+  </React.Fragment>
   );
 };
 
