@@ -1,5 +1,6 @@
 export interface IAuthenticatedUserResponse {
-    name: string,
-    email: string,
+    id: string
+    name: string
+    email: string
     token: string
 }

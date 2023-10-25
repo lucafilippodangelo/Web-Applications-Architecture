@@ -11,8 +11,9 @@ export interface IAuthenticateUserCommand {
 }
 
 export interface IAuthenticatedUser {
-    name: string,
-    email: string,
+    id: string
+    name: string
+    email: string
     token: string
 }
 
@@ -31,6 +32,7 @@ export default async function authenticateUser(command: IAuthenticateUserCommand
     });
 
     return Result.result({
+        id: user.id,
         name: user.name,
         email: user.email,
         token

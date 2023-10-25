@@ -54,6 +54,7 @@ router.post("/authenticate", validate(authenticateUserSchema), (req, res, next) 
             result.evaluate(user => {
 
                 const response: IAuthenticatedUserResponse = {
+                    id: user.id,
                     name: user.name,
                     email: user.email,
                     token: user.token
