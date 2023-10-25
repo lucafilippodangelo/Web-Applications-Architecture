@@ -133,7 +133,7 @@ const Authenticate = () => {
         });
 
         const responseData = await response.json();
-        console.log('LD -> ');
+
         //LD claim success only ig getting a 200 
         if (!response.ok){
           //we have a 400 or 500
@@ -141,12 +141,14 @@ const Authenticate = () => {
           //the CATCH block should be triggered
         }
 
-        console.log(responseData);
-        setIsLoading(false);
-        auth.login(responseData.token);
-        auth.setTokenP(responseData.token);
 
-        console.log("saved token -> " + auth.token);
+        setIsLoading(false);
+        auth.login();
+        auth.token = responseData.token;
+        console.log("--> LD CONTEXT TOKEN after SIGNUP " + auth.token);
+        console.log("--> LD NEW USER DATA below ");
+        console.log(responseData);
+
       } catch (err) {
         console.log(err);
         setIsLoading(false);

@@ -24,9 +24,9 @@ const UserList = props => {
             <ul className="users-list">
                 {props.items.map(user => (
                     <UserItem
-                    key={user.id}
+                    //key={user.id}
                     id={user.id}
-                    image={user.image}
+                    image={'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png'}
                     name={user.name}
                     placeCount={user.places}
                     />

@@ -13,8 +13,7 @@ const Usersurfplaces = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-  //https://blog.logrocket.com/modern-api-data-fetching-methods-react/
-      console.log("---> BRUTAL LOADING OF PLACES FROM DB x");   
+          //https://blog.logrocket.com/modern-api-data-fetching-methods-react/
           const fetchPlaces = async () => {
             try {
               const xx = await fetch('http://localhost:3001/api/places', {
@@ -25,22 +24,22 @@ const Usersurfplaces = () => {
                   'Authorization' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgwYTFlNTlmLTYwZGMtNGJmNS05MDA2LTUxOGFkOTFiY2U3ZSIsImlhdCI6MTY5NzU3MTE2NH0.FUS78Q0e_DMPAPsLUKWmNec0BNKYeJPwWhuc6snnxzs'
                 }
               });
-              console.log("- LD 000 q-");
 
               const responseData = await xx.json();
 
-              console.log("- LD 001 log response data -");
+              console.log("- LD 001 USER SURF PLACES LIST BELOW -");
               console.log(responseData);
 
-              console.log("- LD 000 TWO -");
 
               // RESOURCE https://marketsplash.com/tutorials/react-js/how-to-fetch-data-from-json-file-in-react-js/
 
-              let ss= responseData.filter(place => place.id === "baf08bd6-33ed-4712-a746-d0aaff0bcb3d");
-              console.log("- LD 007-");
-              console.log(ss);
+              //LD filtering by something AS A TEST
+              // let ss= responseData.filter(place => place.id === "baf08bd6-33ed-4712-a746-d0aaff0bcb3d");
+              // console.log("- LD 007-");
+              // console.log(ss);
+              // setData(ss);
 
-              setData(ss);
+              setData(responseData);
 
             } 
             catch (err) {

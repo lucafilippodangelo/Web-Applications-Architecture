@@ -1,65 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-//LD going to nest this structure users page -> User list -> user item
-import UsersList from '../components/UsersList'
+import UsersList from '../components/UsersList';
+import ErrorModal from '../../shared/components/UI/ErrorM';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 
-
+//LD NOTE -> send a request any time the page load 
 const Users = () => {
-//     return <h2> surfing users </h2>
-// }
-    const SURFERS = [
-      {
-        id: 'u1',
-        name: 'Luca',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 3 //number of visited places for this specific surfer
-      },
-      {
-        id: 'u2',
-        name: 'Dylan',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 33 
-      },
-      {
-        id: 'u3',
-        name: 'Diana',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 1 
-      },
-      {
-        id: 'u4',
-        name: 'a surfer',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 4
-      },
-      {
-        id: 'u5',
-        name: 'a surfer 2',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 4
-      },
-      {
-        id: 'u6',
-        name: 'a surfer 3',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 4
-      },
-      {
-        id: 'u7',
-        name: 'a surfer 4',
-        image:
-          'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png',
-        places: 4
-      }
-    ];
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [loadedUsers, setLoadedUsers] = useState();
 
-    return <UsersList items={SURFERS} />; //LD passing this dummy list down to props "items"
+  //LD useEffect
+  useEffect(() => {
+    const sendRequest = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch('http://localhost:3001/api/users', {
+          mode:'cors',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json' }
+        });
+        //LD do not need to add "HEADERS" because not sending to the server anything in input so no body to attach.
+        const responseData = await response.json();
+
+        console.log("-- LD LIST OF USERS below ");
+        console.log(responseData);
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setLoadedUsers(responseData);
+        
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []); 
+  // LD if dependencies "[]" empty, the code inside the useEffect "{}"will run only once.
+  // NOTE doing the above I avoid to run fetch any time something change in user page.
+
+  const errorHandler = () => {
+    setError(null);
   };
+
+  return (
+    <React.Fragment>
+      <ErrorModal error={error} onClear={errorHandler} />
+      {isLoading && (
+        <div className="center"> 
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && loadedUsers && <UsersList items={loadedUsers} />}
+    </React.Fragment>
+  );
+
+};
 
 export default Users;
