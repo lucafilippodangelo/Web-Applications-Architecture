@@ -12,6 +12,7 @@ import {
 
 } from '../../shared/useful/validators';
 import { useForm } from '../../shared/hooks/form-hook';
+import { useHttpClient } from '../../shared/hooks/http-hook';
 import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 import './Authenticate.css';
 
@@ -21,8 +22,14 @@ const Authenticate = () => {
 
 	//LD need a state because every time switch login<=>signup react has to refresh/reload the form
   const [isLoginMode, setIsLoginMode] = useState(true);//LD initially set in login mode
-  const [isLoading,setIsLoading] = useState(false);
-  const [error,setError] = useState();
+
+  /*
+    //LD commenting code below because contained in "useHttpClient" hook
+    const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState();
+  */
+  //LD initialising this at the beginning of the page execution
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   
   //LD NOTE -> react execute code iteratively so this will be executed as second function. We will get populated the 3 returned variables.
   const [formState, inputHandler, setFormData] = useForm(
@@ -36,7 +43,7 @@ const Authenticate = () => {
         isValid: false
       }
     },
-    false
+    false //LD initial form validity
   );
 
   //LD to switch form mode
@@ -74,13 +81,29 @@ const Authenticate = () => {
     event.preventDefault();
     console.log('LD -> INIZIO 001');
 
-    setIsLoading(true); //REACT updates straight away with the spinner because 
-    //detect that the below actions are async and there will be some time gap, 
-    //so cannot group events and then update the page ones
+
 
     if (isLoginMode) { //LOGIN
       try {
-        console.log('LD -> LOGIN MODE 001');
+      
+        const responseData = await sendRequest(
+            'http://localhost:3001/api/users/authenticate',
+            'POST',
+            JSON.stringify({
+              email: formState.inputs.email.value,
+              password: formState.inputs.password.value
+            }),
+            {
+              'Content-Type': 'application/json'
+            }
+          );
+          auth.login();
+          console.log("--> LD returned AUTHENTICATION TOKEN" + responseData.token);
+
+          auth.token = responseData.token;
+          console.log("--> LD CONTEXT TOKEN" + auth.token);
+
+        /*console.log('LD -> LOGIN MODE 001');
         const response = await fetch('http://localhost:3001/api/users/authenticate', {
           method: 'POST',
           headers: {
@@ -111,10 +134,36 @@ const Authenticate = () => {
         console.log(err);
         setIsLoading(false);
         setError(err.message || 'Something went wrong with LOGIN, PLease try again');
-      }
-    } 
+      }*/
+    } catch (err) {} 
+  }
     else { //SIGNUP
+
       try {
+        const responseData = await sendRequest(
+          'http://localhost:3001/api/users',
+          'POST',
+          JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+          }),
+          {
+            'Content-Type': 'application/json'
+          }
+        );
+
+        auth.login();
+        auth.login();
+        auth.token = responseData.token;
+        console.log("--> LD CONTEXT TOKEN after SIGNUP " + auth.token);
+        console.log("--> LD NEW USER DATA below ");
+        console.log(responseData);
+
+      } catch (err) {}
+
+
+      /*try {
         console.log('LD -> INIZIO');
         setIsLoading(true); //REACT updates straight away with the spinner because 
         //detect that the below actions are async and there will be some time gap, 
@@ -155,19 +204,15 @@ const Authenticate = () => {
         setError(err.message || 'Something went wrong, PLease try again');
     
       }
+      */
     }
 
   };
 
 
-  const errorHandler = () => {
-    setError(null);
-  };
-
-
   return (
     <React.Fragment>
-    <ErrorModal error={error} onClear={errorHandler} />
+    <ErrorModal error={error} onClear={clearError} />
     <UserBox className="auth">
       {isLoading && <LoadingSpinner asOverlay />}
       <h2>Login Required</h2>
