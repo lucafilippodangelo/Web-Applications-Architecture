@@ -6,6 +6,8 @@ import StatusCodes from "http-status-codes";
 
 interface IErrorResponse {
     message: string
+    error?: string
+    stackTrace?: string
 }
 
 export default async function handleErrors(err: Error, req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -28,7 +30,9 @@ export default async function handleErrors(err: Error, req: Request, res: Respon
     }
 
     const response: IErrorResponse = {
-        message: `An unexpected error has occurred. Error ID: ${error.id}`
+        message: `An unexpected error has occurred. Error ID: ${error.id}`,
+        error: err.message,
+        stackTrace: err.stack
     }
 
     try {
