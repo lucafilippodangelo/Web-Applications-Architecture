@@ -47,6 +47,37 @@ router.get("", validate(findAllPlacesSchema), (req, res, next) => {
 
 });
 
+router.get("/:placeId", (req, res, next) => {
+
+    findPlace({
+        id: req.params.placeId
+    })
+        .then(result => {
+
+            result.evaluate(place => {
+
+                const response: IFindPlaceResponse = {
+                    id: place.id,
+                    creatorId: place.creatorId,
+                    name: place.name,
+                    description: place.description,
+                    imageUrl: place.imageUrl ? encodeURIComponent(place.imageUrl) : undefined,
+                    address: place.address,
+                    location: {
+                        lat: place.coordinates[1],
+                        lng: place.coordinates[0]
+                    }
+                }
+                res.json(response);
+
+            }, res);
+
+        })
+        .catch(next);
+
+
+});
+
 router.post("", validate(createPlaceSchema), authenticate, (req, res, next) => {
 
     const command: ICreatePlaceCommand = {

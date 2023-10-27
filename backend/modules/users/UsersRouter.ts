@@ -124,6 +124,7 @@ router.get("/:userId/places", (req, res, next) => {
                         id: p.id,
                         name: p.name,
                         address: p.address,
+                        description: p.description,
                         imageUrl: p.imageUrl ? encodeURIComponent(p.imageUrl) : undefined,
                         location: {
                             lat: p.coordinates[1],
