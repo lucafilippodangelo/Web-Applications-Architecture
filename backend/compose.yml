@@ -4,3 +4,8 @@ services:
     container_name: mongodb
     ports:
       - "27017:27017"
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azurite
+    ports:
+      - "10000:10000"
