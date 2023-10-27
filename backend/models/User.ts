@@ -5,6 +5,7 @@ export interface IUser {
     name: string,
     email: string,
     hash: string,
+    imageUrl?: string
 }
 
 const userSchema = new Schema<IUser>({
@@ -23,6 +24,10 @@ const userSchema = new Schema<IUser>({
     hash: {
         type: String,
         required: true
+    },
+    imageUrl: {
+        type: String,
+        required: false
     }
 });
 
