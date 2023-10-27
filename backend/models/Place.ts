@@ -1,10 +1,13 @@
 import {model, Schema} from "mongoose";
 
 export interface IPlace {
-    id: string,
-    creatorId: string,
-    name: string,
+    id: string
+    creatorId: string
+    name: string
+    address: string
     coordinates: number[]
+    imageUrl?: string
+    imageContentType?: string
 }
 
 const placeSchema = new Schema<IPlace>({
@@ -20,10 +23,22 @@ const placeSchema = new Schema<IPlace>({
         type: String,
         required: true
     },
+    address: {
+        type: String,
+        required: true
+    },
     coordinates: {
         type: [Number],
         required: true
-    }
+    },
+    imageUrl: {
+        type: String,
+        required: false
+    },
+    imageContentType: {
+        type: String,
+        required: false
+    },
 });
 
 export const PlaceModel = model<IPlace>("place", placeSchema);
