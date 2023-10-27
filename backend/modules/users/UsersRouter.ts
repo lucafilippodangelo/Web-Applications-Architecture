@@ -6,29 +6,36 @@ import {IAuthenticatedUserResponse} from "./responses/IAuthenticateUserResponse"
 import {createUserSchema} from "./requests/CreateUser";
 import createUser from "./services/CreateUserService";
 import {ICreatedUserResponse} from "./responses/ICreatedUserResponse";
+import findUsers from "./services/FindUsersService";
+import {IFindUserResponse} from "./responses/IFindUserResponse";
+import authenticate from "../../middleware/Authentication";
+import deleteUser from "./services/DeleteUserService";
 import StatusCodes from "http-status-codes";
+import findPlacesByUser from "./services/FindPlacesByUserService";
+import {IFindPlaceResponse} from "../places/responses/IFindPlaceResponse";
 
-const router = Router()
+const router = Router();
 
 router.post("/", validate(createUserSchema), (req, res, next) => {
 
     createUser({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        imageUrl: req.body.imageUrl
     })
         .then(result => {
 
-            if (typeof result === "string") return res.status(StatusCodes.BAD_REQUEST).json({
-                message: result
-            });
+            result.evaluate(user => {
 
-            const response: ICreatedUserResponse = {
-                id: result.id,
-                name: result.name,
-                email: result.email,
-            }
-            return res.json(response);
+                const response: ICreatedUserResponse = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                }
+                return res.json(response);
+
+            }, res);
 
         })
         .catch(next);
@@ -41,21 +48,94 @@ router.post("/authenticate", validate(authenticateUserSchema), (req, res, next) 
         email: req.body.email,
         password: req.body.password
     })
-        .then(user => {
+        .then(result => {
 
-            if (!user) return res.status(StatusCodes.UNAUTHORIZED).json({
-                message: "Authentication failed with the provided credentials"
-            });
+            result.evaluate(user => {
 
-            const response: IAuthenticatedUserResponse = {
-                name: user.name,
-                email: user.email,
-                token: user.token
-            }
-            return res.json(response);
+                const response: IAuthenticatedUserResponse = {
+                    name: user.name,
+                    email: user.email,
+                    token: user.token
+                }
+                return res.json(response);
+
+            }, res);
 
         })
         .catch(next);
+
+});
+
+router.get("/", (req, res, next) => {
+
+    findUsers({})
+        .then(result => {
+
+            result.evaluate(users => {
+
+                const response: IFindUserResponse[] = users.map(u => {
+                    return {
+                        id: u.id,
+                        name: u.name,
+                        imageUrl: u.imageUrl ? encodeURIComponent(u.imageUrl) : undefined,
+                        places: u.places
+                    }
+                });
+                res.json(response);
+
+            }, res);
+
+        })
+        .catch(next)
+
+});
+
+router.delete("/", authenticate, (req, res, next) => {
+
+    deleteUser({
+        id: req.user!.id
+    })
+        .then(result => {
+
+            result.evaluate(() => {
+
+                res.sendStatus(StatusCodes.NO_CONTENT);
+
+            }, res);
+
+        })
+        .catch(next)
+
+});
+
+router.get("/:userId/places", (req, res, next) => {
+
+    findPlacesByUser({
+        id: req.params.userId
+    })
+        .then(result => {
+
+            result.evaluate(places => {
+
+                const response: IFindPlaceResponse[] = places.map(p => {
+                    return {
+                        id: p.id,
+                        name: p.name,
+                        address: p.address,
+                        imageUrl: p.imageUrl ? encodeURIComponent(p.imageUrl) : undefined,
+                        location: {
+                            lat: p.coordinates[1],
+                            lng: p.coordinates[0]
+                        },
+                        creatorId: p.creatorId
+                    }
+                });
+                res.json(response);
+
+            }, res);
+
+        })
+        .catch(next)
 
 });
 
