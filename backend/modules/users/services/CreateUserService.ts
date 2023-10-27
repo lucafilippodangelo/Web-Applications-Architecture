@@ -1,23 +1,21 @@
-import {UserModel} from "../../../models/User";
+import {UserModel} from "../../../models";
 import {randomUUID} from "crypto";
 import {hash} from "bcrypt";
+import {UsersRepository} from "../UsersRepository";
+import Result from "../../../core/Result";
+import {IUser} from "../../../models/User";
 
 export interface ICreateUserCommand {
     name: string,
     email: string,
-    password: string
+    password: string,
+    imageUrl?: string
 }
 
-export interface ICreatedUser {
-    id: string,
-    name: string,
-    email: string
-}
+export default async function createUser(command: ICreateUserCommand): Promise<Result<IUser>> {
 
-export default async function createUser(command: ICreateUserCommand): Promise<ICreatedUser | string> {
-
-    const existingUserCount = await UserModel.count({email: command.email});
-    if (existingUserCount > 0) return "User already exists with this email";
+    const existingUser = await UsersRepository.findUserByEmail(command.email);
+    if (existingUser) return Result.error("User already exists with this email");
 
     const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS!);
     const passwordHash = await hash(command.password, saltRounds);
@@ -25,14 +23,17 @@ export default async function createUser(command: ICreateUserCommand): Promise<I
         id: randomUUID(),
         name: command.name,
         email: command.email,
-        hash: passwordHash
+        hash: passwordHash,
+        imageUrl: command.imageUrl
     });
     await user.save();
 
-    return {
+    return Result.result({
         id: user.id,
         name: user.name,
-        email: user.email
-    }
+        email: user.email,
+        hash: user.hash,
+        imageUrl: user.imageUrl
+    });
 
 }

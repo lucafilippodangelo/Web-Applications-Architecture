@@ -14,5 +14,9 @@ export const createUserSchema = checkSchema({
         isLength: {
             options: {min: 8}
         }
+    },
+    imageUrl: {
+        isString: true,
+        optional: true
     }
 }, ["body"]);
