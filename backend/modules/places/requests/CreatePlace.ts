@@ -1,13 +1,16 @@
 import {checkSchema} from "express-validator";
 
-export interface ICreatePlaceRequest {
-    name: string
-    latitude: number
-    longitude: number
-}
-
 export const createPlaceSchema = checkSchema({
     name: {
+        isString: true,
+        isLength: {
+            options: {
+                min: 1
+            }
+        }
+    },
+    address: {
+        isString: true,
         isLength: {
             options: {
                 min: 1
@@ -19,5 +22,9 @@ export const createPlaceSchema = checkSchema({
     },
     longitude: {
         isNumeric: true
+    },
+    imageUrl: {
+        optional: true,
+        isString: true
     }
 }, ["body"]);
