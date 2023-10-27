@@ -15,13 +15,19 @@ import {authenticationContext} from './shared/reactContext/authenticationContext
 const App = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(false); //LD will be set when login/logout
+  const [token, setToken] = useState(false); //LD as per user
 
-  const login = useCallback(() => { 
+  const login = useCallback((userid, token) => { 
     setIsLoggedIn(true);
+    setUserId(userid);
+    setToken(token);
   }, []);
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    setUserId(null);
+    setToken(null);
   }, []);
 
   let routes; //LD https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/
@@ -69,7 +75,7 @@ const App = () => {
       // isLoggedIn: isLoggedIn -> gets the value of status variable "isLoggedIn"
       // login: login -> gets reference to the function
       // logout: logout -> gets reference to the function
-       <authenticationContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }} >
+       <authenticationContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout, userId:userId, token:token }} >
             <Router>
                 <Navigation />
                 <main>

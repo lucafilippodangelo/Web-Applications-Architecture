@@ -1,18 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormComponents/Input';
 import Button from '../../shared/components/FormComponents/Button';
+import ErrorM from '../../shared/components/UI/ErrorM';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
 } from '../../shared/useful/validators';
 import { useForm } from '../../shared/hooks/form-hook';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 import './NewSurfPlace.css';
   
   const NewSurfPlace = () => {
+    
+  const auth = useContext(authenticationContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   
-  
-  //using array destructuring, "useForm" returns an array with two objects
 
   // NOTE -> following "LD (STEP THREE)" in "form-hook.js" I can now call 
   //the hook "useForm" passing initial validities for inputs and form
@@ -36,12 +42,38 @@ import './NewSurfPlace.css';
     false //LD initial form validity is false
   );
   
-    const placeSubmitHandler = event => {
-      event.preventDefault(); //avoid the browser to submit request and causing page reload
-      console.log("LD send to BE -> "); 
-      console.log(formState.inputs); 
-    };
+  const history = useHistory();
+
+  const placeSubmitHandler = async event => {
+    event.preventDefault();
+    
+    console.log("LD what will be SENT TO BE -> "); 
+    console.log(formState.inputs); // send this to the backend!
+
+    console.log("CURRENT CONTEXT LOGGED IN USER -> " + auth.userId); 
+    console.log("CURRENT CONTEXT TOKEN -> " + auth.token); 
+
+    try {
+      await sendRequest(
+        'http://localhost:3001/api/places',
+        'POST',
+        JSON.stringify({
+          name: formState.inputs.name.value,
+          //description: formState.inputs.description.value,
+          address: formState.inputs.address.value,
+          latitude: "1", //TO BE REMOVED
+          longitude: "1" //TO BE REMOVED
+          //creator: auth.userId
+        }),
+        { 'Content-Type': 'application/json',
+          'Authorization' : auth.token
+        }
+      );
+      history.push('/');
+    } catch (err) {}
+  };
   
+
   
     return (
       <form className="place-form" onSubmit={placeSubmitHandler}>

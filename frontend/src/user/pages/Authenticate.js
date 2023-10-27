@@ -79,7 +79,7 @@ const Authenticate = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
-    console.log('LD -> INIZIO 001');
+    console.log('LD -> DOING AUTHENTICATION');
 
 
 
@@ -97,48 +97,10 @@ const Authenticate = () => {
               'Content-Type': 'application/json'
             }
           );
-          auth.userid = responseData.id;
-          console.log("--> LD CONTEXT USER ID -> " + auth.userid);
-
-          auth.token = responseData.token;
-          console.log("--> LD CONTEXT TOKEN -> " + auth.token);
-
-        /*console.log('LD -> LOGIN MODE 001');
-        const response = await fetch('http://localhost:3001/api/users/authenticate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value
-          })
-        });
-        const responseData = await response.json();
-
-        //LD claim success only ig getting a 200 
-        if (!response.ok){
-          //we have a 400 or 500
-          throw new Error(responseData.error);
-          //the CATCH block should be triggered
-        }
-
-        setIsLoading(false);
-        console.log("--> LD returned AUTHENTICATION TOKEN" + responseData.token);
-
-        auth.token = responseData.token;
-        console.log("--> LD CONTEXT TOKEN" + auth.token);
-
-        auth.login();
-      } catch (err) {
-        console.log(err);
-        setIsLoading(false);
-        setError(err.message || 'Something went wrong with LOGIN, PLease try again');
-      }*/
+          auth.login(responseData.id, responseData.token);
     } catch (err) {} 
   }
     else { //SIGNUP
-
       try {
         const responseData = await sendRequest(
           'http://localhost:3001/api/users',
@@ -152,59 +114,8 @@ const Authenticate = () => {
             'Content-Type': 'application/json'
           }
         );
-
-        auth.login();
-        auth.login();
-        auth.token = responseData.token;
-        console.log("--> LD CONTEXT TOKEN after SIGNUP " + auth.token);
-        console.log("--> LD NEW USER DATA below ");
-        console.log(responseData);
-
+        auth.login(responseData.id, responseData.token);
       } catch (err) {}
-
-
-      /*try {
-        console.log('LD -> INIZIO');
-        setIsLoading(true); //REACT updates straight away with the spinner because 
-        //detect that the below actions are async and there will be some time gap, 
-        //so cannot group events and then update the page ones
-
-        const response = await fetch('http://localhost:3001/api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value
-          })
-        });
-
-        const responseData = await response.json();
-
-        //LD claim success only ig getting a 200 
-        if (!response.ok){
-          //we have a 400 or 500
-          throw new Error(responseData.error);
-          //the CATCH block should be triggered
-        }
-
-
-        setIsLoading(false);
-        auth.login();
-        auth.token = responseData.token;
-        console.log("--> LD CONTEXT TOKEN after SIGNUP " + auth.token);
-        console.log("--> LD NEW USER DATA below ");
-        console.log(responseData);
-
-      } catch (err) {
-        console.log(err);
-        setIsLoading(false);
-        setError(err.message || 'Something went wrong, PLease try again');
-    
-      }
-      */
     }
 
   };
