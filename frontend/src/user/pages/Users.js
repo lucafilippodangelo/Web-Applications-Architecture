@@ -18,7 +18,6 @@ const Users = () => {
         const responseData = await sendRequest(
           'http://localhost:3001/api/users'
         );
-
         setLoadedUsers(responseData);
         console.log(responseData);
       } catch (err) { }
@@ -27,7 +26,6 @@ const Users = () => {
   }, [sendRequest]); // LD "sendRequest" is now coming outside the "useEffect" that's why this is a dependency now
 
   
-
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />

@@ -97,11 +97,11 @@ const Authenticate = () => {
               'Content-Type': 'application/json'
             }
           );
-          auth.login();
-          console.log("--> LD returned AUTHENTICATION TOKEN" + responseData.token);
+          auth.userid = responseData.id;
+          console.log("--> LD CONTEXT USER ID -> " + auth.userid);
 
           auth.token = responseData.token;
-          console.log("--> LD CONTEXT TOKEN" + auth.token);
+          console.log("--> LD CONTEXT TOKEN -> " + auth.token);
 
         /*console.log('LD -> LOGIN MODE 001');
         const response = await fetch('http://localhost:3001/api/users/authenticate', {
