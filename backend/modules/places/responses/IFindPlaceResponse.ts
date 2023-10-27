@@ -1,4 +1,4 @@
-export interface ICreatePlaceResponse {
+export interface IFindPlaceResponse {
     id: string
     creatorId: string
     name: string
