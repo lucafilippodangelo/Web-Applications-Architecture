@@ -1,10 +1,5 @@
 import {checkSchema, query} from "express-validator";
 
-export interface IFindAllPlacesRequest {
-    latitude?: number
-    longitude?: number
-}
-
 export const findAllPlacesSchema = checkSchema({
     latitude: {
         isNumeric: {
@@ -15,5 +10,9 @@ export const findAllPlacesSchema = checkSchema({
         isNumeric: {
             if: query("latitude").exists()
         }
+    },
+    creatorId: {
+        optional: true,
+        isString: true
     }
 }, ["query"]);

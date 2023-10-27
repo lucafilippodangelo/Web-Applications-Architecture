@@ -1,12 +1,14 @@
 import {IPlace} from "../../../models/Place";
 import {PlacesRepository} from "../PlacesRepository";
+import Result from "../../../core/Result";
 
 export interface IFindAllPlacesCommand {
     latitude?: number,
-    longitude?: number
+    longitude?: number,
+    creatorId?: string
 }
 
-export default function FindAllPlaces(command: IFindAllPlacesCommand): Promise<IPlace[]> {
+export default async function FindAllPlaces(command: IFindAllPlacesCommand): Promise<Result<IPlace[]>> {
 
     const useLocationBias = Boolean((command.latitude) && (command.longitude));
 
@@ -14,6 +16,10 @@ export default function FindAllPlaces(command: IFindAllPlacesCommand): Promise<I
 
     }
 
-    return PlacesRepository.findAllPlaces();
+    if (command.creatorId) {
+        return Result.result(await PlacesRepository.findAllPlacesByUser(command.creatorId));
+    }
+
+    return Result.result(await PlacesRepository.findAllPlaces());
 
 }
