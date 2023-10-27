@@ -4,20 +4,37 @@ import ICoordinates from "../../core/ICoordinates";
 export interface IPlacesRepository {
     findAllPlaces(): Promise<IPlace[]>
 
-    findAllPlacesSortedByDistanceFromCoordinates(coordinates: ICoordinates): IPlace[]
+    findPlaceById(placeId: string): Promise<IPlace | null>
+
+    findAllPlacesByUser(userId: string): Promise<IPlace[]>
+
+    findAllPlacesSortedByDistanceFromCoordinates(coordinates: ICoordinates): Promise<IPlace[]>
 
     createPlace(place: IPlace): Promise<void>
+
+    deletePlace(placeId: string): Promise<void>
 }
 
 class PlacesRepositoryInternal implements IPlacesRepository {
 
     findAllPlaces(): Promise<IPlace[]> {
 
-        return PlaceModel.find({});
+        return PlaceModel.find({}, null, {sort: "name"});
 
     }
 
-    findAllPlacesSortedByDistanceFromCoordinates(coordinates: ICoordinates): IPlace[] {
+    findPlaceById(placeId: string): Promise<IPlace | null> {
+
+        return PlaceModel.findOne({id: placeId});
+    }
+
+    findAllPlacesByUser(userId: string): Promise<IPlace[]> {
+
+        return PlaceModel.find({creatorId: userId}, null, {sort: "name"});
+
+    }
+
+    findAllPlacesSortedByDistanceFromCoordinates(coordinates: ICoordinates): Promise<IPlace[]> {
 
         throw Error("Not implemented");
 
@@ -27,6 +44,12 @@ class PlacesRepositoryInternal implements IPlacesRepository {
 
         const placeModel = new PlaceModel(place);
         await placeModel.save();
+
+    }
+
+    async deletePlace(placeId: string): Promise<void> {
+
+        await PlaceModel.deleteOne({id: placeId});
 
     }
 
