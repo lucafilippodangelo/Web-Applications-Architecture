@@ -9,6 +9,9 @@ export const createPlaceSchema = checkSchema({
             }
         }
     },
+    description: {
+        isString: true
+    },
     address: {
         isString: true,
         isLength: {
@@ -16,12 +19,6 @@ export const createPlaceSchema = checkSchema({
                 min: 1
             }
         }
-    },
-    latitude: {
-        isNumeric: true
-    },
-    longitude: {
-        isNumeric: true
     },
     imageUrl: {
         optional: true,

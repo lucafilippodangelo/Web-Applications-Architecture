@@ -6,9 +6,8 @@ import Result from "../../../core/Result";
 export interface ICreatePlaceCommand {
     creatorId: string
     name: string
+    description: string
     address: string
-    latitude: number
-    longitude: number
     imageUrl?: string
 }
 
@@ -23,7 +22,8 @@ export default async function createPlace(command: ICreatePlaceCommand): Promise
         creatorId: command.creatorId,
         name: command.name,
         address: command.address,
-        coordinates: [command.longitude, command.latitude],
+        description: command.description,
+        coordinates: [0, 0],
         imageUrl: command.imageUrl,
     }
     await PlacesRepository.createPlace(place);

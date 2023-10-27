@@ -3,6 +3,7 @@ export interface ICreatePlaceResponse {
     creatorId: string
     name: string
     address: string
+    description: string
     location: {
         lat: number
         lng: number

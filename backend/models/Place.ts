@@ -5,6 +5,7 @@ export interface IPlace {
     creatorId: string
     name: string
     address: string
+    description: string
     coordinates: number[]
     imageUrl?: string
     imageContentType?: string
@@ -24,6 +25,10 @@ const placeSchema = new Schema<IPlace>({
         required: true
     },
     address: {
+        type: String,
+        required: true
+    },
+    description: {
         type: String,
         required: true
     },
