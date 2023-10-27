@@ -1,10 +1,5 @@
 import {checkSchema} from "express-validator";
 
-export interface IAuthenticateUserRequest {
-    email: string
-    password: string
-}
-
 export const authenticateUserSchema = checkSchema({
     email: {
         isEmail: true

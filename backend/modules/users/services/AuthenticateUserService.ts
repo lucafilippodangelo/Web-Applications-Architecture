@@ -1,6 +1,8 @@
-import {UserModel} from "../../../models/User";
 import {compare} from "bcrypt";
 import {sign} from "jsonwebtoken";
+import {UsersRepository} from "../UsersRepository";
+import Result from "../../../core/Result";
+import StatusCodes from "http-status-codes";
 
 export interface IAuthenticateUserCommand {
     email: string,
@@ -13,13 +15,15 @@ export interface IAuthenticatedUser {
     token: string
 }
 
-export default async function authenticateUser(command: IAuthenticateUserCommand): Promise<IAuthenticatedUser | null> {
+export default async function authenticateUser(command: IAuthenticateUserCommand): Promise<Result<IAuthenticatedUser>> {
 
-    const user = await UserModel.findOne({email: command.email});
-    if (!user) return null;
+    const authFailed = "Authentication failed";
+
+    const user = await UsersRepository.findUserByEmail(command.email);
+    if (!user) return Result.error(authFailed, StatusCodes.UNAUTHORIZED);
 
     const verified = await compare(command.password, user.hash);
-    if (!verified) return null;
+    if (!verified) return Result.error(authFailed, StatusCodes.UNAUTHORIZED);
 
     const token = sign({
         id: user.id
@@ -27,10 +31,10 @@ export default async function authenticateUser(command: IAuthenticateUserCommand
         algorithm: "HS256"
     });
 
-    return {
+    return Result.result({
         name: user.name,
         email: user.email,
         token
-    }
+    });
 
 }
