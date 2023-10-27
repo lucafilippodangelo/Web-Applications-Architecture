@@ -13,6 +13,8 @@ export interface IPlacesRepository {
     createPlace(place: IPlace): Promise<void>
 
     deletePlace(placeId: string): Promise<void>
+
+    updatePlace(place: IPlace): Promise<void>
 }
 
 class PlacesRepositoryInternal implements IPlacesRepository {
@@ -50,6 +52,12 @@ class PlacesRepositoryInternal implements IPlacesRepository {
     async deletePlace(placeId: string): Promise<void> {
 
         await PlaceModel.deleteOne({id: placeId});
+
+    }
+
+    async updatePlace(place: IPlace): Promise<void> {
+
+        await PlaceModel.findOneAndUpdate({id: place.id}, place);
 
     }
 

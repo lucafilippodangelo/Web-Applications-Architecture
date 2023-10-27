@@ -8,6 +8,10 @@ import {ICreatePlaceResponse} from "./responses/ICreatePlaceResponse";
 import {authenticate, validate} from "../../middleware";
 import deletePlace from "./services/DeletePlaceService";
 import StatusCodes from "http-status-codes";
+import {updatePlaceSchema} from "./requests/UpdatePlace";
+import updatePlace from "./services/UpdatePlaceService";
+import {IUpdatePlaceResponse} from "./responses/IUpdatePlaceResponse";
+import findPlace from "./services/FindPlaceService";
 
 const router = Router()
 
@@ -24,6 +28,7 @@ router.get("", validate(findAllPlacesSchema), (req, res, next) => {
                             id: p.id,
                             creatorId: p.creatorId,
                             name: p.name,
+                            description: p.description,
                             imageUrl: p.imageUrl ? encodeURIComponent(p.imageUrl) : undefined,
                             address: p.address,
                             location: {
@@ -47,8 +52,7 @@ router.post("", validate(createPlaceSchema), authenticate, (req, res, next) => {
     const command: ICreatePlaceCommand = {
         creatorId: req.user!.id,
         name: req.body.name,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude,
+        description: req.body.description,
         address: req.body.address,
         imageUrl: req.body.imageUrl
     }
@@ -62,6 +66,7 @@ router.post("", validate(createPlaceSchema), authenticate, (req, res, next) => {
                     creatorId: place.creatorId,
                     name: place.name,
                     address: place.address,
+                    description: place.description,
                     location: {
                         lat: place.coordinates[1],
                         lng: place.coordinates[0]
@@ -90,11 +95,46 @@ router.delete("/:placeId", authenticate, (req, res, next) => {
 
                 res.sendStatus(StatusCodes.NO_CONTENT);
 
-            }, res)
+            }, res);
 
         })
         .catch(next)
 
 });
+
+router.put("/:placeId", validate(updatePlaceSchema), authenticate, (req, res, next) => {
+
+    updatePlace({
+        id: req.params.placeId,
+        creatorId: req.user!.id,
+        name: req.body.name,
+        address: req.body.address,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl
+    })
+        .then(result => {
+
+            result.evaluate(place => {
+
+                const response: IUpdatePlaceResponse = {
+                    id: place.id,
+                    creatorId: place.creatorId,
+                    name: place.name,
+                    address: place.address,
+                    description: place.description,
+                    location: {
+                        lat: place.coordinates[1],
+                        lng: place.coordinates[0]
+                    },
+                    imageUrl: place.imageUrl
+                }
+                res.json(response);
+
+            }, res);
+
+        })
+        .catch(next)
+
+})
 
 export const PlacesRouter = router;
