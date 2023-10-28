@@ -32,6 +32,16 @@ const Usersurfplaces = () => {
           fetchPlaces();
         }, [sendRequest, userId]); //user has to be added because external dependency
 
+
+          //LD this function will be called bottom up from "confirmDeleteHandler" in "SurfPlaceItem.js"
+          // "deletedPlaceId" will need to be passed in
+          const surfPlaceDeletedHandler = deletedPlaceId => {
+            setLoadedPlaces(prevPlaces =>
+              prevPlaces.filter(place => place.id !== deletedPlaceId)
+            );
+          };
+
+
         return (
           <React.Fragment>
             <ErrorM error={error} onClear={clearError} />
@@ -40,7 +50,7 @@ const Usersurfplaces = () => {
                 <LoadingSpinner />
               </div>
             )}
-            {!isLoading && loadedPlaces && <Surfplacelist items={loadedPlaces} />}
+            {!isLoading && loadedPlaces && <Surfplacelist items={loadedPlaces} onDeletePlace={surfPlaceDeletedHandler} />}
           </React.Fragment>
         );
 };

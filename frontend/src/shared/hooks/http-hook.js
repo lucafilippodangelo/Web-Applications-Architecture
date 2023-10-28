@@ -14,7 +14,9 @@ export const useHttpClient = () => {
   //LD generic function(configurable) to send a request
   const sendRequest = useCallback(
     async (url, method = 'GET', body = null, headers = {}) => {
+
       console.log("LD HTTP HOOK RECEIVED URL -> " + url);
+
       setIsLoading(true);//REACT updates straight away with the spinner because 
       //detect that the below actions are async and there will be some time gap
 
@@ -32,9 +34,15 @@ export const useHttpClient = () => {
         });
 
         //LD REFERENCE_001
-        const responseData = await response.json();
-        console.log("LD response data from hook -> " );
-        console.log(responseData);
+        console.log("LD RESPONSE STATUS -> ");
+        console.log(response.status); 
+
+        let responseData = null;
+        if (response.status !== 204)//LD 204(no content is returned) if successful delete
+        {
+          responseData = await response.json();
+          console.log("LD RESPONSE STATUS different than 204");
+        }
 
         //LD when having successful response need to remove "httpAbortCtrl"
         // from the current active http request
@@ -42,10 +50,13 @@ export const useHttpClient = () => {
           reqCtrl => reqCtrl !== httpAbortCtrl
         );
 
+        //LD GENERATING ERROR IF 204, when it should not with the 200 family
         if (!response.ok) {
-          console.log("LD SOMETHING WEIRD HAPPENED hook -> " );
-          throw new Error(responseData.message);
+            console.log("LD SOMETHING WEIRD HAPPENED hook -> " );
+            throw new Error(response.message);
         }
+        
+
 
         setIsLoading(false);
         return responseData;

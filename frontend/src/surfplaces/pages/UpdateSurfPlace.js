@@ -89,7 +89,8 @@ const UpdateSurfPlace = () => {
     
     console.log("LD in UpdateSurfPlace ->USED URL -> ");
     console.log("http://localhost:3001/api/places/" + placeId);
-    
+
+
     try {
       console.log("LD in UpdateSurfPlace ->TRY TO SUBMIT UPDATED DATA");
       var testReturnedStuff = await sendRequest(
@@ -98,7 +99,7 @@ const UpdateSurfPlace = () => {
         JSON.stringify({
           name: formState.inputs.name.value,
           description: formState.inputs.description.value,
-          address: loadedPlace.address
+          address: loadedPlace.address //LD just passing same value back for now
         }),
         {
           'Content-Type': 'application/json',
