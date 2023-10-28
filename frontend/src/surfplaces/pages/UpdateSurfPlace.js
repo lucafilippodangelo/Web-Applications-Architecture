@@ -33,15 +33,15 @@ const UpdateSurfPlace = () => {
   //LD (STEP ONE)
   // just calling "useForm" with initial parms
   // NOTE -> see comments in "NewSurfPlace.js" and "form-hook.js" to see how similar to this "UpdatePlace.js" the logic is
-  const [formState, inputHandler, setFormData] = useForm( //const [formState, inputHandler] = useForm(
+  const [formState, inputHandler, setFormData] = useForm( 
     {
       name: {
-        value: '', //value: identifiedPlace.title,
-        isValid: false //isValid: true
+        value: '', 
+        isValid: false 
       },
       description: {
-        value: '', //value: identifiedPlace.description,
-        isValid: false //isValid: true
+        value: '', 
+        isValid: false 
       }
     },
     false
@@ -59,7 +59,7 @@ const UpdateSurfPlace = () => {
         console.log(responseData);
 
         setLoadedPlace(responseData);
-        console.log(" --> LD UpdateSurfPlace AFTER setLoadedPlace -> ");
+
         setFormData(
           {
             name: {

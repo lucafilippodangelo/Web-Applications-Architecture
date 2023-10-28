@@ -25,9 +25,9 @@ const Surfplacelist = props => {
           id={place.id}
           //image={place.imageUrl}
           name={place.name}
-          //description={place.description}
-          //address={place.address}
-          //creatorId={place.creator}
+          description={place.description}
+          address={place.address}
+          creatorId={place.creatorId}
           //coordinates={place.location}
           onDelete={props.onDeletePlace}
         />

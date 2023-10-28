@@ -93,8 +93,15 @@ const Surfplaceitem = props => {
                 </div>
                 <div className="place-item__actions">
                   {/* //LD will need to add map later. that stuff needs refinement */}
-                  {auth.isLoggedIn && <Button to={`/surfplaces/${props.id}`}>EDIT</Button>}
-                  {auth.isLoggedIn && <Button danger onClick={showDeleteWarningHandler}> DELETE </Button>}
+
+                  {auth.userId === props.creatorId && 
+                  (<Button to={`/surfplaces/${props.id}`}>EDIT</Button>)}
+                  
+                  {auth.userId === props.creatorId && 
+                  (<Button danger onClick={showDeleteWarningHandler}> DELETE </Button>)}
+                 
+                  
+
 
                 </div>
           </UserBox>
