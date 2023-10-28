@@ -14,6 +14,7 @@ export const useHttpClient = () => {
   //LD generic function(configurable) to send a request
   const sendRequest = useCallback(
     async (url, method = 'GET', body = null, headers = {}) => {
+      console.log("LD HTTP HOOK RECEIVED URL -> " + url);
       setIsLoading(true);//REACT updates straight away with the spinner because 
       //detect that the below actions are async and there will be some time gap
 
@@ -32,6 +33,8 @@ export const useHttpClient = () => {
 
         //LD REFERENCE_001
         const responseData = await response.json();
+        console.log("LD response data from hook -> " );
+        console.log(responseData);
 
         //LD when having successful response need to remove "httpAbortCtrl"
         // from the current active http request
@@ -40,12 +43,14 @@ export const useHttpClient = () => {
         );
 
         if (!response.ok) {
+          console.log("LD SOMETHING WEIRD HAPPENED hook -> " );
           throw new Error(responseData.message);
         }
 
         setIsLoading(false);
         return responseData;
       } catch (err) {
+        console.log("LD SOMETHING WEIRD HAPPENED hook two -> " );
         setError(err.message);
         setIsLoading(false);
         throw err;//throwing it to let component using the hook that an error was fired
