@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
-import Surfplaceitem from './Surfplaceitem';
+import Surfplaceitem from './SurfPlaceItem';
 import Button from '../../shared/components/FormComponents/Button';
 import './Surfplacelist.css';
 

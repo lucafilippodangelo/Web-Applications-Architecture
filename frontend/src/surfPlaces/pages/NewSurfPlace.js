@@ -61,9 +61,8 @@ import './NewSurfPlace.css';
           name: formState.inputs.name.value,
           //description: formState.inputs.description.value,
           address: formState.inputs.address.value,
-          latitude: "1", //TO BE REMOVED
-          longitude: "1" //TO BE REMOVED
-          //creator: auth.userId
+          description: formState.inputs.description.value, //TO BE REMOVED
+          imageUrl: "images/2.jpg"
         }),
         { 'Content-Type': 'application/json',
           'Authorization' : auth.token

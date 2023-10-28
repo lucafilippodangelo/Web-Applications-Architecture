@@ -29,22 +29,6 @@ const Surfplaceitem = props => {
   return (
         //LD using fragment to have a double access point with modal and the <li> div
         <React.Fragment>
-        {/* <Modal show={showMap} 
-               //onCancel={closeMapHandler}
-               header={props.address}
-               contentClass = "place-item__modal-content"
-               footerClass = "place-item__modal-actions"
-               LD the below will be rendered in "ModalOverlay" that is a sub-component in Modal.js
-               footer = {<Button onClick={closeMapHandler}>CLOSE</Button>} 
-               > */}
-
-        {/*BELOW CONTENT WILL BE RENDERED IN children of "Modal.js"->nested component */}
-        {/* <div className="map-container">
-          <h2>map content will be implemented after crud</h2>
-        </div> */}
-        {/* </ Modal> */}
-
-
 
 
           {/* //LD deletion modal */}
@@ -85,6 +69,7 @@ const Surfplaceitem = props => {
                 <div className="place-item__actions">
                   {/* //LD will need to add map later. that stuff needs refinement */}
                   {auth.isLoggedIn && <Button to={`/surfplaces/${props.id}`}>EDIT</Button>}
+             
                   {auth.isLoggedIn && <Button danger onClick={showDeleteWarningHandler}> DELETE </Button>}
 
                 </div>
