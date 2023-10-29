@@ -14,9 +14,11 @@ import { useCallback, useReducer } from 'react';
 const formReducer = (state, action) => {
     switch (action.type) {
       case 'INPUT_CHANGE':
+        console.log("LD IN INPUT BLOCK");
         let formIsValid = true;
         //go through all the inputs to verify if they are valid. first time it gets executed this for loops the default state
         for (const inputId in state.inputs) {
+          console.log("LD IN INPUT BLOCK LOOPING");
           if(!state.inputs[inputId]){
             continue;
           }

@@ -55,7 +55,7 @@ const UpdateSurfPlace = () => {
         const responseData = await sendRequest(
           "http://localhost:3001/api/places/" + placeId
         );
-        console.log(" --> LD UpdateSurfPlace FETCH place ID, DATA -> ");
+        console.log(" --> LD UpdateSurfPlace DATA WILL BE SENT TO HTTP HOOK -> ");
         console.log(responseData);
 
         setLoadedPlace(responseData);
@@ -64,11 +64,11 @@ const UpdateSurfPlace = () => {
           {
             name: {
               value: responseData.name,
-              isValid: true
+              isValid: true //LD current saved data is supposed to be true
             },
             description: {
               value: responseData.description,
-              isValid: true
+              isValid: true //LD current saved data is supposed to be true
             }
           },
           true
@@ -79,7 +79,7 @@ const UpdateSurfPlace = () => {
       }
     };
     fetchPlace();
-  }, [sendRequest, placeId,setFormData ]);
+  }, [sendRequest, placeId, setFormData ]);
 
 
 
@@ -119,7 +119,6 @@ const UpdateSurfPlace = () => {
     }
   };
 
-
   // LD BELOW AS IT WAS ----------------------------------------------
   if (isLoading) {
     return (
@@ -152,9 +151,10 @@ const UpdateSurfPlace = () => {
            validators={[VALIDATOR_REQUIRE()]} //LD executing this validator on this input
            errorText="Please enter a valid name."
            onInput={inputHandler}
-           initialValue={formState.inputs.name.value}
-           initialValid={formState.inputs.name.isValid}
+           initialValue={loadedPlace.name}//{formState.inputs.name.value}
+           initialValid={true}
          />
+         
          <Input
            id="description"
            element="textarea"
@@ -162,8 +162,8 @@ const UpdateSurfPlace = () => {
            validators={[VALIDATOR_MINLENGTH(5)]}
            errorText="Please enter a valid description (min. 5 characters)."
            onInput={inputHandler}
-           initialValue={formState.inputs.description.value}
-           initialValid={formState.inputs.description.isValid}
+           initialValue={loadedPlace.description}//{formState.inputs.description.value}
+           initialValid={true}
          />
          <Button type="submit" disabled={!formState.isValid}>
            UPDATE SURF PLACE X
