@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './UsersList.css';
-import UserItem from './UserItem';
+import Search from './Search';
 
 import UserBox from '../../shared/components/UI/UserBox';
 
@@ -18,19 +18,9 @@ const UserList = props => {
         );
     };
 		return (
-            // <div className="center">
-			//     <h2>here I should display a list of surfer</h2>
-		    // </div>
-            <ul className="users-list">
-                {props.items.map(user => (
-                    <UserItem
-                    id={user.id}
-                    image={'https://www.kgelite.ie/wp-content/uploads/2021/06/TU-Dublin-300x300.png'}
-                    name={user.name}
-                    placeCount={user.places}
-                    />
-                ))}
-            </ul>
+            <div >
+                <Search details={props}/>
+            </div>
 		);
 	};
 
