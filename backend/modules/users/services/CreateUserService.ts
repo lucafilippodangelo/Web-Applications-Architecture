@@ -33,7 +33,7 @@ export default async function createUser(command: ICreateUserCommand): Promise<R
     });
     await user.save();
 
-    const token = generateToken(user.id);
+    const token = generateToken({userId: user.id});
     return Result.result({
         id: user.id,
         name: user.name,
