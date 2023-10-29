@@ -68,7 +68,7 @@ import './NewSurfPlace.css';
           'Authorization' : auth.token
         }
       );
-      history.push('/');
+      history.push('/' + auth.userId + '/surfplacesx');
     } catch (err) {}
   };
   
