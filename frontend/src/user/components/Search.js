@@ -1,8 +1,9 @@
 
 // src/components/Search.js
+import 'bootstrap/dist/css/bootstrap.css';
 
 import React, { useState } from 'react';
-import Scroll from './Scroll';
+// import Scroll from './Scroll';
 import SearchList from './SearchList';
 
 function Search({ details }) {
@@ -25,20 +26,24 @@ const filteredList = details.items.filter((pokemon) => {
 
   function searchList() {
     return (
-      <Scroll>
+      // <Scroll>
         <SearchList filteredList={filteredList} />
-      </Scroll>
+      // </Scroll>
     );
   }
 
   return (
     <section>
-      <div >
-        <input 
-          type = "search" 
-          placeholder = "Search Surf Place Name" 
-          onChange = {handleChange}
-        />
+<div class="container">
+      <nav class="navbar ">
+              <input 
+                class="form-control mr-sm-2"
+                type = "search" 
+                aria-label="Search"
+                placeholder = "Search Surf Place Name" 
+                onChange = {handleChange}
+              />
+      </nav>
       </div>
       {searchList()}
     </section>
