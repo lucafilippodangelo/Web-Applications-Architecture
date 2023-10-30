@@ -11,6 +11,7 @@ import UpdateSurfPlace from './surfplaces/pages/UpdateSurfPlace';
 import Navigation from './shared/components/navigation/Navigation';
 import {authenticationContext} from './shared/reactContext/authenticationContext';
 
+
 //LD hoisting https://dev.to/ugglr/react-functional-components-const-vs-function-2kj9
 const App = () => {
 
