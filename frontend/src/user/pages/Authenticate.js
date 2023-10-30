@@ -9,7 +9,8 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
-
+  VALIDATOR_CONTAINS_UPPERCASE,
+  VALIDATOR_CONTAINS_NUMBER
 } from '../../shared/useful/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -154,8 +155,8 @@ const Authenticate = () => {
           id="password"
           type="password"
           label="Password"
-          validators={[VALIDATOR_MINLENGTH(5)]}
-          errorText="Please enter a valid password, at least 5 characters."
+          validators={[VALIDATOR_MINLENGTH(5), VALIDATOR_CONTAINS_UPPERCASE(), VALIDATOR_CONTAINS_NUMBER()]}
+          errorText="Please enter a valid password -> at least 5 characters, at least one uppercase, at lease one number"
           onInput={inputHandler}
         />
         <Button type="submit" disabled={!formState.isValid}>

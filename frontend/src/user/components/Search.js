@@ -35,7 +35,6 @@ const filteredList = details.items.filter((pokemon) => {
     <section>
       <div >
         <input 
-          
           type = "search" 
           placeholder = "Search Surf Place Name" 
           onChange = {handleChange}

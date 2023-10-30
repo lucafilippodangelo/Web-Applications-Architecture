@@ -5,6 +5,8 @@ const VALIDATOR_TYPE_MIN = 'MIN';
 const VALIDATOR_TYPE_MAX = 'MAX';
 const VALIDATOR_TYPE_EMAIL = 'EMAIL';
 const VALIDATOR_TYPE_FILE = 'FILE';
+const VALIDATOR_TYPE_CONTAINS_UPPERCASE = 'UPPERCASE';
+const VALIDATOR_TYPE_CONTAINS_NUMBER = 'NUMBER';
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -19,6 +21,9 @@ export const VALIDATOR_MAXLENGTH = val => ({
 export const VALIDATOR_MIN = val => ({ type: VALIDATOR_TYPE_MIN, val: val }); //return a validator description
 export const VALIDATOR_MAX = val => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
+
+export const VALIDATOR_CONTAINS_UPPERCASE = () => ({ type: VALIDATOR_TYPE_CONTAINS_UPPERCASE });
+export const VALIDATOR_CONTAINS_NUMBER = () => ({ type: VALIDATOR_TYPE_CONTAINS_NUMBER});
 
 //"validate" function gets in input a value and an array of validators 
 //to run against that value
@@ -42,6 +47,14 @@ export const validate = (value, validators) => {
     }
     if (validator.type === VALIDATOR_TYPE_EMAIL) {
       isValid = isValid && /^\S+@\S+\.\S+$/.test(value);
+    }
+    if (validator.type === VALIDATOR_TYPE_CONTAINS_UPPERCASE) {  //LD will return true if the string contains any uppercase letters
+      isValid = isValid && /^(.*?[A-Z]).*$/.test(value);
+      console.log("VALIDATION uppercase --> "+ /^(.*?[A-Z]).*$/.test(value) + " for: " + value)
+    }
+    if (validator.type === VALIDATOR_TYPE_CONTAINS_NUMBER) {  //LD will return true if the string contains any number
+      isValid = isValid && /^(.*?[0-9]).*$/.test(value);
+      console.log("VALIDATION number --> "+ /^(.*?[0-9]).*$/.test(value) + " for: " + value)
     }
   }
   return isValid;

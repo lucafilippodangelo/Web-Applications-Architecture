@@ -5,7 +5,7 @@ import './Input.css';
 
 //LD the "inputReducer" function gets in input "state and action" and returns a state depending on action type.
 const inputReducer = (state, action) => {
-  console.log("LD 001 OLD state.value-> "+ state.value);
+  //console.log("LD 001 OLD state.value-> "+ state.value);
   switch (action.type) {
     case 'TOUCH':
       return {
@@ -13,7 +13,7 @@ const inputReducer = (state, action) => {
         isTouched: true //this is a new field I need to add to the "Input" initial state
       };
       case 'CHANGE':
-        console.log("LD 002 action.val -> "+ action.val);
+        //console.log("LD 002 action.val -> "+ action.val);
       return {
         ...state, //copy all the content of the input state in a variable created on the fly
         value: action.val, //then override keys, in this case the value validation logic. "action.validators" come from "changeHandler"
@@ -46,10 +46,10 @@ const Input = props => {
   // This means if the component receives new props from its parent component or even 
   //when you change the state locally, the effect will run again.
   useEffect(() => {
-    console.log("LD 003 USE EFFECT INVOKED");
-    console.log("LD 003a passing back to caller ID -> " + id);
-    console.log("LD 003b passing back to caller VALUE -> " + value);
-    console.log("LD 003c passing back to caller IS VALID -> " + isValid);
+    //console.log("LD 003 USE EFFECT INVOKED");
+    //console.log("LD 003a passing back to caller ID -> " + id);
+    //console.log("LD 003b passing back to caller VALUE -> " + value);
+    //console.log("LD 003c passing back to caller IS VALID -> " + isValid);
 
     onInput(id, value, isValid) //LD trigging "onInput" and passing back to "NewSurfPlace.js"
   }, [id, value, isValid, onInput]); //LD this function is triggered any time some of the dependencies changes
