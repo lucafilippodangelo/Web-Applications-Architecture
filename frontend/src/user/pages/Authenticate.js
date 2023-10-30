@@ -80,9 +80,6 @@ const Authenticate = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
-    console.log('LD -> DOING AUTHENTICATION');
-
-
 
     if (isLoginMode) { //LOGIN
       try {
@@ -116,7 +113,10 @@ const Authenticate = () => {
           }
         );
         auth.login(responseData.id, responseData.token);
-      } catch (err) {}
+
+      } catch (err) {
+        console.log(err);
+      }
     }
 
   };
