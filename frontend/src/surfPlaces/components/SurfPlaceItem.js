@@ -84,7 +84,8 @@ const Surfplaceitem = props => {
           <UserBox className="place-item__content">
           {isLoading && <LoadingSpinner asOverlay/>}
           <div className="place-item__image">
-                  <img src={props.image} alt={props.name} />
+                  {/* <img src={props.image} alt={props.name} /> */}
+                  <img src={"https://i0.wp.com/www.courses.ie/wp-content/uploads/2019/07/TUD_RGB-1024x645-1024x645.png"} alt={props.name} />
                 </div>
                 <div className="place-item__info">
                   <h2>{props.name}</h2>
