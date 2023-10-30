@@ -50,11 +50,11 @@ export const validate = (value, validators) => {
     }
     if (validator.type === VALIDATOR_TYPE_CONTAINS_UPPERCASE) {  //LD will return true if the string contains any uppercase letters
       isValid = isValid && /^(.*?[A-Z]).*$/.test(value);
-      console.log("VALIDATION uppercase --> "+ /^(.*?[A-Z]).*$/.test(value) + " for: " + value)
+      //console.log("VALIDATION uppercase --> "+ /^(.*?[A-Z]).*$/.test(value) + " for: " + value)
     }
     if (validator.type === VALIDATOR_TYPE_CONTAINS_NUMBER) {  //LD will return true if the string contains any number
       isValid = isValid && /^(.*?[0-9]).*$/.test(value);
-      console.log("VALIDATION number --> "+ /^(.*?[0-9]).*$/.test(value) + " for: " + value)
+      //console.log("VALIDATION number --> "+ /^(.*?[0-9]).*$/.test(value) + " for: " + value)
     }
   }
   return isValid;

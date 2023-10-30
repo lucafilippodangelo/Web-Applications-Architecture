@@ -38,8 +38,8 @@ const formReducer = (state, action) => {
           isValid: formIsValid
         };
         case 'SET_DATA':
-          console.log("reducer SET_DATA");
-          console.log(action.inputs);
+          //console.log("reducer SET_DATA");
+          //console.log(action.inputs);
             return {
               inputs: action.inputs,
               isValid: action.formIsValid
@@ -73,8 +73,8 @@ export const useForm = (initialInputs, initialFormValidity) => {
   //LD new action, dispatch against our reducer.
   //the reference to the action is returned so in cese needed can be invoched
   const setFormData = useCallback((inputData, formValidity) => {
-    console.log("LD form-hook.js, FORM INPUT DATA -> ");
-    console.log(inputData);
+    //console.log("LD form-hook.js, FORM INPUT DATA -> ");
+    //console.log(inputData);
     dispatch({
       type: 'SET_DATA',
       inputs: inputData,
