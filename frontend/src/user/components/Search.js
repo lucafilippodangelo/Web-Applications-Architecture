@@ -1,6 +1,6 @@
 
 // src/components/Search.js
-import 'bootstrap/dist/css/bootstrap.css';
+import './Search.css';
 
 import React, { useState } from 'react';
 // import Scroll from './Scroll';
@@ -13,8 +13,8 @@ function Search({ details }) {
 console.log("DETAILS -> ");
 console.log(details);
 
-const filteredList = details.items.filter((pokemon) => {
-    return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
+const filteredList = details.items.filter((po) => {
+    return po.name.toLowerCase().includes(searchField.toLowerCase());
   });
 
   console.log("filteredList -> ");
@@ -34,17 +34,29 @@ const filteredList = details.items.filter((pokemon) => {
 
   return (
     <section>
-<div class="container">
-      <nav class="navbar ">
-              <input 
-                class="form-control mr-sm-2"
-                type = "search" 
-                aria-label="Search"
-                placeholder = "Search Surf Place Name" 
-                onChange = {handleChange}
-              />
-      </nav>
+        {/* <div class="container">
+          <nav class="navbar ">
+                  <input 
+                    class="searchTerm"
+                    type = "search" 
+                    aria-label="Search"
+                    placeholder = "Search Surf Place Name" 
+                    onChange = {handleChange}
+                  />
+          </nav>
+      </div> */}
+
+
+      <div class="topnav">
+        <input 
+                    type = "search" 
+                    aria-label="Search"
+                    placeholder = "Search Surf Place Name.." 
+                    onChange = {handleChange}
+                  />
       </div>
+
+
       {searchList()}
     </section>
   );

@@ -10,7 +10,7 @@ const Surfplacelist = props => {
     return (
       <div className="place-list center">
         <UserBox>
-          <h2>nothing ffs</h2>
+          <h2>no surf places for this surfer</h2>
           <Button to="/surfplaces/new">Create New Surf Place</Button>
         </UserBox>
       </div>
