@@ -5,7 +5,7 @@ import ErrorM from '../../shared/components/UI/ErrorM';
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
-import Surfplacelist from '../components/Surfplacelist.js';
+import SurfPlaceList from '../components/SurfPlaceList.js';
 
 
 
@@ -50,7 +50,7 @@ const Usersurfplaces = () => {
                 <LoadingSpinner />
               </div>
             )}
-            {!isLoading && loadedPlaces && <Surfplacelist items={loadedPlaces} onDeletePlace={surfPlaceDeletedHandler} />}
+            {!isLoading && loadedPlaces && <SurfPlaceList items={loadedPlaces} onDeletePlace={surfPlaceDeletedHandler} />}
           </React.Fragment>
         );
 };
