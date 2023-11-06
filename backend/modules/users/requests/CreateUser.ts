@@ -1,5 +1,7 @@
 import {checkSchema} from "express-validator";
 
+const passwordNegativeRegex = new RegExp("^(.{0,4}|[^0-9]*|[^A-Z]*)$");
+
 export const createUserSchema = checkSchema({
     name: {
         isLength: {
@@ -10,9 +12,9 @@ export const createUserSchema = checkSchema({
         isEmail: true
     },
     password: {
-        errorMessage: "Password must be 8 characters",
-        isLength: {
-            options: {min: 8}
+        errorMessage: "Password must contain 1 uppercase letter, 1 number and be a minimum of 5 characters in length",
+        custom: {
+            options: v => !passwordNegativeRegex.test(v)
         }
     },
     imageUrl: {
