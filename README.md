@@ -1,9 +1,38 @@
-# Web-Applications-Architecture
+# Web Applications Architectures
 
-20231007 - Scaffolding
-BE
-- run .net6 webapp project. Browser spin up enabled in "launchSettings.json". Dummy endpoint with collection https://localhost:7008/api/items
-- CORS enabled server side, Controller action decorated
 
-FE
-- run -> "npm start" sitting on "frontend" path. Project running on "http://localhost:3000/"(CORS mapped in BE)
+### Project Members
+- Luca Filippo D'Angelo
+- Dylan Caulfield
+
+### Technologies
+- React
+- Bootstrap
+- Express
+- TypeScript
+- MongoDB
+
+### Instructions to Run
+
+1. Start Docker
+
+2. Start Docker containers
+```shell
+docker compose -f backend/compose.yml up -d
+```
+
+3. Restore packages and start backend
+```shell
+cd backend
+npm install
+npm run start
+```
+
+4. Restore packages and start frontend (in another shell)
+```shell
+cd frontend
+npm install
+npm run start
+```
+
+5. Go to [localhost:3000](http://localhost:3000)
