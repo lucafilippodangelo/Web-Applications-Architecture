@@ -1,9 +1,6 @@
 
-// src/components/Search.js
 import './Search.css';
-
 import React, { useState } from 'react';
-// import Scroll from './Scroll';
 import SearchList from './SearchList';
 
 function Search({ details }) {
@@ -34,19 +31,6 @@ const filteredList = details.items.filter((po) => {
 
   return (
     <section>
-        {/* <div class="container">
-          <nav class="navbar ">
-                  <input 
-                    class="searchTerm"
-                    type = "search" 
-                    aria-label="Search"
-                    placeholder = "Search Surf Place Name" 
-                    onChange = {handleChange}
-                  />
-          </nav>
-      </div> */}
-
-
       <div class="topnav">
         <input 
                     type = "search" 

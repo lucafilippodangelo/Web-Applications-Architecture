@@ -108,6 +108,16 @@ import './NewSurfPlace.css';
             onInput={InputHandler} //LD see above
           /> 
   
+           <Input 
+            id= "tags"
+            element="input" 
+            type="text" 
+            label="Tags" 
+            validators={[VALIDATOR_REQUIRE()]} 
+            errorText="Please enter tags separated by coma"
+            onInput={InputHandler} //LD see above
+          /> 
+
         <Button type="submit" disabled={!formState.isValid}>
           ADD SURF PLACE
         </Button>

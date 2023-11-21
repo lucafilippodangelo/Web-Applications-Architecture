@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { NavLink } from 'react-router-dom'; //LD this should be a special link that can analyse the url
 
+
 import { authenticationContext } from '../../reactContext/authenticationContext';
 import './NavLinks.css';
 

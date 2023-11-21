@@ -5,6 +5,10 @@ import Surfplaceitem from './SurfPlaceItem';
 import Button from '../../shared/components/FormComponents/Button';
 import './Surfplacelist.css';
 
+// import Autocomplete from '@mui/material/Autocomplete';
+// import TextField from '@mui/material/TextField';
+// import Stack from '@mui/material/Stack';
+
 const Surfplacelist = props => {
   if (props.items.length === 0) {
     return (
@@ -17,8 +21,10 @@ const Surfplacelist = props => {
     );
   }
 
+  //else
   return (
     <ul className="place-list">
+
       {props.items.map(place => (
         <Surfplaceitem
           key={place.id}
@@ -28,6 +34,7 @@ const Surfplacelist = props => {
           description={place.description}
           address={place.address}
           creatorId={place.creatorId}
+          tags="tag001,tag002,tag003"
           //coordinates={place.location}
           onDelete={props.onDeletePlace}
         />

@@ -19,10 +19,10 @@ const Users = () => {
           'http://localhost:3001/api/users'
         );
         setLoadedUsers(responseData);
-        console.log(responseData);
+        //console.log(responseData);
       } catch (err) { }
     };
-    fetchUsers ();
+    fetchUsers();
   }, [sendRequest]); // LD "sendRequest" is now coming outside the "useEffect" that's why this is a dependency now
 
   
