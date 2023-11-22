@@ -5,6 +5,7 @@ import Button from '../../shared/components/FormComponents/Button';
 import Modal from '../../shared/components/UI/Modal';
 import ErrorM from '../../shared/components/UI/ErrorM';
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+import Map from '../../shared/components/UI/Map'
 import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -16,7 +17,11 @@ const Surfplaceitem = props => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const auth = useContext(authenticationContext);
 
+    const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+    const openMapHandler = () => setShowMap(true);
+    const closeMapHandler = () => setShowMap(false);
 
     const showDeleteWarningHandler = () => { 
       setShowConfirmModal(true);
@@ -55,6 +60,22 @@ const Surfplaceitem = props => {
         //LD using fragment to have a double access point with modal and the <li> div
         <React.Fragment>
           <ErrorM error={error} onClear={clearError} />
+
+          {/* //LD planning to show a map in a modal */}
+          <Modal show={showMap} 
+                 onCancel={closeMapHandler}
+                 header={props.address}
+                 contentClass = "place-item__modal-content"
+                 footerClass = "place-item__modal-actions"
+                 footer = {<Button onClick={closeMapHandler}>CLOSE</Button>} >
+
+          {/*BELOW CONTENT WILL BE RENDERED IN children of "Modal.js"->nested component */}
+          <div className="map-container">
+            <Map center={props.coordinates} zoom={16}/>
+          </div>
+          </ Modal>
+
+
           {/* //LD deletion modal */}
           <Modal
             show={showConfirmModal}
@@ -83,9 +104,12 @@ const Surfplaceitem = props => {
         <li className="place-item">
           <UserBox className="place-item__content">
           {isLoading && <LoadingSpinner asOverlay/>}
-          <div className="place-item__image">
+                {/* <div className="place-item__image"> */}
                   {/* <img src={props.image} alt={props.name} /> */}
-                  <img src={"https://i0.wp.com/www.courses.ie/wp-content/uploads/2019/07/TUD_RGB-1024x645-1024x645.png"} alt={props.name} />
+                  {/* <img src={"https://i0.wp.com/www.courses.ie/wp-content/uploads/2019/07/TUD_RGB-1024x645-1024x645.png"} alt={props.name} /> */}
+                {/* </div> */}
+                <div className="map-container">
+                  <Map center={props.coordinates} zoom={16}/>
                 </div>
                 <div className="place-item__info">
                   <h2>{props.name}</h2>
@@ -94,7 +118,9 @@ const Surfplaceitem = props => {
                   <p>{props.description}</p>
                 </div>
                 <div className="place-item__actions">
-                  {/* //LD will need to add map later. that stuff needs refinement */}
+                  <Button inverse onClick={openMapHandler}>
+                    - MAP -
+                  </Button>
 
                   {auth.userId === props.creatorId && 
                   (<Button to={`/surfplaces/${props.id}`}>EDIT</Button>)}
