@@ -3,7 +3,7 @@ import React from 'react';
 import UserBox from '../../shared/components/UI/UserBox';
 import Surfplaceitem from './SurfPlaceItem';
 import Button from '../../shared/components/FormComponents/Button';
-import './Surfplacelist.css';
+import './SurfPlaceList.css';
 
 // import Autocomplete from '@mui/material/Autocomplete';
 // import TextField from '@mui/material/TextField';
