@@ -2,29 +2,31 @@ import React from 'react';
 import './UserItem.css';
 
 // LD this will use DOM before that any routing or action in "App.js" is performed
-import { Link } from 'react-router-dom';
-
-import ImageBox from '../../shared/components/UI/ImageBox';
-import UserBox from '../../shared/components/UI/UserBox';
+import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const UserItem = props => {
     return (
-      <div className='user-item'>
-        <UserBox className="user-item__content">
-          <Link to={`/${props.id}/surfplacesx`}>
-                      <div className="user-item__image">
-                          <ImageBox image={props.image} alt={props.name} />
-                      </div>
-                      <div className="user-item__info">
-                          <h2>{props.name}</h2>
-                          <h3>
-                          {props.placeCount} {props.placeCount === 1 ? 'Surf Place' : 'Surf Places'}
-                          </h3>
-                      </div>
-          </Link>
-        </UserBox>
-      </div>
+
+        <Card>
+            <CardMedia
+                component={"img"}
+                image={props.image}
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    Lizard
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {`${props.placeCount} Surf Place${props.placeCount === 1 ? '' : 's'}`}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button component={Link} to={`/${props.id}/surfplacesx`}>View</Button>
+            </CardActions>
+        </Card>
+
     );
-  };
+};
 
 export default UserItem; 

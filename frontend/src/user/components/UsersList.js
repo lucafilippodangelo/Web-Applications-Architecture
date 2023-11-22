@@ -6,7 +6,7 @@ import Search from './Search';
 import UserBox from '../../shared/components/UI/UserBox';
 
 const UserList = props => {
-    if (props.items.lenght === 0)
+    if (props.items.length === 0)
     { //LD need to understand when to fill props 
 		return ( 
             <div className="center">

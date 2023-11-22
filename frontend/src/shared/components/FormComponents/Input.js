@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react';
 
 import {validate} from '../../useful/validators';
 import './Input.css';
+import TextField from "@mui/material/TextField";
 
 //LD the "inputReducer" function gets in input "state and action" and returns a state depending on action type.
 const inputReducer = (state, action) => {
@@ -70,7 +71,7 @@ const Input = props => {
 
   const element =
     props.element === 'input' ? (
-      <input
+      <TextField
         id={props.id}
         type={props.type}
         placeholder={props.placeholder}
@@ -78,26 +79,30 @@ const Input = props => {
         onBlur={touchHandler} // LD "onBlur" triggered when the user looses focus from the element, so I know the user has
         //at least cliccked in the textbox. This approach avid to throw error at the user by default
         value={inputState.value} //LD need to have current always binded
+          error={!inputState.isValid && inputState.isTouched}
+        label={props.label}
       />
     ) : (
-      <textarea
+      <TextField
+          multiline={true}
         id={props.id}
         rows={props.rows || 3}
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
+          error={!inputState.isValid && inputState.isTouched}
+          label={props.label}
       />
     );
 
   return (
-    <div
-      className={`form-control ${!inputState.isValid && inputState.isTouched && 'form-control--invalid'}`}
-    >
-      <label htmlFor={props.id}>{props.label}</label>
-      {/*//LD I want to be flexible and decide from outside the elements to render in the form*/}
+    <>
+      {/*LD I want to be flexible and decide from outside the elements to render in the form*/}
       {element}
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
-    </div>
+    </>
+
+
   );
 };
 

@@ -2,6 +2,8 @@
 import './Search.css';
 import React, { useState } from 'react';
 import SearchList from './SearchList';
+import {Container} from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 function Search({ details }) {
 
@@ -30,19 +32,24 @@ const filteredList = details.items.filter((po) => {
   }
 
   return (
-    <section>
-      <div class="topnav">
-        <input 
-                    type = "search" 
-                    aria-label="Search"
-                    placeholder = "Search Surf Place Name.." 
-                    onChange = {handleChange}
-                  />
-      </div>
+    <>
+
+        <Container>
+
+            <TextField
+                variant={"outlined"}
+                value={searchField}
+                onChange={handleChange}
+                label={"Search Surf Places"}
+                fullWidth={true}
+            />
+
+            {searchList()}
+
+        </Container>
 
 
-      {searchList()}
-    </section>
+    </>
   );
 }
 
