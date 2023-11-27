@@ -8,5 +8,6 @@ export interface IFindPlaceResponse {
         lat: number
         lng: number
     },
-    imageUrl?: string
+    imageUrl?: string,
+    tags: string[]
 }

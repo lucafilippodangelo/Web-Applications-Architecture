@@ -8,5 +8,6 @@ export interface ICreatePlaceResponse {
         lat: number
         lng: number
     },
-    imageUrl?: string
+    imageUrl?: string,
+    tags: string[]
 }

@@ -8,7 +8,8 @@ export interface IPlace {
     description: string
     coordinates: number[]
     imageUrl?: string
-    imageContentType?: string
+    imageContentType?: string,
+    tags: string[]
 }
 
 const placeSchema = new Schema<IPlace>({
@@ -44,6 +45,10 @@ const placeSchema = new Schema<IPlace>({
         type: String,
         required: false
     },
+    tags: {
+        type: [String],
+        required: true
+    }
 });
 
 export const PlaceModel = model<IPlace>("place", placeSchema);

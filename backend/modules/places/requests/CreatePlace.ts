@@ -23,5 +23,8 @@ export const createPlaceSchema = checkSchema({
     imageUrl: {
         optional: true,
         isString: true
+    },
+    tags: {
+        isArray: true
     }
 }, ["body"]);
