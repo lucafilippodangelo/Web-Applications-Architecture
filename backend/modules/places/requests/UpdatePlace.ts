@@ -9,14 +9,6 @@ export const updatePlaceSchema = checkSchema({
             }
         }
     },
-    address: {
-        isString: true,
-        isLength: {
-            options: {
-                min: 1
-            }
-        }
-    },
     description: {
         isString: true
     },

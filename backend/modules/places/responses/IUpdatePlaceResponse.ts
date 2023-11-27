@@ -8,5 +8,6 @@ export interface IUpdatePlaceResponse {
         lat: number
         lng: number
     },
-    imageUrl?: string
+    imageUrl?: string,
+    tags: string[]
 }

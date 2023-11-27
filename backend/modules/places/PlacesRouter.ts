@@ -34,7 +34,8 @@ router.get("", validate(findAllPlacesSchema), (req, res, next) => {
                             location: {
                                 lat: p.coordinates[1],
                                 lng: p.coordinates[0]
-                            }
+                            },
+                            tags: p.tags
                         }
                     })
                 return res.json(response);
@@ -66,7 +67,8 @@ router.get("/:placeId", (req, res, next) => {
                     location: {
                         lat: place.coordinates[1],
                         lng: place.coordinates[0]
-                    }
+                    },
+                    tags: place.tags
                 }
                 res.json(response);
 
@@ -85,7 +87,8 @@ router.post("", validate(createPlaceSchema), authenticate, (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         address: req.body.address,
-        imageUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags
     }
     createPlace(command)
         .then(result => {
@@ -102,7 +105,8 @@ router.post("", validate(createPlaceSchema), authenticate, (req, res, next) => {
                         lat: place.coordinates[1],
                         lng: place.coordinates[0]
                     },
-                    imageUrl: place.imageUrl ? encodeURIComponent(place.imageUrl) : undefined
+                    imageUrl: place.imageUrl ? encodeURIComponent(place.imageUrl) : undefined,
+                    tags: place.tags
                 }
                 return res.json(response);
 
@@ -139,9 +143,9 @@ router.put("/:placeId", validate(updatePlaceSchema), authenticate, (req, res, ne
         id: req.params.placeId,
         creatorId: req.user!.id,
         name: req.body.name,
-        address: req.body.address,
         description: req.body.description,
-        imageUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags
     })
         .then(result => {
 
@@ -157,7 +161,8 @@ router.put("/:placeId", validate(updatePlaceSchema), authenticate, (req, res, ne
                         lat: place.coordinates[1],
                         lng: place.coordinates[0]
                     },
-                    imageUrl: place.imageUrl
+                    imageUrl: place.imageUrl,
+                    tags: place.tags
                 }
                 res.json(response);
 

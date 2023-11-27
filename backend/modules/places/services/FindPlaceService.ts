@@ -19,7 +19,8 @@ export default async function findPlace(command: IFindPlaceCommand): Promise<Res
         address: place.address,
         description: place.description,
         coordinates: place.coordinates,
-        imageUrl: place.imageUrl
+        imageUrl: place.imageUrl,
+        tags: place.tags
     });
 
 }

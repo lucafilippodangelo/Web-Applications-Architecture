@@ -7,9 +7,9 @@ export interface IUpdatePlaceCommand {
     id: string
     creatorId: string
     name: string
-    address: string
     description: string
     imageUrl?: string
+    tags: string[]
 }
 
 export default async function updatePlace(command: IUpdatePlaceCommand): Promise<Result<IPlace>> {
@@ -19,8 +19,8 @@ export default async function updatePlace(command: IUpdatePlaceCommand): Promise
     if(place.creatorId != command.creatorId) return Result.error("You are not the creator of this place", StatusCodes.FORBIDDEN);
 
     const updatedPlace: IPlace = {
-        ...command,
-        coordinates: [0, 0]
+        ...place,
+        ...command
     }
     await PlacesRepository.updatePlace(updatedPlace);
     return Result.result(updatedPlace);

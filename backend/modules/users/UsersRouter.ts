@@ -130,7 +130,8 @@ router.get("/:userId/places", (req, res, next) => {
                             lat: p.coordinates[1],
                             lng: p.coordinates[0]
                         },
-                        creatorId: p.creatorId
+                        creatorId: p.creatorId,
+                        tags: p.tags
                     }
                 });
                 res.json(response);
