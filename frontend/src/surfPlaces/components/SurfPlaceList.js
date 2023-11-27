@@ -1,15 +1,11 @@
 import React from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
-import Surfplaceitem from './SurfPlaceItem';
+import SurfPlaceItem from './SurfPlaceItem';
 import Button from '../../shared/components/FormComponents/Button';
-import './SurfPlaceList.css';
+import Grid from '@mui/material/Unstable_Grid2';
 
-// import Autocomplete from '@mui/material/Autocomplete';
-// import TextField from '@mui/material/TextField';
-// import Stack from '@mui/material/Stack';
-
-const Surfplacelist = props => {
+const SurfPlaceList = props => {
   if (props.items.length === 0) {
     return (
       <div className="place-list center">
@@ -21,26 +17,26 @@ const Surfplacelist = props => {
     );
   }
 
-  //else
   return (
-    <ul className="place-list">
-
+    <Grid container spacing={2}>
       {props.items.map(place => (
-        <Surfplaceitem
-          key={place.id}
-          id={place.id}
-          //image={place.imageUrl}
-          name={place.name}
-          description={place.description}
-          address={place.address}
-          creatorId={place.creatorId}
-          tags={place.tags}
-          coordinates={place.location}
-          onDelete={props.onDeletePlace}
-        />
+        <Grid item xs={12} md={6}>
+          <SurfPlaceItem
+            key={place.id}
+            id={place.id}
+            //image={place.imageUrl}
+            name={place.name}
+            description={place.description}
+            address={place.address}
+            creatorId={place.creatorId}
+            tags={place.tags}
+            coordinates={place.location}
+            onDelete={props.onDeletePlace}
+          />
+        </Grid>
       ))}
-    </ul>
+    </Grid>
   );
 };
 
-export default Surfplacelist;
+export default SurfPlaceList;

@@ -101,7 +101,6 @@ const Surfplaceitem = props => {
 
 
 
-        <li className="place-item">
           <UserBox className="place-item__content">
           {isLoading && <LoadingSpinner asOverlay/>}
                 {/* <div className="place-item__image"> */}
@@ -133,7 +132,6 @@ const Surfplaceitem = props => {
 
                 </div>
           </UserBox>
-        </li>
 
 
     </React.Fragment>
