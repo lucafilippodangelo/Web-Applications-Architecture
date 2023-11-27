@@ -15,7 +15,7 @@ const UserItem = props => {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {props.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {`${props.placeCount} Surf Place${props.placeCount === 1 ? '' : 's'}`}

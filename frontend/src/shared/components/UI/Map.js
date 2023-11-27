@@ -18,12 +18,18 @@ const Map = props => {
     console.log("LD IN MAP RECEIVED---");
     console.log(center);
     console.log(mapRef.current);
+
+    const position = {
+        lat: props.center.lat,
+        lng: props.center.lng
+    }
+
     const map = new window.google.maps.Map(mapRef.current, {
-      center: { lat: parseFloat("37.3533"), lng: parseFloat("14.7638") },//center,
+      center: position,//center,
       zoom: zoom
     });
     //LD render a marker
-    new window.google.maps.Marker({ position:  { lat: parseFloat("37.3533"), lng: parseFloat("14.7638") }, map: map });
+    new window.google.maps.Marker({ position, map });
   }, [center, zoom]);  
 
   return (

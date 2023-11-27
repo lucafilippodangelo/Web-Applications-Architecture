@@ -13,6 +13,7 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 import './NewSurfPlace.css';
+import {Divider, Typography} from "@mui/material";
   
   const NewSurfPlace = () => {
     
@@ -62,7 +63,8 @@ import './NewSurfPlace.css';
           //description: formState.inputs.description.value,
           address: formState.inputs.address.value,
           description: formState.inputs.description.value, //TO BE REMOVED
-          imageUrl: "images/2.jpg"
+          imageUrl: "images/2.jpg",
+          tags: formState.inputs.tags.value.split(",")
         }),
         { 'Content-Type': 'application/json',
           'Authorization' : auth.token
@@ -77,12 +79,16 @@ import './NewSurfPlace.css';
     return (
       <form className="place-form" onSubmit={placeSubmitHandler}>
         {/* //LD going to call personalised "Input.js" */}
-        
+
+          <Typography sx={{mb: 2}} variant={"h4"} component={"h1"} fontWeight={"bold"}>Surf Place</Typography>
+
+          <Divider sx={{mb: 3}} />
+
         <Input 
           id= "name"
           element="input" 
           type="text" 
-          label="Name" 
+          label="Name"
           validators={[VALIDATOR_REQUIRE()]} //LD check input not empty
           errorText="Please enter a valid name."
           onInput={InputHandler} //LD when nested "Input" triggers "onInput" pass back "id, value, isValid" that in this case will be passed as input to "InputHandler"

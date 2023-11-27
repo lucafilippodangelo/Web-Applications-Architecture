@@ -34,7 +34,7 @@ const Surfplacelist = props => {
           description={place.description}
           address={place.address}
           creatorId={place.creatorId}
-          tags="tag001,tag002,tag003"
+          tags={place.tags}
           coordinates={place.location}
           onDelete={props.onDeletePlace}
         />

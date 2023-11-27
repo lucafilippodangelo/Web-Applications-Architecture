@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 
 
 const Usersurfplaces = () => {
-  const [loadedPlaces, setLoadedPlaces] = useState();
+  const [loadedPlaces, setLoadedPlaces] = useState([]);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 
