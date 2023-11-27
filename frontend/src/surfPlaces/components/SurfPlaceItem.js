@@ -114,7 +114,7 @@ const Surfplaceitem = props => {
                 <div className="place-item__info">
                   <h2>{props.name}</h2>
                   <h3>{props.address}</h3>
-                  <h3>{props.tags}</h3>
+                  <h3>{props.tags.map(t => <span>#{t} </span>)}</h3>
                   <p>{props.description}</p>
                 </div>
                 <div className="place-item__actions">

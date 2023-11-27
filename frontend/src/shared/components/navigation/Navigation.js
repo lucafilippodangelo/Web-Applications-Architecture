@@ -22,9 +22,6 @@ const Navigation = props => {
     setDrawerIsOpen(false);
   }
 
-
-
-
   return (
     <React.Fragment> {/*LD Useful to wrap two header divs. JSX allow one single entrance point */}
 

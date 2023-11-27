@@ -13,7 +13,7 @@ console.log("DETAILS -> ");
 console.log(details);
 
 const filteredList = details.items.filter((po) => {
-    return po.name.toLowerCase().includes(searchField.toLowerCase());
+    return po.name.toLowerCase().includes(searchField.trim().toLowerCase());
   });
 
   console.log("filteredList -> ");
@@ -40,8 +40,11 @@ const filteredList = details.items.filter((po) => {
                 variant={"outlined"}
                 value={searchField}
                 onChange={handleChange}
-                label={"Search Surf Places"}
+                label={"Search Users"}
                 fullWidth={true}
+                name={"search"}
+                type={"text"}
+                sx={{mb: 3}}
             />
 
             {searchList()}
