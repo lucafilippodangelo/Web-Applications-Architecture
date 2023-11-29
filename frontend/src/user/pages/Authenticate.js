@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
 import Input from '../../shared/components/FormComponents/Input';
-import Button from '../../shared/components/FormComponents/Button';
 import ErrorModal from '../../shared/components/UI/ErrorM';
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
@@ -16,6 +15,7 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 import './Authenticate.css';
+import {Button} from "@mui/material";
 
 const Authenticate = () => {
 
@@ -159,11 +159,11 @@ const Authenticate = () => {
           errorText="Please enter a valid password -> at least 5 characters, at least one uppercase, at lease one number"
           onInput={inputHandler}
         />
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button variant={"contained"} type="submit" disabled={!formState.isValid}>
           {isLoginMode ? 'LOGIN' : 'SIGNUP'}
         </Button>
       </form>
-      <Button inverse onClick={switchModeHandler}>
+      <Button variant={"contained"} inverse onClick={switchModeHandler}>
         SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
       </Button>
     </UserBox>

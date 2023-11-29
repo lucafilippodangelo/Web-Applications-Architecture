@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 
 import {validate} from '../../useful/validators';
-import './Input.css';
 import TextField from "@mui/material/TextField";
 import {Typography} from "@mui/material";
 

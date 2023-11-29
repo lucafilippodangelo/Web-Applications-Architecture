@@ -1,11 +1,7 @@
 import React, {useContext} from 'react';
 import { useHistory } from 'react-router-dom';
-
 import Input from '../../shared/components/FormComponents/Input';
-import Button from '../../shared/components/FormComponents/Button';
 import ErrorModal from '../../shared/components/UI/ErrorM';
-// import ErrorM from '../../shared/components/UI/ErrorM';
-// import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -15,12 +11,12 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 import './NewSurfPlace.css';
-import {Divider, Typography} from "@mui/material";
+import {Button, Divider, Typography} from "@mui/material";
   
   const NewSurfPlace = () => {
     
   const auth = useContext(authenticationContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const {error, sendRequest, clearError } = useHttpClient();
   
 
   // NOTE -> following "LD (STEP THREE)" in "form-hook.js" I can now call 
@@ -128,7 +124,7 @@ import {Divider, Typography} from "@mui/material";
             onInput={InputHandler} //LD see above
           /> 
 
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button variant={"contained"} type="submit" disabled={!formState.isValid}>
           ADD SURF PLACE
         </Button>
   

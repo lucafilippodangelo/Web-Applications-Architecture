@@ -2,8 +2,9 @@ import React from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
 import SurfPlaceItem from './SurfPlaceItem';
-import Button from '../../shared/components/FormComponents/Button';
 import Grid from '@mui/material/Unstable_Grid2';
+import {Button} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const SurfPlaceList = props => {
   if (props.items.length === 0) {
@@ -11,7 +12,7 @@ const SurfPlaceList = props => {
       <div className="place-list center">
         <UserBox>
           <h2>no surf places for this surfer</h2>
-          <Button to="/surfplaces/new">Create New Surf Place</Button>
+          <Button variant={"contained"} component={Link} to="/surfplaces/new">Create New Surf Place</Button>
         </UserBox>
       </div>
     );

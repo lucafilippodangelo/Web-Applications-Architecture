@@ -2,8 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormComponents/Input';
-import Button from '../../shared/components/FormComponents/Button';
-import UserBox from '../../shared/components/UI/UserBox' 
+import UserBox from '../../shared/components/UI/UserBox'
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import ErrorM from '../../shared/components/UI/ErrorM';
 
@@ -17,7 +16,8 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { authenticationContext } from '../../shared/reactContext/authenticationContext';
 
-import './NewSurfPlace.css'; //LD reusing
+import './NewSurfPlace.css';
+import {Button} from "@mui/material"; //LD reusing
 
 
 
@@ -187,7 +187,7 @@ const UpdateSurfPlace = () => {
            initialValid={true}
          />
 
-         <Button type="submit" disabled={!formState.isValid}>
+         <Button variant={"contained"} type="submit" disabled={!formState.isValid}>
            UPDATE SURF PLACE
          </Button>
        </form>

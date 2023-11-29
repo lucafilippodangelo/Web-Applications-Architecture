@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Modal from './Modal';
-import Button from '../FormComponents/Button';
+import {Button} from "@mui/material";
 
 const ErrorModal = props => {
   return (
@@ -9,7 +9,7 @@ const ErrorModal = props => {
       onCancel={props.onClear}
       header="An Error Occurred!"
       show={!!props.error}
-      footer={<Button onClick={props.onClear}>Okay</Button>}
+      footer={<Button variant={"contained"} onClick={props.onClear}>Okay</Button>}
     >
       <p>{props.error}</p>
     </Modal>

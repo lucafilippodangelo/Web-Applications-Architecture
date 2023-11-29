@@ -1,7 +1,6 @@
 import React, {useState, useContext} from 'react';
 
 import UserBox from '../../shared/components/UI/UserBox';
-import Button from '../../shared/components/FormComponents/Button';
 import Modal from '../../shared/components/UI/Modal';
 import ErrorM from '../../shared/components/UI/ErrorM';
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
@@ -11,6 +10,8 @@ import { authenticationContext } from '../../shared/reactContext/authenticationC
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
 import './SurfPlaceItem.css';
+import {Button} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const Surfplaceitem = props => {
 
@@ -84,10 +85,10 @@ const Surfplaceitem = props => {
             footerClass="place-item__modal-actions"
             footer={
               <React.Fragment>
-                <Button inverse onClick={cancelDeleteHandler}>
+                <Button variant={"contained"} inverse onClick={cancelDeleteHandler}>
                   CANCEL
                 </Button>
-                <Button danger onClick={confirmDeleteHandler}>
+                <Button variant={"contained"} danger onClick={confirmDeleteHandler}>
                   DELETE
                 </Button>
               </React.Fragment>
@@ -122,10 +123,10 @@ const Surfplaceitem = props => {
                   </Button> */}
 
                   {auth.userId === props.creatorId && 
-                  (<Button to={`/surfplaces/${props.id}`}>EDIT</Button>)}
+                  (<Button component={Link} variant={"contained"} to={`/surfplaces/${props.id}`}>EDIT</Button>)}
                   
                   {auth.userId === props.creatorId && 
-                  (<Button danger onClick={showDeleteWarningHandler}> DELETE </Button>)}
+                  (<Button variant={"contained"} danger onClick={showDeleteWarningHandler}> DELETE </Button>)}
                  
                   
 
