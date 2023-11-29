@@ -2,6 +2,7 @@ import Result from "../../../core/Result";
 import {IPlace} from "../../../models/Place";
 import {PlacesRepository} from "../PlacesRepository";
 import StatusCodes from "http-status-codes";
+import distinctTags from "../util/DistinctTags";
 
 export interface IUpdatePlaceCommand {
     id: string
@@ -24,7 +25,7 @@ export default async function updatePlace(command: IUpdatePlaceCommand): Promise
         name: command.name,
         address: place.address,
         description: command.description,
-        tags: command.tags,
+        tags: distinctTags(command.tags),
         coordinates: place.coordinates
     }
     await PlacesRepository.updatePlace(updatedPlace);

@@ -4,6 +4,7 @@ import {PlacesRepository} from "../PlacesRepository";
 import Result from "../../../core/Result";
 import findAddress from "./AddressService";
 import { StatusCodes } from "http-status-codes";
+import distinctTags from "../util/DistinctTags";
 
 export interface ICreatePlaceCommand {
     creatorId: string
@@ -22,6 +23,7 @@ export default async function createPlace(command: ICreatePlaceCommand): Promise
     const place: IPlace = {
         id: randomUUID(),
         ...command,
+        tags: distinctTags(command.tags),
         address: address.address,
         coordinates: address.coordinates,
     }
