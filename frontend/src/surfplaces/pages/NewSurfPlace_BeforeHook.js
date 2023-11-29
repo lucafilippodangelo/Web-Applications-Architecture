@@ -65,8 +65,8 @@ const formReducer = (state, action) => {
   
     const placeSubmitHandler = event => {
       event.preventDefault(); //avoid the browser to submit request and causing page reload
-      console.log("LD send to BE -> "); 
-      console.log(formState.inputs); 
+
+
     };
   
   

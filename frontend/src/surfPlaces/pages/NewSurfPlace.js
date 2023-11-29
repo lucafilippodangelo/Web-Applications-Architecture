@@ -46,11 +46,11 @@ import {Button, Divider, Typography} from "@mui/material";
   const placeSubmitHandler = async event => {
     event.preventDefault();
     
-    console.log("LD what will be SENT TO BE -> "); 
-    console.log(formState.inputs); // send this to the backend!
 
-    console.log("CURRENT CONTEXT LOGGED IN USER -> " + auth.userId); 
-    console.log("CURRENT CONTEXT TOKEN -> " + auth.token); 
+
+
+
+
 
     try {
       await sendRequest(

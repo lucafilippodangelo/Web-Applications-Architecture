@@ -15,7 +15,7 @@ export const useHttpClient = () => {
   const sendRequest = useCallback(
     async (url, method = 'GET', body = null, headers = {}) => {
 
-      //console.log("LD HTTP HOOK RECEIVED URL -> " + url);
+
 
       setIsLoading(true);//REACT updates straight away with the spinner because 
       //detect that the below actions are async and there will be some time gap
@@ -34,15 +34,15 @@ export const useHttpClient = () => {
         });
 
         //LD REFERENCE_001
-        // console.log("LD 001 RESPONSE STATUS -> ");
-        // console.log(response.status); 
+
+
 
         //LD HANDLING MAIL ALREADY USED CASE
         if (response.status === 400) 
         {
           const responseJSON = await response.json();
-          console.log("there --> ");
-          console.log(responseJSON.message);
+
+
           throw new Error(responseJSON.message);
         }
 
@@ -51,7 +51,7 @@ export const useHttpClient = () => {
         if (response.status !== 204) //204 is DELETE SUCCESS. (no content is returned)
         {
           responseData = await response.json();
-          console.log("- - - LD no 204 request - - - ");
+
         }
 
         //LD when having successful response need to remove "httpAbortCtrl"
@@ -65,14 +65,14 @@ export const useHttpClient = () => {
         // *****************************
         //LD GENERATING ERROR IF 204, when it should not with the 200 family
         if (!response.ok) {
-            //console.log("LD SOMETHING WEIRD HAPPENED hook -> " );
+
             throw new Error(response.message);
         }
         
         setIsLoading(false);
         return responseData;
       } catch (err) {
-        //console.log("LD SOMETHING WEIRD HAPPENED hook two -> " );
+
         setError(err.message);
         setIsLoading(false);
         throw err;//throwing it to let component using the hook that an error was fired

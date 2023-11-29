@@ -66,7 +66,7 @@ const Usersurfplaces = () => {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        //console.log("- LD UserSurfPlaces.js CALLING WITH USER ID -> " + userId);
+
         const responseData = await sendRequest(
           "http://localhost:3001/api/places?creatorId=" + userId
         );

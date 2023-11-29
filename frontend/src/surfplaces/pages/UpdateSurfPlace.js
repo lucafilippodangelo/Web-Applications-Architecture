@@ -56,12 +56,12 @@ const UpdateSurfPlace = () => {
   useEffect(() => {
     const fetchPlace = async () => {
       try {
-        console.log(" --> LD UpdateSurfPlace FETCH place ID ");
+
         const responseData = await sendRequest(
           "http://localhost:3001/api/places/" + placeId
         );
-        console.log(" --> LD UpdateSurfPlace DATA WILL BE SENT TO HTTP HOOK -> ");
-        console.log(responseData);
+
+
 
         setLoadedPlace(responseData);
 
@@ -84,7 +84,7 @@ const UpdateSurfPlace = () => {
         );
 
       } catch (err) {
-        console.log(" --> LD UpdateSurfPlace FETCH ERROR !!! ");
+
       }
     };
     fetchPlace();
@@ -96,12 +96,12 @@ const UpdateSurfPlace = () => {
   const placeUpdateSubmitHandler = async event => {
     event.preventDefault();
     
-    console.log("LD in UpdateSurfPlace ->USED URL -> ");
-    console.log("http://localhost:3001/api/places/" + placeId);
+
+
 
 
     try {
-      //console.log("LD in UpdateSurfPlace ->TRY TO SUBMIT UPDATED DATA");
+
       var testReturnedStuff = await sendRequest(
         "http://localhost:3001/api/places/" + placeId,
         "PUT",
@@ -118,14 +118,14 @@ const UpdateSurfPlace = () => {
       );
 
 
-      console.log("LD RETURNED UPDATED -> ");
-      console.log(testReturnedStuff);
+
+
 
       history.push('/' + auth.userId + '/surfplacesx');
     } catch (err) {
 
-      console.log("LD in UpdateSurfPlace -> update place ID ERROR");
-      console.log(err);
+
+
     }
   };
 

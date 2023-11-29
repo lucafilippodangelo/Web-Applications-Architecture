@@ -15,9 +15,9 @@ const Map = props => {
   // where "[center, zoom]" are the 2 properties then when changinf 
   // trigger the reload of the map
   useEffect(() => {
-    console.log("LD IN MAP RECEIVED---");
-    console.log(center);
-    console.log(mapRef.current);
+
+
+
 
     const position = {
         lat: props.center.lat,

@@ -35,7 +35,7 @@ const Surfplaceitem = props => {
 
       const confirmDeleteHandler = async () => {
         setShowConfirmModal(false);
-        console.log('LD DELETING...');
+
         try {
           await sendRequest(
             "http://localhost:3001/api/places/" + props.id,
@@ -50,9 +50,9 @@ const Surfplaceitem = props => {
           );
           props.onDelete(props.id);
         } catch (err) {
-          console.log('LD DELETING... ERROR');
-          console.log(err);
-          console.log('LD DELETING... ERROR END');
+
+
+
         }
       };
     

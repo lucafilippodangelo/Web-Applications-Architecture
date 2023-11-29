@@ -115,7 +115,7 @@ const Authenticate = () => {
         auth.login(responseData.id, responseData.token);
 
       } catch (err) {
-        console.log(err);
+
       }
     }
 

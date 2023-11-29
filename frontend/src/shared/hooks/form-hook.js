@@ -14,11 +14,11 @@ import { useCallback, useReducer } from 'react';
 const formReducer = (state, action) => {
     switch (action.type) {
       case 'INPUT_CHANGE':
-        //console.log("LD IN INPUT BLOCK");
+
         let formIsValid = true;
         //go through all the inputs to verify if they are valid. first time it gets executed this for loops the default state
         for (const inputId in state.inputs) {
-          //console.log("LD IN INPUT BLOCK LOOPING");
+
           if(!state.inputs[inputId]){
             continue;
           }
@@ -38,8 +38,8 @@ const formReducer = (state, action) => {
           isValid: formIsValid
         };
         case 'SET_DATA':
-          //console.log("reducer SET_DATA");
-          //console.log(action.inputs);
+
+
             return {
               inputs: action.inputs,
               isValid: action.formIsValid
@@ -73,8 +73,8 @@ export const useForm = (initialInputs, initialFormValidity) => {
   //LD new action, dispatch against our reducer.
   //the reference to the action is returned so in cese needed can be invoched
   const setFormData = useCallback((inputData, formValidity) => {
-    //console.log("LD form-hook.js, FORM INPUT DATA -> ");
-    //console.log(inputData);
+
+
     dispatch({
       type: 'SET_DATA',
       inputs: inputData,
