@@ -117,21 +117,15 @@ const Surfplaceitem = props => {
                   <h3>{props.tags.map(t => <span>#{t} </span>)}</h3>
                   <p>{props.description}</p>
                 </div>
-                <div className="place-item__actions">
-                  {/* <Button inverse onClick={openMapHandler}>
-                    - MAP -
-                  </Button> */}
+                {auth.userId === props.creatorId &&
+                  <div className="place-item__actions">
 
-                  {auth.userId === props.creatorId && 
-                  (<Button component={Link} variant={"contained"} to={`/surfplaces/${props.id}`}>EDIT</Button>)}
+                  <Button component={Link} variant={"contained"} to={`/surfplaces/${props.id}`}>EDIT</Button>
                   
-                  {auth.userId === props.creatorId && 
-                  (<Button variant={"contained"} danger onClick={showDeleteWarningHandler}> DELETE </Button>)}
-                 
-                  
-
+                  <Button variant={"contained"} danger onClick={showDeleteWarningHandler}> DELETE </Button>
 
                 </div>
+                }
           </UserBox>
 
 
