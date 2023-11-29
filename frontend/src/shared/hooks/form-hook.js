@@ -5,7 +5,7 @@
 // =====================================================
 
 //GOAL is to hold all the user logic that was is in "NewSurfPlace.js"
-import { useCallback, useReducer } from 'react';
+import {useCallback, useReducer} from 'react';
 
 //LD (STEP TWO)
 //cut and pasting the "formReducer" from "NewSurfPlace.js". I can look at 
@@ -13,79 +13,79 @@ import { useCallback, useReducer } from 'react';
 // NOTE -> THIS CREATE A NEW REACT STATE ANY TIME IT IS EXECUTED 
 const formReducer = (state, action) => {
     switch (action.type) {
-      case 'INPUT_CHANGE':
+        case 'INPUT_CHANGE':
 
-        let formIsValid = true;
-        //go through all the inputs to verify if they are valid. first time it gets executed this for loops the default state
-        for (const inputId in state.inputs) {
+            let formIsValid = true;
+            //go through all the inputs to verify if they are valid. first time it gets executed this for loops the default state
+            for (const inputId in state.inputs) {
 
-          if(!state.inputs[inputId]){
-            continue;
-          }
-          if (inputId === action.inputId) {
-            formIsValid = formIsValid && action.isValid;
-          } else {
-            formIsValid = formIsValid && state.inputs[inputId].isValid;
-          }
-        }
-        return {
-          ...state,
-          inputs: {
-            ...state.inputs,
-            //below I'm updating the specific object with "value" and "isValid" current content
-            [action.inputId]: { value: action.value, isValid: action.isValid }
-          },
-          isValid: formIsValid
-        };
+                if (!state.inputs[inputId]) {
+                    continue;
+                }
+                if (inputId === action.inputId) {
+                    formIsValid = formIsValid && action.isValid;
+                } else {
+                    formIsValid = formIsValid && state.inputs[inputId].isValid;
+                }
+            }
+            return {
+                ...state,
+                inputs: {
+                    ...state.inputs,
+                    //below I'm updating the specific object with "value" and "isValid" current content
+                    [action.inputId]: {value: action.value, isValid: action.isValid}
+                },
+                isValid: formIsValid
+            };
         case 'SET_DATA':
 
 
             return {
-              inputs: action.inputs,
-              isValid: action.formIsValid
+                inputs: action.inputs,
+                isValid: action.formIsValid
             };
-      default:
-        return state;
+        default:
+            return state;
     }
-  };
+};
 
 
 //LD (STEP ONE)
 // this is the custom hook. Have to EXPORT and the name has to start with "use"(In this case "useForm")
 export const useForm = (initialInputs, initialFormValidity) => {
-  //LD (STEP THREE)
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: initialInputs,
-    isValid: initialFormValidity
-  });
-
-  //LD (STEP FOUR)
-  // cut the "inputHandler" from "NewSurfPlace.js" and paste inside the hook function
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: 'INPUT_CHANGE',
-      value: value,
-      isValid: isValid,
-      inputId: id
+    //LD (STEP THREE)
+    const [formState, dispatch] = useReducer(formReducer, {
+        inputs: initialInputs,
+        isValid: initialFormValidity
     });
-  }, []);
 
-  //LD new action, dispatch against our reducer.
-  //the reference to the action is returned so in cese needed can be invoched
-  const setFormData = useCallback((inputData, formValidity) => {
+    //LD (STEP FOUR)
+    // cut the "inputHandler" from "NewSurfPlace.js" and paste inside the hook function
+    const inputHandler = useCallback((id, value, isValid) => {
+        dispatch({
+            type: 'INPUT_CHANGE',
+            value: value,
+            isValid: isValid,
+            inputId: id
+        });
+    }, []);
+
+    //LD new action, dispatch against our reducer.
+    //the reference to the action is returned so in cese needed can be invoched
+    const setFormData = useCallback((inputData, formValidity) => {
 
 
-    dispatch({
-      type: 'SET_DATA',
-      inputs: inputData,
-      formIsValid: formValidity
-    });
-  }, []);
+        dispatch({
+            type: 'SET_DATA',
+            inputs: inputData,
+            formIsValid: formValidity
+        });
+    }, []);
 
 
-  //LD (STEP FIVE)
-  // I want to return a pointer to "inputHandler" in order to call it. 
-  // Then I want to return the form state
-  return [formState, inputHandler, setFormData]; //LD returning the form state and an handler to the hunction "inoutHandler"
+    //LD (STEP FIVE)
+    // I want to return a pointer to "inputHandler" in order to call it.
+    // Then I want to return the form state
+    return [formState, inputHandler, setFormData]; //LD returning the form state and an handler to the hunction "inoutHandler"
 };
 //EXPORT END

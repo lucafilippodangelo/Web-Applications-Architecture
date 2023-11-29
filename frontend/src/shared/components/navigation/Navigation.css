@@ -8,38 +8,39 @@
     justify-content: space-around;
     margin-right: 2rem;
     cursor: pointer;
-  }
-  
-  .navigation__menu-btn span {
+}
+
+.navigation__menu-btn span {
     display: block;
     width: 3rem;
     height: 2.5px;
     background: rgb(155, 29, 29);
-  }
-  
-  .navigation__title {
+}
+
+.navigation__title {
     color: white;
-  }
-  
-  .navigation__title a {
+}
+
+.navigation__title a {
     text-decoration: none;
     color: white;
-  }
-  
-  .navigation__header-nav {
+}
+
+.navigation__header-nav {
     display: none;
-  }
-  
-  .navigation__drawer-nav {
+}
+
+.navigation__drawer-nav {
     height: 100%;
-  }
-  
-  @media (min-width: 768px) { /*LD https://www.w3schools.com/css/css_rwd_mediaqueries.asp*/
+}
+
+@media (min-width: 768px) {
+    /*LD https://www.w3schools.com/css/css_rwd_mediaqueries.asp*/
     .navigation__menu-btn {
-      display: none;
+        display: none;
     }
-  
+
     .navigation__header-nav {
-      display: block;
+        display: block;
     }
-  }
+}

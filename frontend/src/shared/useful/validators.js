@@ -9,59 +9,59 @@ const VALIDATOR_TYPE_CONTAINS_UPPERCASE = 'UPPERCASE';
 const VALIDATOR_TYPE_CONTAINS_NUMBER = 'NUMBER';
 const VALIDATOR_TYPE_SEPARATED_BY_COMA = 'COMA';
 
-export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
-export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
+export const VALIDATOR_REQUIRE = () => ({type: VALIDATOR_TYPE_REQUIRE});
+export const VALIDATOR_FILE = () => ({type: VALIDATOR_TYPE_FILE});
 export const VALIDATOR_MINLENGTH = val => ({
-  type: VALIDATOR_TYPE_MINLENGTH,
-  val: val
+    type: VALIDATOR_TYPE_MINLENGTH,
+    val: val
 });
 export const VALIDATOR_MAXLENGTH = val => ({
-  type: VALIDATOR_TYPE_MAXLENGTH,
-  val: val
+    type: VALIDATOR_TYPE_MAXLENGTH,
+    val: val
 });
-export const VALIDATOR_MIN = val => ({ type: VALIDATOR_TYPE_MIN, val: val }); //return a validator description
-export const VALIDATOR_MAX = val => ({ type: VALIDATOR_TYPE_MAX, val: val });
-export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
+export const VALIDATOR_MIN = val => ({type: VALIDATOR_TYPE_MIN, val: val}); //return a validator description
+export const VALIDATOR_MAX = val => ({type: VALIDATOR_TYPE_MAX, val: val});
+export const VALIDATOR_EMAIL = () => ({type: VALIDATOR_TYPE_EMAIL});
 
-export const VALIDATOR_CONTAINS_UPPERCASE = () => ({ type: VALIDATOR_TYPE_CONTAINS_UPPERCASE });
-export const VALIDATOR_CONTAINS_NUMBER = () => ({ type: VALIDATOR_TYPE_CONTAINS_NUMBER});
-export const VALIDATOR_SEPARATED_BY_COMA = () => ({ type: VALIDATOR_TYPE_SEPARATED_BY_COMA});
+export const VALIDATOR_CONTAINS_UPPERCASE = () => ({type: VALIDATOR_TYPE_CONTAINS_UPPERCASE});
+export const VALIDATOR_CONTAINS_NUMBER = () => ({type: VALIDATOR_TYPE_CONTAINS_NUMBER});
+export const VALIDATOR_SEPARATED_BY_COMA = () => ({type: VALIDATOR_TYPE_SEPARATED_BY_COMA});
 
 //"validate" function gets in input a value and an array of validators 
 //to run against that value
 export const validate = (value, validators) => {
-  let isValid = true;
-  for (const validator of validators) {
-    if (validator.type === VALIDATOR_TYPE_REQUIRE) {
-      isValid = isValid && value.trim().length > 0;
-    }
-    if (validator.type === VALIDATOR_TYPE_MINLENGTH) {
-      isValid = isValid && value.trim().length >= validator.val;
-    }
-    if (validator.type === VALIDATOR_TYPE_MAXLENGTH) {
-      isValid = isValid && value.trim().length <= validator.val;
-    }
-    if (validator.type === VALIDATOR_TYPE_MIN) {
-      isValid = isValid && +value >= validator.val;
-    }
-    if (validator.type === VALIDATOR_TYPE_MAX) {
-      isValid = isValid && +value <= validator.val;
-    }
-    if (validator.type === VALIDATOR_TYPE_EMAIL) {
-      isValid = isValid && /^\S+@\S+\.\S+$/.test(value);
-    }
-    if (validator.type === VALIDATOR_TYPE_CONTAINS_UPPERCASE) {  //LD will return true if the string contains any uppercase letters
-      isValid = isValid && /^(.*?[A-Z]).*$/.test(value);
+    let isValid = true;
+    for (const validator of validators) {
+        if (validator.type === VALIDATOR_TYPE_REQUIRE) {
+            isValid = isValid && value.trim().length > 0;
+        }
+        if (validator.type === VALIDATOR_TYPE_MINLENGTH) {
+            isValid = isValid && value.trim().length >= validator.val;
+        }
+        if (validator.type === VALIDATOR_TYPE_MAXLENGTH) {
+            isValid = isValid && value.trim().length <= validator.val;
+        }
+        if (validator.type === VALIDATOR_TYPE_MIN) {
+            isValid = isValid && +value >= validator.val;
+        }
+        if (validator.type === VALIDATOR_TYPE_MAX) {
+            isValid = isValid && +value <= validator.val;
+        }
+        if (validator.type === VALIDATOR_TYPE_EMAIL) {
+            isValid = isValid && /^\S+@\S+\.\S+$/.test(value);
+        }
+        if (validator.type === VALIDATOR_TYPE_CONTAINS_UPPERCASE) {  //LD will return true if the string contains any uppercase letters
+            isValid = isValid && /^(.*?[A-Z]).*$/.test(value);
 
-    }
-    if (validator.type === VALIDATOR_TYPE_CONTAINS_NUMBER) {  //LD will return true if the string contains any number
-      isValid = isValid && /^(.*?[0-9]).*$/.test(value);
+        }
+        if (validator.type === VALIDATOR_TYPE_CONTAINS_NUMBER) {  //LD will return true if the string contains any number
+            isValid = isValid && /^(.*?[0-9]).*$/.test(value);
 
+        }
+        if (validator.type === VALIDATOR_TYPE_SEPARATED_BY_COMA) {  //LD will return true if the string contains any number
+            isValid = isValid && /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/.test(value);
+
+        }
     }
-    if (validator.type === VALIDATOR_TYPE_SEPARATED_BY_COMA) {  //LD will return true if the string contains any number
-      isValid = isValid && /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/.test(value);
-      
-    }
-  }
-  return isValid;
+    return isValid;
 };
