@@ -180,7 +180,7 @@ const UpdateSurfPlace = () => {
            id="tags"
            element="input"
            label="Tags"
-           validators={[VALIDATOR_SEPARATED_BY_COMA()]}
+           validators={[VALIDATOR_SEPARATED_BY_COMA(),VALIDATOR_REQUIRE()]}
            errorText="Tags need to: be letters or number with no spaces separated by coma"
            onInput={inputHandler}
            initialValue={loadedPlace.tags}

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormComponents/Input';
 import Button from '../../shared/components/FormComponents/Button';
+import ErrorModal from '../../shared/components/UI/ErrorM';
 // import ErrorM from '../../shared/components/UI/ErrorM';
 // import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
@@ -78,6 +79,8 @@ import {Divider, Typography} from "@mui/material";
 
   
     return (
+      <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <form className="place-form" onSubmit={placeSubmitHandler}>
         {/* //LD going to call personalised "Input.js" */}
 
@@ -120,7 +123,7 @@ import {Divider, Typography} from "@mui/material";
             element="input" 
             type="text" 
             label="Tags" 
-            validators={[VALIDATOR_SEPARATED_BY_COMA()]}
+            validators={[VALIDATOR_SEPARATED_BY_COMA(),VALIDATOR_REQUIRE()]}
             errorText="Tags need to: be letters or number with no spaces separated by coma"
             onInput={InputHandler} //LD see above
           /> 
@@ -130,6 +133,7 @@ import {Divider, Typography} from "@mui/material";
         </Button>
   
       </form>
+      </React.Fragment>
     );
   };
   
