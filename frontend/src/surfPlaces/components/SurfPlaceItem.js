@@ -17,11 +17,11 @@ const Surfplaceitem = props => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const auth = useContext(authenticationContext);
 
-    const [showMap, setShowMap] = useState(false);
+    // const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-    const openMapHandler = () => setShowMap(true);
-    const closeMapHandler = () => setShowMap(false);
+    // const openMapHandler = () => setShowMap(true);
+    // const closeMapHandler = () => setShowMap(false);
 
     const showDeleteWarningHandler = () => { 
       setShowConfirmModal(true);
@@ -62,18 +62,18 @@ const Surfplaceitem = props => {
           <ErrorM error={error} onClear={clearError} />
 
           {/* //LD planning to show a map in a modal */}
-          <Modal show={showMap} 
+          {/* <Modal show={showMap} 
                  onCancel={closeMapHandler}
                  header={props.address}
                  contentClass = "place-item__modal-content"
                  footerClass = "place-item__modal-actions"
                  footer = {<Button onClick={closeMapHandler}>CLOSE</Button>} >
 
-          {/*BELOW CONTENT WILL BE RENDERED IN children of "Modal.js"->nested component */}
+         
           <div className="map-container">
             <Map center={props.coordinates} zoom={16}/>
           </div>
-          </ Modal>
+          </ Modal> */}
 
 
           {/* //LD deletion modal */}
@@ -117,9 +117,9 @@ const Surfplaceitem = props => {
                   <p>{props.description}</p>
                 </div>
                 <div className="place-item__actions">
-                  <Button inverse onClick={openMapHandler}>
+                  {/* <Button inverse onClick={openMapHandler}>
                     - MAP -
-                  </Button>
+                  </Button> */}
 
                   {auth.userId === props.creatorId && 
                   (<Button to={`/surfplaces/${props.id}`}>EDIT</Button>)}
