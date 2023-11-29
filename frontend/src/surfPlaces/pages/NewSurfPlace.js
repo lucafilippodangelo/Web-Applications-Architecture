@@ -7,7 +7,8 @@ import Button from '../../shared/components/FormComponents/Button';
 // import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_SEPARATED_BY_COMA
 } from '../../shared/useful/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -119,8 +120,8 @@ import {Divider, Typography} from "@mui/material";
             element="input" 
             type="text" 
             label="Tags" 
-            validators={[VALIDATOR_REQUIRE()]} 
-            errorText="Please enter tags separated by coma"
+            validators={[VALIDATOR_SEPARATED_BY_COMA()]}
+            errorText="Tags need to: be letters or number with no spaces separated by coma"
             onInput={InputHandler} //LD see above
           /> 
 

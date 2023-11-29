@@ -7,6 +7,7 @@ const VALIDATOR_TYPE_EMAIL = 'EMAIL';
 const VALIDATOR_TYPE_FILE = 'FILE';
 const VALIDATOR_TYPE_CONTAINS_UPPERCASE = 'UPPERCASE';
 const VALIDATOR_TYPE_CONTAINS_NUMBER = 'NUMBER';
+const VALIDATOR_TYPE_SEPARATED_BY_COMA = 'COMA';
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -24,6 +25,7 @@ export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 
 export const VALIDATOR_CONTAINS_UPPERCASE = () => ({ type: VALIDATOR_TYPE_CONTAINS_UPPERCASE });
 export const VALIDATOR_CONTAINS_NUMBER = () => ({ type: VALIDATOR_TYPE_CONTAINS_NUMBER});
+export const VALIDATOR_SEPARATED_BY_COMA = () => ({ type: VALIDATOR_TYPE_SEPARATED_BY_COMA});
 
 //"validate" function gets in input a value and an array of validators 
 //to run against that value
@@ -55,6 +57,10 @@ export const validate = (value, validators) => {
     if (validator.type === VALIDATOR_TYPE_CONTAINS_NUMBER) {  //LD will return true if the string contains any number
       isValid = isValid && /^(.*?[0-9]).*$/.test(value);
       //console.log("VALIDATION number --> "+ /^(.*?[0-9]).*$/.test(value) + " for: " + value)
+    }
+    if (validator.type === VALIDATOR_TYPE_SEPARATED_BY_COMA) {  //LD will return true if the string contains any number
+      isValid = isValid && /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/.test(value);
+      
     }
   }
   return isValid;

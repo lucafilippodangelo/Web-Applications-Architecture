@@ -9,7 +9,8 @@ import ErrorM from '../../shared/components/UI/ErrorM';
 
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_SEPARATED_BY_COMA
 } from '../../shared/useful/validators';
 
 import { useForm } from '../../shared/hooks/form-hook';
@@ -108,7 +109,7 @@ const UpdateSurfPlace = () => {
           name: formState.inputs.name.value,
           description: formState.inputs.description.value,
           address: loadedPlace.address, //LD just passing same value back 
-          tags: formState.inputs.tags.value.split(",")//formState.inputs.tags.value//loadedPlace.tags//
+          tags: formState.inputs.tags.value.split(",")
         }),
         {
           'Content-Type': 'application/json',
@@ -179,8 +180,8 @@ const UpdateSurfPlace = () => {
            id="tags"
            element="input"
            label="Tags"
-           validators={[VALIDATOR_MINLENGTH(1)]}
-           errorText="need to fix"
+           validators={[VALIDATOR_SEPARATED_BY_COMA()]}
+           errorText="Tags need to: be letters or number with no spaces separated by coma"
            onInput={inputHandler}
            initialValue={loadedPlace.tags}
            initialValid={true}
