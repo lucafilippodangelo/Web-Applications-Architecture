@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormComponents/Input';
 import Button from '../../shared/components/FormComponents/Button';
-import ErrorM from '../../shared/components/UI/ErrorM';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+// import ErrorM from '../../shared/components/UI/ErrorM';
+// import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH

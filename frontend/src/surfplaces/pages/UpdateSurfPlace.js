@@ -42,6 +42,10 @@ const UpdateSurfPlace = () => {
       description: {
         value: '', 
         isValid: false 
+      },
+      tags: {
+        value: '', 
+        isValid: false 
       }
     },
     false
@@ -69,6 +73,10 @@ const UpdateSurfPlace = () => {
             description: {
               value: responseData.description,
               isValid: true //LD current saved data is supposed to be true
+            },
+            tags: {
+              value: responseData.tags,
+              isValid: true //LD current saved data is supposed to be true
             }
           },
           true
@@ -92,14 +100,15 @@ const UpdateSurfPlace = () => {
 
 
     try {
-      console.log("LD in UpdateSurfPlace ->TRY TO SUBMIT UPDATED DATA");
+      //console.log("LD in UpdateSurfPlace ->TRY TO SUBMIT UPDATED DATA");
       var testReturnedStuff = await sendRequest(
         "http://localhost:3001/api/places/" + placeId,
         "PUT",
         JSON.stringify({
           name: formState.inputs.name.value,
           description: formState.inputs.description.value,
-          address: loadedPlace.address //LD just passing same value back for now
+          address: loadedPlace.address, //LD just passing same value back 
+          tags: formState.inputs.tags.value.split(",")//formState.inputs.tags.value//loadedPlace.tags//
         }),
         {
           'Content-Type': 'application/json',
@@ -119,7 +128,7 @@ const UpdateSurfPlace = () => {
     }
   };
 
-  // LD BELOW AS IT WAS ----------------------------------------------
+
   if (isLoading) {
     return (
       <div className="center">
@@ -165,8 +174,20 @@ const UpdateSurfPlace = () => {
            initialValue={loadedPlace.description}//{formState.inputs.description.value}
            initialValid={true}
          />
+
+          <Input
+           id="tags"
+           element="input"
+           label="Tags"
+           validators={[VALIDATOR_MINLENGTH(1)]}
+           errorText="need to fix"
+           onInput={inputHandler}
+           initialValue={loadedPlace.tags}
+           initialValid={true}
+         />
+
          <Button type="submit" disabled={!formState.isValid}>
-           UPDATE SURF PLACE X
+           UPDATE SURF PLACE
          </Button>
        </form>
         )}
