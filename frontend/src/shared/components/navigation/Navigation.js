@@ -1,62 +1,130 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-import Header from './Header';
-import NavLinks from './NavLinks';
-import SideDrawer from './SideDrawer';
-import Backdrop from '../UI/Backdrop';
-
-import './Navigation.css';
+import {authenticationContext} from "../../reactContext/authenticationContext";
+import {
+    AppBar,
+    Box, Button,
+    Divider, Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    Toolbar,
+    Typography
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu"
 
 const Navigation = props => {
 
-    //going to use STATE for the drawer
-    const [drawerIsOpen, setDrawerIsOpen] = useState(false); //by default "drawerIsOpen=false"
+    const auth = useContext(authenticationContext);
 
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
-    //creating a function to OPEN and CLOSE the drawer.
-    const openDrawer = () => {
-        setDrawerIsOpen(true);
-    }
-    const closeDrawer = () => {
-        setDrawerIsOpen(false);
-    }
+    const handleDrawerToggle = () => {
+        setDrawerOpen((prevState) => !prevState);
+    };
+
+    let navItems = [
+        {
+            text: "Surfers",
+            to: `/`,
+            display: true,
+            onClick: () => {}
+        },
+        {
+            text: "My Places",
+            to: `/${auth.userId}/surfplacesx`,
+            display: auth.isLoggedIn,
+            onClick: () => {}
+        },
+        {
+            text: "Add Surf Place",
+            to: "/surfplaces/new",
+            display: auth.isLoggedIn,
+            onClick: () => {}
+        },
+        {
+            text: "Authentication",
+            to: "/authenticate",
+            display: !auth.isLoggedIn,
+            onClick: () => {}
+        },
+        {
+            text: "Log Out",
+            to: `/`,
+            display: auth.isLoggedIn,
+            onClick: auth.logout
+        }
+    ].filter(i => i.display);
+
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
+            <Typography variant="h6" sx={{my: 2}}>
+                Surfing
+            </Typography>
+            <Divider/>
+            <List>
+                {navItems.map((item) => (
+                    <ListItem key={item} disablePadding>
+                        <ListItemButton onClick={item.onClick} component={Link} to={item.to} sx={{textAlign: 'center'}}>
+                            <ListItemText primary={item.text}/>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
 
     return (
-        <React.Fragment> {/*LD Useful to wrap two header divs. JSX allow one single entrance point */}
-
-            {/* render "Backdrop" if true */}
-            {drawerIsOpen && <Backdrop onClick={closeDrawer}/>}
-
-            {/* the transition logic in "SideDrawer" component depends from the value received in props "show"*/}
-            <SideDrawer show={drawerIsOpen} onClick={closeDrawer}>
-                <nav className="navigation__drawer-nav">
-                    <NavLinks/>
-                </nav>
-            </SideDrawer>
-
-            <Header>
-                {/*
-            LD the content inside div "Header" will go to fill what is in 
-            "props.children" of the component "Header.js" (so the child).
-            https://medium.com/@martin.crabtree/react-js-using-children-props-c83d5b259756#:~:text=The%20%7B%20props.,be%20rendered%20by%20the%20child.
-            */}
-                <button className="navigation__menu-btn" onClick={openDrawer}>
-                    <span/>
-                    <span/>
-                    <span/>
-                </button>
-                {/* LD below just the top left title defaulting to "Surf PLaces" */}
-                <h1 className="navigation__title">
-                    <Link to="/">Your Surf Places</Link>
-                </h1>
-                {/* LD below the menu */}
-                <nav className="navigation__header-nav">
-                    <NavLinks/>
-                </nav>
-            </Header>
-        </React.Fragment>
+        <Box sx={{ display: 'flex', mb:12 }}>
+            <AppBar component="nav">
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                    >
+                        Surfing
+                    </Typography>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        {navItems.map((item) => (
+                            <Button onClick={item.onClick} component={Link} to={item.to} key={item} sx={{ color: '#fff' }}>
+                                {item.text}
+                            </Button>
+                        ))}
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            <nav>
+                <Drawer
+                    variant="temporary"
+                    open={drawerOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+            </nav>
+        </Box>
     );
+
 };
 
 export default Navigation;
