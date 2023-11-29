@@ -76,7 +76,7 @@ const UpdateSurfPlace = () => {
               isValid: true //LD current saved data is supposed to be true
             },
             tags: {
-              value: responseData.tags,
+              value: responseData.tags.join(","),
               isValid: true //LD current saved data is supposed to be true
             }
           },
@@ -183,7 +183,7 @@ const UpdateSurfPlace = () => {
            validators={[VALIDATOR_SEPARATED_BY_COMA(),VALIDATOR_REQUIRE()]}
            errorText="Tags need to: be letters or number with no spaces separated by coma"
            onInput={inputHandler}
-           initialValue={loadedPlace.tags}
+           initialValue={loadedPlace.tags.join(",")}
            initialValid={true}
          />
 

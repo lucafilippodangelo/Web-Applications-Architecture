@@ -5,9 +5,9 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 
 import Users from './user/pages/Users';
 import Authenticate from './user/pages/Authenticate';
-import NewSurfPlace from './surfplaces/pages/NewSurfPlace';
-import Usersurfplaces from './surfplaces/pages/UserSurfPlaces';
-import UpdateSurfPlace from './surfplaces/pages/UpdateSurfPlace';
+import NewSurfPlace from './surfPlaces/pages/NewSurfPlace';
+import Usersurfplaces from './surfPlaces/pages/UserSurfPlaces';
+import UpdateSurfPlace from './surfPlaces/pages/UpdateSurfPlace';
 import Navigation from './shared/components/navigation/Navigation';
 import {authenticationContext} from './shared/reactContext/authenticationContext';
 
