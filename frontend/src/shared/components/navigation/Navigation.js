@@ -62,7 +62,7 @@ const Navigation = props => {
         .map(l => {
             return {
                 ...l,
-                color: l.to === location.pathname ? 'black' : '#fff'
+                color: l.to === location.pathname ? '#ffeb00' : '#fff'
             }
         })
         .filter(i => i.display);
