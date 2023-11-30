@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 import {authenticationContext} from "../../reactContext/authenticationContext";
 import {
@@ -19,6 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 const Navigation = props => {
 
     const auth = useContext(authenticationContext);
+    const location = useLocation();
 
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -37,38 +38,45 @@ const Navigation = props => {
             text: "My Places",
             to: `/${auth.userId}/surfplacesx`,
             display: auth.isLoggedIn,
-            onClick: () => {}
+            onClick: () => {},
         },
         {
             text: "Add Surf Place",
             to: "/surfplaces/new",
             display: auth.isLoggedIn,
-            onClick: () => {}
+            onClick: () => {},
         },
         {
             text: "Authentication",
             to: "/authenticate",
             display: !auth.isLoggedIn,
-            onClick: () => {}
+            onClick: () => {},
         },
         {
             text: "Log Out",
-            to: `/`,
+            to: ``,
             display: auth.isLoggedIn,
-            onClick: auth.logout
+            onClick: auth.logout,
         }
-    ].filter(i => i.display);
+    ]
+        .map(l => {
+            return {
+                ...l,
+                color: l.to === location.pathname ? 'black' : '#fff'
+            }
+        })
+        .filter(i => i.display);
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
-            <Typography variant="h6" sx={{my: 2}}>
+            <Typography variant="h6" sx={{cursor: 'pointer', my: 2}}>
                 Surfing
             </Typography>
             <Divider/>
             <List>
                 {navItems.map((item) => (
                     <ListItem key={item} disablePadding>
-                        <ListItemButton onClick={item.onClick} component={Link} to={item.to} sx={{textAlign: 'center'}}>
+                        <ListItemButton selected={item.to === location.pathname} onClick={item.onClick} component={Link} to={item.to} sx={{textAlign: 'center'}}>
                             <ListItemText primary={item.text}/>
                         </ListItemButton>
                     </ListItem>
@@ -86,20 +94,20 @@ const Navigation = props => {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
+                        sx={{ mr: 2, display: { md: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography
                         variant="h6"
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        sx={{ cursor: 'pointer', flexGrow: 1, display: { md: 'block' } }}
                     >
                         Surfing
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                         {navItems.map((item) => (
-                            <Button onClick={item.onClick} component={Link} to={item.to} key={item} sx={{ color: '#fff' }}>
+                            <Button onClick={item.onClick} component={Link} to={item.to} key={item} sx={{ color: item.color }}>
                                 {item.text}
                             </Button>
                         ))}
@@ -115,7 +123,7 @@ const Navigation = props => {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { sm: 'block', md: 'none' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
                     }}
                 >
