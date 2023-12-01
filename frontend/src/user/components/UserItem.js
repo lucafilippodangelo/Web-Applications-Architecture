@@ -8,11 +8,7 @@ import {Link} from "react-router-dom";
 const UserItem = props => {
     return (
 
-        <Card>
-            <CardMedia
-                component={"img"}
-                image={props.image}
-            />
+        <Card sx={{border: `solid 2px ${props.color}`}}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     {props.name}
@@ -22,7 +18,7 @@ const UserItem = props => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button component={Link} to={`/${props.id}/surfplacesx`}>View</Button>
+                <Button sx={{color: props.color}} component={Link} to={`/${props.id}/surfplacesx`}>View</Button>
             </CardActions>
         </Card>
 

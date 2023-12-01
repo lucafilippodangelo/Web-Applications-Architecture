@@ -35,7 +35,7 @@ function Search({details}) {
                     variant={"outlined"}
                     value={searchField}
                     onChange={handleChange}
-                    label={"Search Users"}
+                    label={"Search Surfers"}
                     fullWidth={true}
                     name={"search"}
                     type={"text"}
