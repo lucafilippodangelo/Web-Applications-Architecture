@@ -7,7 +7,7 @@ import {useForm} from '../../shared/hooks/form-hook';
 import {useHttpClient} from '../../shared/hooks/http-hook';
 import {authenticationContext} from '../../shared/reactContext/authenticationContext';
 import './NewSurfPlace.css';
-import {Button, Divider, Typography} from "@mui/material";
+import {Box, Button, Divider, Typography} from "@mui/material";
 
 const NewSurfPlace = () => {
 
@@ -67,12 +67,12 @@ const NewSurfPlace = () => {
 
 
     return (
-        <React.Fragment>
+        <Box sx={{pt: 3}}>
             <ErrorModal error={error} onClear={clearError}/>
             <form className="place-form" onSubmit={placeSubmitHandler}>
                 {/* //LD going to call personalised "Input.js" */}
 
-                <Typography sx={{mb: 2}} variant={"h4"} component={"h1"} fontWeight={"bold"}>Surf Place</Typography>
+                <Typography sx={{mb: 2}} variant={"h4"} component={"h1"} fontWeight={"bold"}>Add Surf Place</Typography>
 
                 <Divider sx={{mb: 3}}/>
 
@@ -121,7 +121,7 @@ const NewSurfPlace = () => {
                 </Button>
 
             </form>
-        </React.Fragment>
+        </Box>
     );
 };
 

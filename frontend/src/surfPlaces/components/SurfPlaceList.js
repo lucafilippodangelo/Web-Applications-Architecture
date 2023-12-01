@@ -6,6 +6,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import {Button} from "@mui/material";
 import {Link} from "react-router-dom";
 
+import "./SurfPlaceList.css"
+
 const SurfPlaceList = props => {
     if (props.items.length === 0) {
         return (
@@ -19,13 +21,12 @@ const SurfPlaceList = props => {
     }
 
     return (
-        <Grid container spacing={2}>
+        <Grid id={"scrollGrid"} sx={{height: "calc(100vh - 168px)", overflowY: "scroll", overflowX: "hidden"}} container spacing={2}>
             {props.items.map(place => (
                 <Grid item xs={12} md={6}>
                     <SurfPlaceItem
                         key={place.id}
                         id={place.id}
-                        //image={place.imageUrl}
                         name={place.name}
                         description={place.description}
                         address={place.address}

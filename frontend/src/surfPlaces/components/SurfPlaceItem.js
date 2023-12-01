@@ -106,7 +106,6 @@ const Surfplaceitem = props => {
                 {/* <img src={"https://i0.wp.com/www.courses.ie/wp-content/uploads/2019/07/TUD_RGB-1024x645-1024x645.png"} alt={props.name} /> */}
                 {/* </div> */}
                 <div className="map-container">
-                    <Map center={props.coordinates} zoom={16}/>
                 </div>
                 <div className="place-item__info">
                     <h2>{props.name}</h2>

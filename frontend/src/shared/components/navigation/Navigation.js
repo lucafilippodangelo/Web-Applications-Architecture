@@ -86,7 +86,7 @@ const Navigation = props => {
     );
 
     return (
-        <Box sx={{ display: 'flex', mb:12 }}>
+        <Box sx={{ display: 'flex', mb:7 }}>
             <AppBar component="nav">
                 <Toolbar>
                     <IconButton

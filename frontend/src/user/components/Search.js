@@ -27,27 +27,25 @@ function Search({details}) {
     }
 
     return (
-        <>
 
-            <Container>
+        <Container sx={{pt: 3}}>
 
-                <TextField
-                    variant={"outlined"}
-                    value={searchField}
-                    onChange={handleChange}
-                    label={"Search Surfers"}
-                    fullWidth={true}
-                    name={"search"}
-                    type={"text"}
-                    sx={{mb: 3}}
-                />
+            <TextField
+                variant={"outlined"}
+                value={searchField}
+                onChange={handleChange}
+                label={"Search Surfers"}
+                fullWidth={true}
+                name={"search"}
+                type={"text"}
+                sx={{mb: 3}}
+            />
 
-                {searchList()}
+            {searchList()}
 
-            </Container>
+        </Container>
 
 
-        </>
     );
 }
 

@@ -2,6 +2,8 @@ import React, {useCallback, useEffect, useState} from 'react';
 //LD page routing - https://www.w3schools.com/react/react_router.asp
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
+import "./App.css";
+
 import Users from './user/pages/Users';
 import Authenticate from './user/pages/Authenticate';
 import NewSurfPlace from './surfPlaces/pages/NewSurfPlace';

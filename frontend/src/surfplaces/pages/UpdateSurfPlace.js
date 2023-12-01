@@ -13,7 +13,7 @@ import {useHttpClient} from '../../shared/hooks/http-hook';
 import {authenticationContext} from '../../shared/reactContext/authenticationContext';
 
 import './NewSurfPlace.css';
-import {Button} from "@mui/material"; //LD reusing
+import {Box, Button, Divider, Typography} from "@mui/material"; //LD reusing
 
 
 const UpdateSurfPlace = () => {
@@ -135,10 +135,15 @@ const UpdateSurfPlace = () => {
     }
 
     return (
-        <React.Fragment>
+        <Box sx={{pt: 3}}>
             <ErrorM error={error} onClear={clearError}/>
             {!isLoading && loadedPlace && (
                 <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+
+                    <Typography sx={{mb: 2}} variant={"h4"} component={"h1"} fontWeight={"bold"}>Update Surf Place</Typography>
+
+                    <Divider sx={{mb: 3}}/>
+
                     <Input
                         id="name"
                         element="input"
@@ -178,7 +183,7 @@ const UpdateSurfPlace = () => {
                     </Button>
                 </form>
             )}
-        </React.Fragment>
+        </Box>
 
     );
 };

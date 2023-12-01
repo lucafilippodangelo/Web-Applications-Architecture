@@ -6,8 +6,10 @@ import {useHttpClient} from '../../shared/hooks/http-hook';
 import SurfPlaceList from '../components/SurfPlaceList.js';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import {Container} from '@mui/material';
+import {Box, Container} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import UserSurfPlacesList from "../components/UserSurfPlacesList";
+import UserSurfPlaceMap from "../components/UserSurfPlaceMap";
 
 const Usersurfplaces = () => {
 
@@ -88,56 +90,39 @@ const Usersurfplaces = () => {
         );
     };
 
+    if(isLoading) return (
+        <div className="center">
+            <LoadingSpinner/>
+        </div>
+    );
 
     return (
-        <>
+        <Box>
             <ErrorM error={error} onClear={clearError}/>
-            {isLoading && (
-                <div className="center">
-                    <LoadingSpinner/>
-                </div>
-            )}
 
-            <Container>
+            <Grid container spacing={0}>
 
-                <Grid container spacing={2}>
-
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            sx={{mb: 3}}
-                            label={"Search"}
-                            inputValue={textFilter}
-                            onChange={(e) => setTextFilter(e.target.value)}
-                            fullWidth={true}/>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6}>
-                        <Autocomplete
-                            sx={{mb: 3}}
-                            fullWidth={true}
-                            multiple
-                            options={availableTags()}
-                            onChange={(_, newPet) => {
-                                setSelectedTags(newPet);
-                            }}
-                            inputValue={tagFilterInput}
-                            onInputChange={(_, newPetInputValue) => {
-                                setTagFilterInput(newPetInputValue);
-                            }}
-                            renderInput={(params) => {
-                                return <TextField label='Tags' {...params} />;
-                            }}
-                        ></Autocomplete>
-                    </Grid>
-
+                <Grid item md={4} xs={12} sx={{height: {sm: '50%'}, padding: "20px", margin: "0px" }}>
+                    <UserSurfPlacesList
+                        setSelectedTags={setSelectedTags}
+                        setTextFilter={setTextFilter}
+                        setTagFilterInput={setTagFilterInput}
+                        tags={availableTags()}
+                        tagFilterInput={tagFilterInput}
+                        textFilter={textFilter}
+                        places={filteredPlaces}
+                    />
                 </Grid>
 
-                {!isLoading && loadedPlaces &&
-                    <SurfPlaceList items={filteredPlaces} onDeletePlace={surfPlaceDeletedHandler}/>}
+                <Grid item sx={{display: {xs: 'none', md: 'block'}}} md={8}>
+                    <UserSurfPlaceMap
+                        places={filteredPlaces}
+                    />
+                </Grid>
 
-            </Container>
+            </Grid>
 
-        </>
+        </Box>
     );
 };
 
