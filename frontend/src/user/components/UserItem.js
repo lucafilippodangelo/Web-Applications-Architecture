@@ -2,7 +2,7 @@ import React from 'react';
 import './UserItem.css';
 
 // LD this will use DOM before that any routing or action in "App.js" is performed
-import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 
 const UserItem = props => {

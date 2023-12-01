@@ -1,11 +1,13 @@
 import React, {useContext, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useHistory} from 'react-router-dom';
 
 import {authenticationContext} from "../../reactContext/authenticationContext";
 import {
     AppBar,
-    Box, Button,
-    Divider, Drawer,
+    Box,
+    Button,
+    Divider,
+    Drawer,
     IconButton,
     List,
     ListItem,
@@ -20,6 +22,7 @@ const Navigation = props => {
 
     const auth = useContext(authenticationContext);
     const location = useLocation();
+    const history = useHistory();
 
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -69,7 +72,7 @@ const Navigation = props => {
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
-            <Typography variant="h6" sx={{cursor: 'pointer', my: 2}}>
+            <Typography onClick={() => history.push("/")} variant="h6" sx={{cursor: 'pointer', my: 2}}>
                 Surfing
             </Typography>
             <Divider/>
@@ -99,6 +102,7 @@ const Navigation = props => {
                         <MenuIcon />
                     </IconButton>
                     <Typography
+                        onClick={() => history.push("/")}
                         variant="h6"
                         component="div"
                         sx={{ cursor: 'pointer', flexGrow: 1, display: { md: 'block' } }}
@@ -107,7 +111,7 @@ const Navigation = props => {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                         {navItems.map((item) => (
-                            <Button onClick={item.onClick} component={Link} to={item.to} key={item} sx={{ color: item.color }}>
+                            <Button key={item.text} onClick={item.onClick} component={Link} to={item.to} sx={{ color: item.color }}>
                                 {item.text}
                             </Button>
                         ))}

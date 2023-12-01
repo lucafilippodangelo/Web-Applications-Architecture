@@ -3,15 +3,12 @@ import {useParams} from 'react-router-dom';
 import ErrorM from '../../shared/components/UI/ErrorM';
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import {useHttpClient} from '../../shared/hooks/http-hook';
-import SurfPlaceList from '../components/SurfPlaceList.js';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import {Box, Container} from '@mui/material';
+import {Box} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import UserSurfPlacesList from "../components/UserSurfPlacesList";
 import UserSurfPlaceMap from "../components/UserSurfPlaceMap";
 
-const Usersurfplaces = () => {
+const UserSurfPlaces = () => {
 
     const [loadedPlaces, setLoadedPlaces] = useState([]);
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
@@ -20,6 +17,8 @@ const Usersurfplaces = () => {
     const [tagFilterInput, setTagFilterInput] = useState("");
 
     const [textFilter, setTextFilter] = useState("");
+
+    const [selectedPlace, setSelectedPlace] = useState(null);
 
     const filteredPlaces = loadedPlaces
         .filter(p => {
@@ -111,12 +110,17 @@ const Usersurfplaces = () => {
                         tagFilterInput={tagFilterInput}
                         textFilter={textFilter}
                         places={filteredPlaces}
+                        selectedPlace={selectedPlace}
+                        onPlaceSelected={setSelectedPlace}
+                        onPlaceDeleted={surfPlaceDeletedHandler}
                     />
                 </Grid>
 
                 <Grid item sx={{display: {xs: 'none', md: 'block'}}} md={8}>
                     <UserSurfPlaceMap
                         places={filteredPlaces}
+                        selectedPlace={selectedPlace}
+                        onPlaceSelected={setSelectedPlace}
                     />
                 </Grid>
 
@@ -126,4 +130,4 @@ const Usersurfplaces = () => {
     );
 };
 
-export default Usersurfplaces;
+export default UserSurfPlaces;

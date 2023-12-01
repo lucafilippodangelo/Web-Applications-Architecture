@@ -7,7 +7,7 @@ import "./App.css";
 import Users from './user/pages/Users';
 import Authenticate from './user/pages/Authenticate';
 import NewSurfPlace from './surfPlaces/pages/NewSurfPlace';
-import Usersurfplaces from './surfPlaces/pages/UserSurfPlaces';
+import UserSurfPlaces from './surfPlaces/pages/UserSurfPlaces';
 import UpdateSurfPlace from './surfPlaces/pages/UpdateSurfPlace';
 import Navigation from './shared/components/navigation/Navigation';
 import {authenticationContext} from './shared/reactContext/authenticationContext';
@@ -61,7 +61,7 @@ const App = () => {
                     <NewSurfPlace/>
                 </Route>
                 <Route path="/:userId/surfplacesx" exact> {/* //LD this is dynamic inmut of the "id" */}
-                    <Usersurfplaces/>
+                    <UserSurfPlaces/>
                 </Route>
                 <Route path="/surfplaces/:placeId">
                     <UpdateSurfPlace/>
@@ -81,7 +81,7 @@ const App = () => {
                     <Users/>
                 </Route>
                 <Route path="/:userId/surfplacesx">
-                    <Usersurfplaces/>
+                    <UserSurfPlaces/>
                 </Route>
                 <Route path="/authenticate" exact>
                     <Authenticate/>

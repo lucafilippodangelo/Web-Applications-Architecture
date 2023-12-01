@@ -1,28 +1,27 @@
 import React, {useContext, useState} from 'react';
 
-import UserBox from '../../shared/components/UI/UserBox';
-import Modal from '../../shared/components/UI/Modal';
 import ErrorM from '../../shared/components/UI/ErrorM';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
-import Map from '../../shared/components/UI/Map'
 import {authenticationContext} from '../../shared/reactContext/authenticationContext';
-
+import Map from "../../shared/components/UI/Map"
 import {useHttpClient} from '../../shared/hooks/http-hook';
 
 import './SurfPlaceItem.css';
-import {Button} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Box, Button, Container, Modal, Paper, Typography} from "@mui/material";
+import CustomModal from "../../shared/components/UI/Modal"
+import {Link, useParams} from "react-router-dom";
 
-const Surfplaceitem = props => {
+const SurfPlaceItem = props => {
 
-    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const {error, sendRequest, clearError} = useHttpClient();
     const auth = useContext(authenticationContext);
+    const params = useParams();
 
-    // const [showMap, setShowMap] = useState(false);
+    const showEdit = auth.isLoggedIn && auth.userId === params.userId;
+
+    const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-    // const openMapHandler = () => setShowMap(true);
-    // const closeMapHandler = () => setShowMap(false);
+    const closeMapHandler = () => setShowMap(false);
 
     const showDeleteWarningHandler = () => {
         setShowConfirmModal(true);
@@ -32,13 +31,12 @@ const Surfplaceitem = props => {
         setShowConfirmModal(false);
     };
 
-
     const confirmDeleteHandler = async () => {
         setShowConfirmModal(false);
 
         try {
             await sendRequest(
-                "http://localhost:3001/api/places/" + props.id,
+                "http://localhost:3001/api/places/" + props.place.id,
                 "DELETE",
                 JSON.stringify({
                     something: "something",
@@ -48,39 +46,41 @@ const Surfplaceitem = props => {
                     'Authorization': auth.token
                 }
             );
-            props.onDelete(props.id);
+            props.onDelete(props.place.id);
         } catch (err) {
 
 
         }
     };
 
+    const colour = props.place.id === props.selectedPlace?.id ? "rgb(238,238,238)" : "#fff";
 
     return (
         //LD using fragment to have a double access point with modal and the <li> div
-        <React.Fragment>
+        <>
             <ErrorM error={error} onClear={clearError}/>
 
             {/* //LD planning to show a map in a modal */}
-            {/* <Modal show={showMap}
-                 onCancel={closeMapHandler}
-                 header={props.address}
-                 contentClass = "place-item__modal-content"
-                 footerClass = "place-item__modal-actions"
-                 footer = {<Button onClick={closeMapHandler}>CLOSE</Button>} >
+            <Modal
+                open={showMap}
+                onClose={closeMapHandler}
+            >
 
-         
-          <div className="map-container">
-            <Map center={props.coordinates} zoom={16}/>
-          </div>
-          </ Modal> */}
+                    <Paper sx={{height: "75vh", width: "75vw", margin: "auto", mt: 3, mb: 12}}>
+                        <div>
+                            <Map places={[props.place]} selectedPlace={props.place} onPlaceSelected={() => {
+                            }} center={props.place.coordinates} zoom={16}/>
+                        </div>
+                    </Paper>
+
+            </Modal>
 
 
             {/* //LD deletion modal */}
-            <Modal
+            <CustomModal
                 show={showConfirmModal}
                 onCancel={cancelDeleteHandler}
-                header="Confirm Cancel?"
+                header="Confirm Delete?"
                 footerClass="place-item__modal-actions"
                 footer={
                     <React.Fragment>
@@ -94,39 +94,65 @@ const Surfplaceitem = props => {
                 }
             >
                 <p>
-                    go ahead?
+                    Are you sure you want to delete this place?
                 </p>
-            </Modal>
+            </CustomModal>
 
+            <Paper onClick={() => props.onPlaceSelected(props.place)}
+                   sx={{backgroundColor: colour, cursor: "pointer", padding: "20px", mb: 1}} elevation={3}>
 
-            <UserBox className="place-item__content">
-                {isLoading && <LoadingSpinner asOverlay/>}
-                {/* <div className="place-item__image"> */}
-                {/* <img src={props.image} alt={props.name} /> */}
-                {/* <img src={"https://i0.wp.com/www.courses.ie/wp-content/uploads/2019/07/TUD_RGB-1024x645-1024x645.png"} alt={props.name} /> */}
-                {/* </div> */}
-                <div className="map-container">
-                </div>
-                <div className="place-item__info">
-                    <h2>{props.name}</h2>
-                    <h3>{props.address}</h3>
-                    <h3>{props.tags.map(t => <span>#{t} </span>)}</h3>
-                    <p>{props.description}</p>
-                </div>
-                {auth.userId === props.creatorId &&
-                    <div className="place-item__actions">
+                <Typography variant={"h5"} sx={{fontWeight: "bold", mb: 2}}>
+                    {props.place.name}
+                </Typography>
 
-                        <Button component={Link} variant={"contained"} to={`/surfplaces/${props.id}`}>EDIT</Button>
+                <Box sx={{mb: 2}}>
+                    {props.place.address.split(",").map(line =>
+                        <Typography>
+                            {line},
+                        </Typography>
+                    )}
+                </Box>
 
-                        <Button variant={"contained"} danger onClick={showDeleteWarningHandler}> DELETE </Button>
+                <Typography sx={{fontStyle: "italic", mb: 2}}>
+                    {props.place.tags.map(t => <span>#{t} </span>)}
+                </Typography>
 
-                    </div>
+                <Button
+                    onClick={() => setShowMap(true)}
+                    variant={"contained"}
+                    sx={{display: {md: "none"}, mr: 1}}
+                >
+                    Map
+                </Button>
+
+                {showEdit &&
+                    <>
+
+                        <Button
+                            onClick={() => setShowMap(true)}
+                            variant={"contained"}
+                            sx={{mr: 1}}
+                            component={Link}
+                            to={`/surfplaces/${props.place.id}`}
+                        >
+                            Edit
+                        </Button>
+
+                        <Button
+                            onClick={() => showDeleteWarningHandler(true)}
+                            variant={"contained"}
+                        >
+                            Delete
+                        </Button>
+
+                    </>
                 }
-            </UserBox>
 
 
-        </React.Fragment>
+            </Paper>
+
+        </>
     );
 };
 
-export default Surfplaceitem;
+export default SurfPlaceItem;

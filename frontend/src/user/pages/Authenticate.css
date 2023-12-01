@@ -19,6 +19,7 @@
     max-width: 25rem;
     margin: 7rem auto;
     text-align: center;
+    padding: 20px;
 }
 
 .auth form {

@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 
-import UserBox from '../../shared/components/UI/UserBox';
 import Input from '../../shared/components/FormComponents/Input';
 import ErrorModal from '../../shared/components/UI/ErrorM';
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
@@ -15,7 +14,7 @@ import {useForm} from '../../shared/hooks/form-hook';
 import {useHttpClient} from '../../shared/hooks/http-hook';
 import {authenticationContext} from '../../shared/reactContext/authenticationContext';
 import './Authenticate.css';
-import {Button} from "@mui/material";
+import {Box, Button, Paper} from "@mui/material";
 
 const Authenticate = () => {
 
@@ -125,7 +124,7 @@ const Authenticate = () => {
     return (
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError}/>
-            <UserBox className="auth">
+            <Paper elevation={3} className="auth">
                 {isLoading && <LoadingSpinner asOverlay/>}
                 <h2>Login Required</h2>
                 <hr/>
@@ -166,7 +165,7 @@ const Authenticate = () => {
                 <Button variant={"contained"} inverse onClick={switchModeHandler}>
                     SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
                 </Button>
-            </UserBox>
+            </Paper>
         </React.Fragment>
     );
 };

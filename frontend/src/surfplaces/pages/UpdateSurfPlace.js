@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 
 import Input from '../../shared/components/FormComponents/Input';
-import UserBox from '../../shared/components/UI/UserBox'
 import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import ErrorM from '../../shared/components/UI/ErrorM';
 
@@ -127,9 +126,9 @@ const UpdateSurfPlace = () => {
     if (!loadedPlace && !error) {
         return (
             <div className="center">
-                <UserBox>
+                <Box>
                     <h2>Could not find place!</h2>
-                </UserBox>
+                </Box>
             </div>
         );
     }

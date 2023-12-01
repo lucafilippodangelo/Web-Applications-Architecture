@@ -29,7 +29,8 @@ const UserSurfPlacesList = props => {
 
             </Grid>
 
-            <SurfPlaceList items={props.places} onDeletePlace={() => {}}/>
+            <SurfPlaceList items={props.places} selectedPlace={props.selectedPlace}
+                           onPlaceSelected={props.onPlaceSelected} onDeletePlace={props.onPlaceDeleted}/>
         </Box>
     );
 
