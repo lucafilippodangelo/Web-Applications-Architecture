@@ -6,7 +6,7 @@ import Map from "../../shared/components/UI/Map"
 import {useHttpClient} from '../../shared/hooks/http-hook';
 
 import './SurfPlaceItem.css';
-import {Box, Button, Container, Modal, Paper, Typography} from "@mui/material";
+import {Box, Button, Modal, Paper, Typography} from "@mui/material";
 import CustomModal from "../../shared/components/UI/Modal"
 import {Link, useParams} from "react-router-dom";
 
@@ -106,6 +106,10 @@ const SurfPlaceItem = props => {
 
                 <Typography variant={"h5"} sx={{fontWeight: "bold", mb: 2}}>
                     {props.place.name}
+                </Typography>
+
+                <Typography variant={"h5"} sx={{fontStyle: "normal", mb: 1}}>
+                    {props.place.description}
                 </Typography>
 
                 <Box sx={{mb: 2}}>
