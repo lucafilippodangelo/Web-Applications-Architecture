@@ -8,7 +8,6 @@ const TagFilter = props => {
     return (
 
         <Autocomplete
-            sx={{mb: 3}}
             fullWidth={true}
             multiple
             options={props.tags}

@@ -53,6 +53,10 @@ const SurfPlaceItem = props => {
         }
     };
 
+
+    const addressLines = props.place.address.split(",");
+    const addressLinesForDisplay = addressLines.map((line, index) => index < addressLines.length - 1 ? `${line},` : line);
+
     const colour = props.place.id === props.selectedPlace?.id ? "rgb(238,238,238)" : "#fff";
 
     return (
@@ -113,9 +117,9 @@ const SurfPlaceItem = props => {
                 </Typography>
 
                 <Box sx={{mb: 2}}>
-                    {props.place.address.split(",").map(line =>
+                    {addressLinesForDisplay.map(line =>
                         <Typography>
-                            {line},
+                            {line}
                         </Typography>
                     )}
                 </Box>

@@ -4,12 +4,13 @@ import React from "react";
 import TextFilter from "./TextFilter";
 import TagFilter from "./TagFilter";
 import {Box} from "@mui/material";
+import SortSelect from "./SortSelect";
 
 const UserSurfPlacesList = props => {
 
     return (
         <Box>
-            <Grid container spacing={2}>
+            <Grid sx={{mb: 2}} container spacing={2}>
 
                 <Grid item xs={12} sm={6}>
                     <TextFilter
@@ -19,6 +20,13 @@ const UserSurfPlacesList = props => {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
+                    <SortSelect
+                        sort={props.sort}
+                        onSortSelected={props.onSortSelected}
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
                     <TagFilter
                         tagFilterInput={props.tagFilterInput}
                         setTagFilterInput={props.setTagFilterInput}

@@ -20,6 +20,10 @@ const UserSurfPlaces = () => {
 
     const [selectedPlace, setSelectedPlace] = useState(null);
 
+    const [sort, setSort] = useState({
+        func: () => (a, b) => a.name.localeCompare(b.name)
+    });
+
     const filteredPlaces = loadedPlaces
         .filter(p => {
 
@@ -40,7 +44,8 @@ const UserSurfPlaces = () => {
 
             return false;
 
-        });
+        })
+        .sort(sort.func());
 
     const availableTags = () => {
 
@@ -89,7 +94,7 @@ const UserSurfPlaces = () => {
         );
     };
 
-    if(isLoading) return (
+    if (isLoading) return (
         <div className="center">
             <LoadingSpinner/>
         </div>
@@ -101,7 +106,7 @@ const UserSurfPlaces = () => {
 
             <Grid container spacing={0}>
 
-                <Grid item md={4} xs={12} sx={{height: {sm: '50%'}, padding: "20px", margin: "0px" }}>
+                <Grid item md={4} xs={12} sx={{height: {sm: '50%'}, padding: "20px", margin: "0px"}}>
                     <UserSurfPlacesList
                         setSelectedTags={setSelectedTags}
                         setTextFilter={setTextFilter}
@@ -113,6 +118,7 @@ const UserSurfPlaces = () => {
                         selectedPlace={selectedPlace}
                         onPlaceSelected={setSelectedPlace}
                         onPlaceDeleted={surfPlaceDeletedHandler}
+                        onSortSelected={setSort}
                     />
                 </Grid>
 
