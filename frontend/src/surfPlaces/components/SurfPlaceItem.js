@@ -84,12 +84,15 @@ const SurfPlaceItem = props => {
                 footerClass="place-item__modal-actions"
                 footer={
                     <React.Fragment>
+                        
                         <Button variant={"contained"} inverse onClick={cancelDeleteHandler}>
                             CANCEL
                         </Button>
+                        
                         <Button variant={"contained"} danger onClick={confirmDeleteHandler}>
                             DELETE
                         </Button>
+                       
                     </React.Fragment>
                 }
             >
