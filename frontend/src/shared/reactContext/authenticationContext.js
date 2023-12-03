@@ -6,10 +6,7 @@ export const authenticationContext = createContext({
     userId: null, //LD experiment
     token: null,
     isLoggedIn: false,
-    login: () => {
-    },
-    logout: () => {
-    }
+    login: () => {},
+    logout: () => {}
 });
-
-//LD super useful to manage user -> https://react.dev/reference/react/createContext
+//LD seful to manage user -> https://react.dev/reference/react/createContext

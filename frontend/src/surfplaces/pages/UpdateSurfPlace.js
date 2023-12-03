@@ -55,7 +55,6 @@ const UpdateSurfPlace = () => {
                     "http://localhost:3001/api/places/" + placeId
                 );
 
-
                 setLoadedPlace(responseData);
 
                 setFormData(
@@ -87,30 +86,23 @@ const UpdateSurfPlace = () => {
     //LD submitting updated data -----------------------------------------------------------
     const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
-
-
-        try {
-
-            var testReturnedStuff = await sendRequest(
-                "http://localhost:3001/api/places/" + placeId,
-                "PUT",
-                JSON.stringify({
-                    name: formState.inputs.name.value,
-                    description: formState.inputs.description.value,
-                    address: loadedPlace.address, //LD just passing same value back
-                    tags: formState.inputs.tags.value.split(",")
-                }),
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': auth.token
-                }
-            );
-
-
-            history.push('/' + auth.userId + '/surfplacesx');
-        } catch (err) {
-
-
+            try {
+            await sendRequest(
+                    "http://localhost:3001/api/places/" + placeId,
+                    "PUT",
+                    JSON.stringify({
+                        name: formState.inputs.name.value,
+                        description: formState.inputs.description.value,
+                        address: loadedPlace.address,
+                        tags: formState.inputs.tags.value.split(",")
+                    }),
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': auth.token
+                    }
+                );
+                history.push('/' + auth.userId + '/surfplacesx');
+            } catch (err) {
         }
     };
 

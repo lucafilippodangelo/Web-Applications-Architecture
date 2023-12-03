@@ -14,7 +14,7 @@ import {useForm} from '../../shared/hooks/form-hook';
 import {useHttpClient} from '../../shared/hooks/http-hook';
 import {authenticationContext} from '../../shared/reactContext/authenticationContext';
 import './Authenticate.css';
-import {Box, Button, Paper} from "@mui/material";
+import {Button, Paper} from "@mui/material";
 
 const Authenticate = () => {
 

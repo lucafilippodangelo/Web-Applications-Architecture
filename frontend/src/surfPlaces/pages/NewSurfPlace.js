@@ -42,16 +42,14 @@ const NewSurfPlace = () => {
     const placeSubmitHandler = async event => {
         event.preventDefault();
 
-
         try {
             await sendRequest(
                 'http://localhost:3001/api/places',
                 'POST',
                 JSON.stringify({
                     name: formState.inputs.name.value,
-                    //description: formState.inputs.description.value,
                     address: formState.inputs.address.value,
-                    description: formState.inputs.description.value, //TO BE REMOVED
+                    description: formState.inputs.description.value, 
                     imageUrl: "images/2.jpg",
                     tags: formState.inputs.tags.value.split(",")
                 }),
